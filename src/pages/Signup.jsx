@@ -20,8 +20,7 @@ const Signup = () => {
     contact_given: '',
     contact_family: '',
     contact_email: '',
-    password: '',
-    confirmPassword: ''
+    password: ''
   });
 
   const [errors, setErrors] = useState({});
@@ -60,9 +59,6 @@ const Signup = () => {
         newErrors.password = 'Password is required';
       } else if (formData.password.length < 8) {
         newErrors.password = 'Password must be at least 8 characters';
-      }
-      if (formData.password !== formData.confirmPassword) {
-        newErrors.confirmPassword = 'Passwords do not match';
       }
       if (!formData.phone) newErrors.phone = 'Phone number is required';
     }
@@ -131,7 +127,7 @@ const Signup = () => {
       })
       .then(data => {
         console.log('Registration successful:', data);
-        navigate('/login', { state: { registrationSuccess: true } });
+        //navigate('/login', { state: { registrationSuccess: true } });
       })
       .catch(error => {
         console.error('Registration failed:', error);
@@ -225,19 +221,6 @@ const Signup = () => {
                 className={`mt-1 block w-full rounded-md shadow-sm focus:border-blue-500 focus:ring-blue-500 sm:text-sm ${errors.password ? 'border-red-300' : 'border-gray-300'}`}
               />
               {errors.password && <p className="mt-1 text-sm text-red-600">{errors.password}</p>}
-            </div>
-            
-            <div>
-              <label htmlFor="confirmPassword" className="block text-sm font-medium text-gray-700">Confirm Password</label>
-              <input
-                type="password"
-                id="confirmPassword"
-                name="confirmPassword"
-                value={formData.confirmPassword}
-                onChange={handleChange}
-                className={`mt-1 block w-full rounded-md shadow-sm focus:border-blue-500 focus:ring-blue-500 sm:text-sm ${errors.confirmPassword ? 'border-red-300' : 'border-gray-300'}`}
-              />
-              {errors.confirmPassword && <p className="mt-1 text-sm text-red-600">{errors.confirmPassword}</p>}
             </div>
           </div>
         );
