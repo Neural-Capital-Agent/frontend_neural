@@ -6,7 +6,7 @@ const Stocks = () => {
   useEffect(() => {
     // Fetch stock data from an API or use mock data
     const fetchData = async () => {
-      const response = await fetch('http://localhost:8000/stocks');
+      const response = await fetch('http://localhost:8000/api/v1/stocks');
       const data = await response.json();
       setStocks(data.stocks);
     };
@@ -18,12 +18,6 @@ const Stocks = () => {
       <div className="flex justify-between items-center mb-8">
         <h2 className="text-3xl font-bold text-gray-800">Market Overview</h2>
         <div className="flex space-x-2">
-          <button className="bg-indigo-100 hover:bg-indigo-200 text-indigo-700 px-4 py-2 rounded-lg transition-colors">
-            Refresh
-          </button>
-          <button className="bg-indigo-600 hover:bg-indigo-700 text-white px-4 py-2 rounded-lg transition-colors">
-            Add Stock
-          </button>
         </div>
       </div>
       
@@ -60,6 +54,7 @@ const Stocks = () => {
                 <td className="px-6 py-4 whitespace-nowrap">
                   <div className="text-sm font-medium text-gray-900">${stock.price.toFixed(2)}</div>
                 </td>
+                
                 <td className="px-6 py-4 whitespace-nowrap">
                   <div className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium ${
                     stock.change >= 0 

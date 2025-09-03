@@ -6,8 +6,8 @@ const Login = () => {
   const navigate = useNavigate();
   const location = useLocation();
   const { login, isAuthenticated } = useAuth(); // Use the auth context
-  const from = location.state?.from?.pathname || '/';
-  
+  const from = location.state?.from?.pathname || '/dashboard';
+
   const [formData, setFormData] = useState({
     email: '',
     password: ''
@@ -69,8 +69,8 @@ const Login = () => {
     setIsSubmitting(true);
     
     try {
-      // This is where you would make an API call to authenticate
-      fetch('http://localhost:8000/login', {
+
+      fetch('http://localhost:8000/api/v1/user/login', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'
@@ -85,7 +85,7 @@ const Login = () => {
       })
       .then(data => {
         console.log('Login successful:', data);
-        login(data.token);
+        login(data.access_token);
         navigate(from, { replace: true });
       })
       .catch(error => {

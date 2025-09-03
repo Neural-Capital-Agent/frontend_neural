@@ -5,7 +5,7 @@ const Signup = () => {
   const navigate = useNavigate();
 
   const [formData, setFormData] = useState({
-    mail: '',
+    email: '',
     phone: '',
     street_address: '',
     city: '',
@@ -50,10 +50,10 @@ const Signup = () => {
     if (step === 1) {
       if (!formData.given_name) newErrors.given_name = 'First name is required';
       if (!formData.family_name) newErrors.family_name = 'Last name is required';
-      if (!formData.mail) {
-        newErrors.mail = 'Email is required';
-      } else if (!/\S+@\S+\.\S+/.test(formData.mail)) {
-        newErrors.mail = 'Email is invalid';
+      if (!formData.email) {
+        newErrors.email = 'Email is required';
+      } else if (!/\S+@\S+\.\S+/.test(formData.email)) {
+        newErrors.email = 'Email is invalid';
       }
       if (!formData.password) {
         newErrors.password = 'Password is required';
@@ -112,7 +112,7 @@ const Signup = () => {
       console.log('Registration submitted:', formData);
       
       // Simulate API call
-      fetch('http://localhost:8000/create_user', {
+      fetch('http://localhost:8000/api/v1/user', {
         method:'POST',
         headers: {
           'Content-Type': 'application/json'
@@ -127,7 +127,7 @@ const Signup = () => {
       })
       .then(data => {
         console.log('Registration successful:', data);
-        //navigate('/login', { state: { registrationSuccess: true } });
+        navigate('/login', { state: { registrationSuccess: true } });
       })
       .catch(error => {
         console.error('Registration failed:', error);
@@ -188,13 +188,13 @@ const Signup = () => {
               <label htmlFor="mail" className="block text-sm font-medium text-gray-700">Email Address</label>
               <input
                 type="email"
-                id="mail"
-                name="mail"
-                value={formData.mail}
+                id="email"
+                name="email"
+                value={formData.email}
                 onChange={handleChange}
-                className={`mt-1 block w-full rounded-md shadow-sm focus:border-blue-500 focus:ring-blue-500 sm:text-sm ${errors.mail ? 'border-red-300' : 'border-gray-300'}`}
+                className={`mt-1 block w-full rounded-md shadow-sm focus:border-blue-500 focus:ring-blue-500 sm:text-sm ${errors.email ? 'border-red-300' : 'border-gray-300'}`}
               />
-              {errors.mail && <p className="mt-1 text-sm text-red-600">{errors.mail}</p>}
+              {errors.email && <p className="mt-1 text-sm text-red-600">{errors.email}</p>}
             </div>
             
             <div>

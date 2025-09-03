@@ -51,6 +51,7 @@ const AuthProvider = ({ children }) => {
 const ProtectedRoute = ({ children }) => {
   const { isAuthenticated, isLoading } = useAuth();
   const location = useLocation();
+  
 
   if (isLoading) {
     return <div className="flex h-screen items-center justify-center">Loading...</div>;

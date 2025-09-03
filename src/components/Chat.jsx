@@ -10,18 +10,6 @@ const Chat = () => {
       sender: 'ai', 
       message: 'Hello! I\'m your Neural Broker AI assistant. How can I help you with your trading today?',
       timestamp: '9:30 AM'
-    },
-    {
-      id: 2,
-      sender: 'user',
-      message: 'Can you tell me about the current market trends?',
-      timestamp: '9:31 AM'
-    },
-    {
-      id: 3,
-      sender: 'ai',
-      message: 'The market is currently showing mixed signals. Tech stocks are performing well with NASDAQ up 0.8%, while the broader S&P 500 is up 0.3%. Energy sectors are facing some challenges due to fluctuating oil prices. Would you like specific insights on any particular sector or stock?',
-      timestamp: '9:31 AM'
     }
   ]);
 
@@ -39,13 +27,21 @@ const Chat = () => {
     
     setChatHistory([...chatHistory, newUserMessage]);
     setMessage('');
-    
-    // Simulate AI response (in a real app, this would be an API call)
-    setTimeout(() => {
+
+
+    fetch("http://localhost:8000/api/v1/chat", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({ message })
+    })
+    .then(response => response.json())
+    .then(data => {
       const aiResponse = {
         id: chatHistory.length + 2,
         sender: 'ai',
-        message: 'I\'m analyzing your request. This is a placeholder response that would normally come from the AI backend.',
+        message: data.response,
         timestamp: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
       };
       setChatHistory(prev => [...prev, aiResponse]);
