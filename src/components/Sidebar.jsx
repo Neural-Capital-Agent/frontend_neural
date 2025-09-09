@@ -5,32 +5,33 @@ const Sidebar = () => {
   const location = useLocation();
   
   return (
-    <nav className="top-0 left-0 h-screen w-72 bg-gradient-to-b from-indigo-800 to-indigo-900 text-white flex flex-col py-12 px-6 shadow-2xl z-40 border-r border-indigo-700">
-      <div className="mb-14 text-3xl font-extrabold tracking-wide text-center">
-        <span className="bg-clip-text text-transparent bg-gradient-to-r from-purple-200 to-indigo-100">
-          Neural Broker
-        </span>
+    <nav className="top-0 left-0 h-screen w-72 bg-[#111726] text-[#F3ECDC] flex flex-col py-12 px-6 shadow-xl z-40 border-r border-[#C87933]/20">
+      <div className="mb-10 text-2xl font-semibold tracking-[2px] text-center flex items-center justify-center">
+        <div className="w-10 h-10 bg-[#0A0F1C] border border-[#C87933]/40 rounded-lg flex items-center justify-center mr-3 overflow-hidden">
+          <img src="/logo.jpg" alt="Neural Broker Logo" className="h-10 w-10 object-cover" />
+        </div>
+        <span className="text-[#F3ECDC]">Neural Broker</span>
       </div>
       
-      <div className="h-px w-full bg-gradient-to-r from-transparent via-indigo-400 to-transparent mb-8 opacity-50"></div>
+      <div className="h-px w-full bg-gradient-to-r from-transparent via-[#c87b3d]/30 to-transparent mb-8 opacity-50"></div>
       
-      <ul className="flex flex-col gap-4">
+      <ul className="flex flex-col gap-2">
         {[
-          { path: "/", label: "Chat", icon: "💬" },
-          { path: "/wallet", label: "Wallet", icon: "👛" },
-          { path: "/watchlist", label: "Watchlist", icon: "👀" },
+          { path: "/dashboard", label: "Dashboard", icon: "�" },
+          { path: "/wallet", label: "Wallet", icon: "�" },
+          { path: "/watchlist", label: "Watchlist", icon: "�️" },
           { path: "/stocks", label: "Stocks", icon: "📈" }
         ].map((item) => (
           <li key={item.path}>
             <Link
               to={item.path}
-              className={`flex items-center gap-4 px-6 py-4 text-lg rounded-xl transition-all duration-300 font-medium ${
+              className={`flex items-center gap-3 px-5 py-3 text-sm rounded-lg transition-all duration-200 ${
                 location.pathname === item.path 
-                  ? "bg-indigo-600 shadow-lg shadow-indigo-900/50" 
-                  : "hover:bg-indigo-700/70 hover:translate-x-1"
+                  ? "bg-[#c87b3d]/20 text-[#c87b3d] border-l-2 border-[#c87b3d]" 
+                  : "hover:bg-[#1e2235] hover:border-l-2 hover:border-[#c87b3d]/50"
               }`}
             >
-              <span role="img" aria-label={item.label} className="text-2xl">
+              <span role="img" aria-label={item.label} className="text-xl">
                 {item.icon}
               </span>
               {item.label}
@@ -39,8 +40,8 @@ const Sidebar = () => {
         ))}
       </ul>
       
-      <div className="mt-auto mb-8 px-4 py-3 bg-indigo-700/30 rounded-lg text-indigo-200 text-sm">
-        <p className="text-center font-medium">AI Powered Trading</p>
+      <div className="mt-auto mb-8 px-4 py-3 bg-[#1e2235] rounded-lg border border-[#c87b3d]/20 text-sm">
+        <p className="text-center text-xs text-[#e9d8b4]/70">AI Powered Trading</p>
       </div>
     </nav>
   );

@@ -7,6 +7,7 @@ import WatchlistPage from './pages/WatchlistPage';
 import StocksPage from './pages/StocksPage';
 import Login from './pages/Login';
 import Signup from './pages/Signup';
+import LogoutButton from './components/LogoutButton';
 import './App.css';
 
 // Create authentication context
@@ -54,7 +55,12 @@ const ProtectedRoute = ({ children }) => {
   
 
   if (isLoading) {
-    return <div className="flex h-screen items-center justify-center">Loading...</div>;
+    return <div className="flex h-screen items-center justify-center bg-[#0A0F1C] text-[#F3ECDC]">
+      <div className="flex flex-col items-center">
+        <div className="w-12 h-12 border-4 border-[#C87933] border-t-transparent rounded-full animate-spin mb-3"></div>
+        <span className="text-[#9BA4B5]">Loading...</span>
+      </div>
+    </div>;
   }
 
   if (!isAuthenticated) {
@@ -64,24 +70,51 @@ const ProtectedRoute = ({ children }) => {
   return children;
 };
 
+
 // Layout component with sidebar
 const DashboardLayout = ({ children }) => (
-  <div className="flex h-screen bg-gray-50">
-    <div className="w-72 shrink-0">
-      <Sidebar />
-    </div>
-    <div className="flex-1 overflow-auto">
-      <div className="container mx-auto py-6">
-        {children}
+  <>
+  <div className="fixed top-4 right-4 z-50">
+            <LogoutButton />
+          </div>
+  <div className="flex flex-col h-screen bg-[#0A0F1C]">
+    <div className="flex flex-1 overflow-hidden">
+      <div className="w-72 shrink-0">
+        <Sidebar />
+      </div>
+      <div className="flex-1 overflow-auto">
+        <div className="container mx-auto py-6">
+          {children}
+        </div>
       </div>
     </div>
+    
+    {/* Footer */}
+    <footer className="bg-[#111726] border-t border-[#C87933]/20 py-4 px-6">
+      <div className="container mx-auto">
+        <div className="flex flex-col md:flex-row justify-between items-center">
+          <div className="text-[#9BA4B5] text-xs mb-4 md:mb-0">
+            © 2025 Neural Broker. All rights reserved.
+          </div>
+          <div className="flex space-x-6">
+            <a href="#" className="text-xs text-[#9BA4B5]/70 hover:text-[#C87933] transition-colors">Privacy Policy</a>
+            <a href="#" className="text-xs text-[#9BA4B5]/70 hover:text-[#C87933] transition-colors">Terms of Service</a>
+            <a href="#" className="text-xs text-[#9BA4B5]/70 hover:text-[#C87933] transition-colors">Contact Us</a>
+            <a href="#" className="text-xs text-[#9BA4B5]/70 hover:text-[#C87933] transition-colors">Help Center</a>
+          </div>
+        </div>
+      </div>
+    </footer>
   </div>
+  </>
 );
 
 function App() {
+
   return (
     <AuthProvider>
       <Router>
+        
         <Routes>
           <Route path="/" element={<Login />} />
           <Route path="/signup" element={<Signup />} />
