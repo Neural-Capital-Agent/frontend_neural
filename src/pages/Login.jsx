@@ -1,21 +1,25 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
-import { useAuth } from '../App'; // Import the auth context
+import { useAuth } from '../App';
+import BackgroundCandles from '../components/layouts/BackgroundCandles';
 
 const Login = () => {
   const navigate = useNavigate();
   const location = useLocation();
-  const { login, isAuthenticated } = useAuth(); // Use the auth context
+  const { login, isAuthenticated } = useAuth();
   const from = location.state?.from?.pathname || '/dashboard';
 
+  // Form state
   const [formData, setFormData] = useState({
     email: '',
     password: ''
   });
   
+  // UI state
   const [errors, setErrors] = useState({});
   const [showPassword, setShowPassword] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [showToast, setShowToast] = useState(false);
 
   // Redirect if already authenticated
   useEffect(() => {
@@ -59,93 +63,81 @@ const Login = () => {
     return Object.keys(newErrors).length === 0;
   };
 
-  // Success toast state
-  const [showToast, setShowToast] = useState(false);
-  
   const handleSubmit = async (e) => {
     e.preventDefault();
-    
+    console.log('Submitting form with data:', formData);
     if (!validateForm()) {
       return;
     }
     
     setIsSubmitting(true);
+    setErrors({});
+    
     try {
-      fetch('http://localhost:8000/api/v1/user/login', {
+      
+
+      const response = await fetch('http://localhost:8000/api/v1/user/login', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'
         },
         body: JSON.stringify(formData)
-      })
-      .then(response => {
-        if (!response.ok) {
-          throw new Error('Network response was not ok');
-        }
-        return response.json();
-      })
-      .then(data => {
+      });
+
+     
+
+      if (!response.ok) {
+        const errorData = await response.json().catch(() => ({}));
+        throw new Error(errorData.message || 'Login failed');
+      }
+
+      const data = await response.json();
+      if(data.access_token) {
         console.log('Login successful:', data);
+
         // Show success toast
         setShowToast(true);
         setTimeout(() => {
-          setShowToast(false);
-          login(data.access_token);
-          navigate(from, { replace: true });
-        }, 1500);
-      })
-      .catch(error => {
-        console.error('Login failed:', error);
-        setErrors({ general: 'Login failed. Please check your credentials and try again.' });
-      })
-      .finally(() => {
-        setIsSubmitting(false);
-      });
-      
-      // For demo purposes - in production, use a real token from your API
-      const mockToken = "mock-jwt-token";
-      
-      // Show success toast
-      setShowToast(true);
-      
-      // Wait for toast animation before navigating
-      setTimeout(() => {
         setShowToast(false);
-        // Update auth context with successful login
-        login(mockToken);
-        // Navigate to the page the user was trying to access
+        login(data.access_token);
         navigate(from, { replace: true });
       }, 1500);
+
+      }
+      else {
+        const errorData = await response.json().catch(() => ({}));
+        throw new Error(errorData.message || 'Login failed incorrect credentials');
+      }
+      
       
     } catch (error) {
       console.error('Login failed:', error);
-      setErrors({
-        general: 'Login failed. Please check your credentials and try again.'
-      });
+    
+    let errorMessage = 'Login failed. Please check your credentials and try again.';
+    
+     if (error.name === 'AbortError') {
+      errorMessage = '⏱️ Request timeout: API server is not responding. Please check if the backend is running.';
+    } else if (error.name === 'TypeError' && error.message.includes('fetch')) {
+      errorMessage = '🚫 API Server is not running. Please start the backend server on port 8000.';
+    } else if (error.message === 'Failed to fetch') {
+      errorMessage = '🔌 Unable to connect to server. Check if the API is running on http://localhost:8000';
+    } else if (error.name === 'TypeError') {
+      errorMessage = '⚠️ Network error: Cannot reach the API server. Make sure the backend is running.';
+    } else if (error.message) {
+      errorMessage = error.message;
+    }
+    
+    setErrors({ 
+      general: errorMessage
+    });
     } finally {
       setIsSubmitting(false);
     }
   };
 
   return (
-    <div
-      className="min-h-screen flex items-center justify-center relative overflow-hidden"
-      style={{
-        background: `
-          radial-gradient(900px 600px at 75% 0%, rgba(200,121,51,0.12), rgba(10,15,28,0) 50%),
-          linear-gradient(180deg, #0A0F1C 0%, #0B1326 100%)
-        `
-      }}
-    >
-      {/* Background candlestick pattern */}
-      <div
-        className="absolute inset-0 opacity-[0.08] pointer-events-none"
-        style={{
-          backgroundImage: "url('/trading-pattern.svg')", // or base64 like before
-          backgroundSize: "300px"
-        }}
-      ></div>
-      
+   
+      <BackgroundCandles>
       <div className="max-w-[440px] w-[90vw] space-y-8 z-10">
         <div className="bg-[#111726]/95 border border-[#C87933]/20 shadow-xl rounded-xl p-7 sm:p-7">
           <div className="text-center">
@@ -162,6 +154,15 @@ const Login = () => {
           {errors.general && (
             <div className="mt-3 text-sm text-center text-red-400">
               {errors.general}
+            </div>
+          )}
+           {/* Add this toast notification */}
+          {showToast && (
+            <div className="fixed top-4 right-4 z-50 bg-green-600 text-white px-6 py-3 rounded-lg shadow-lg flex items-center">
+              <svg className="w-5 h-5 mr-2" fill="currentColor" viewBox="0 0 20 20">
+                <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
+              </svg>
+              Login successful! Redirecting...
             </div>
           )}
           
@@ -270,7 +271,7 @@ const Login = () => {
           © 2025 Neural Broker. All rights reserved.
         </div>
       </div>
-    </div>
+      </BackgroundCandles>
   );
 };
 

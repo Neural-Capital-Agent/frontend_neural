@@ -17,10 +17,43 @@ const Sidebar = () => {
       
       <ul className="flex flex-col gap-2">
         {[
-          { path: "/dashboard", label: "Dashboard", icon: "�" },
-          { path: "/wallet", label: "Wallet", icon: "�" },
-          { path: "/watchlist", label: "Watchlist", icon: "�️" },
-          { path: "/stocks", label: "Stocks", icon: "📈" }
+          { 
+            path: "/dashboard", 
+            label: "Dashboard", 
+            icon: (
+              <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
+                <path d="M3 4a1 1 0 011-1h12a1 1 0 011 1v2a1 1 0 01-1 1H4a1 1 0 01-1-1V4zM3 10a1 1 0 011-1h6a1 1 0 011 1v6a1 1 0 01-1 1H4a1 1 0 01-1-1v-6zM14 9a1 1 0 00-1 1v6a1 1 0 001 1h2a1 1 0 001-1v-6a1 1 0 00-1-1h-2z" />
+              </svg>
+            )
+          },
+          { 
+            path: "/wallet", 
+            label: "Wallet", 
+            icon: (
+              <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
+                <path fillRule="evenodd" d="M4 4a2 2 0 00-2 2v4a2 2 0 002 2V6h10a2 2 0 00-2-2H4zm2 6a2 2 0 012-2h8a2 2 0 012 2v4a2 2 0 01-2 2H8a2 2 0 01-2-2v-4zm6 4a2 2 0 100-4 2 2 0 000 4z" clipRule="evenodd" />
+              </svg>
+            )
+          },
+          { 
+            path: "/watchlist", 
+            label: "Watchlist", 
+            icon: (
+              <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
+                <path d="M10 12a2 2 0 100-4 2 2 0 000 4z" />
+                <path fillRule="evenodd" d="M.458 10C1.732 5.943 5.522 3 10 3s8.268 2.943 9.542 7c-1.274 4.057-5.064 7-9.542 7S1.732 14.057.458 10zM14 10a4 4 0 11-8 0 4 4 0 018 0z" clipRule="evenodd" />
+              </svg>
+            )
+          },
+          { 
+            path: "/stocks", 
+            label: "Stocks", 
+            icon: (
+              <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
+                <path fillRule="evenodd" d="M3 3a1 1 0 000 2v8a2 2 0 002 2h2.586l-1.293 1.293a1 1 0 101.414 1.414L10 15.414l2.293 2.293a1 1 0 001.414-1.414L12.414 15H15a2 2 0 002-2V5a1 1 0 100-2H3zm11.707 4.707a1 1 0 00-1.414-1.414L10 9.586 8.707 8.293a1 1 0 00-1.414 0l-2 2a1 1 0 101.414 1.414L8 10.414l1.293 1.293a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
+              </svg>
+            )
+          }
         ].map((item) => (
           <li key={item.path}>
             <Link
@@ -31,7 +64,7 @@ const Sidebar = () => {
                   : "hover:bg-[#1e2235] hover:border-l-2 hover:border-[#c87b3d]/50"
               }`}
             >
-              <span role="img" aria-label={item.label} className="text-xl">
+              <span className="flex items-center justify-center">
                 {item.icon}
               </span>
               {item.label}
