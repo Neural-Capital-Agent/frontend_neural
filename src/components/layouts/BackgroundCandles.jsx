@@ -1,25 +1,22 @@
- 
 import React from 'react';
 
 const BackgroundCandles = ({ children }) => {
   return (
-    <div
-      className="min-h-screen flex items-center justify-center relative overflow-hidden"
-      style={{
-        background: `
-          radial-gradient(900px 600px at 75% 0%, rgba(200,121,51,0.12), rgba(10,15,28,0) 50%),
-          linear-gradient(180deg, #0A0F1C 0%, #0B1326 100%)
-        `
-      }}
-    >
-      {/* Background candlestick pattern */}
+    <div className="min-h-screen flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8 relative">
+      {/* Background pattern with adjusted opacity and size */}
       <div
-        className="absolute inset-0 opacity-[0.08] pointer-events-none"
+        className="absolute inset-0 pointer-events-none"
         style={{
-          backgroundImage: "url('/trading-pattern.svg')",
-          backgroundSize: "300px"
+          backgroundImage: "url('/assets/candles.svg')",
+          backgroundSize: "250px",      // Adjusted size for better density
+          backgroundRepeat: "repeat",
+          backgroundPosition: "center",
+          opacity: 0.07                 // Adjusted opacity for better visibility
         }}
+        aria-hidden="true"
       />
+      
+      {/* Content */}
       {children}
     </div>
   );

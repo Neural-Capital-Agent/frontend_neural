@@ -8,6 +8,8 @@ import StocksPage from './pages/StocksPage';
 import Login from './pages/Login';
 import Signup from './pages/Signup';
 import LogoutButton from './components/LogoutButton';
+import CustomerProfile from './pages/CustomerProfile';
+import SettingsMarket from './pages/SettingsMarket';
 import './App.css';
 
 // Create authentication context
@@ -147,6 +149,20 @@ function App() {
             <ProtectedRoute>
               <DashboardLayout>
                 <StocksPage />
+              </DashboardLayout>
+            </ProtectedRoute>
+          } />
+           <Route path="/profile" element={
+            <ProtectedRoute>
+              <DashboardLayout>
+                <CustomerProfile />
+              </DashboardLayout>
+            </ProtectedRoute>
+          } />
+            <Route path="/settings" element={
+            <ProtectedRoute>
+              <DashboardLayout>
+                <SettingsMarket />
               </DashboardLayout>
             </ProtectedRoute>
           } />
