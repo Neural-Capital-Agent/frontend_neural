@@ -50,25 +50,32 @@ const OnboardingForm = () => {
   });
 
   const handleInputChange = (e) => {
-    const { name, value, type, checked } = e.target;
-    
-    if (type === 'checkbox') {
-      setFormData({
-        ...formData,
-        [name]: checked
-      });
-    } else if (type === 'number') {
-      setFormData({
-        ...formData,
-        [name]: parseInt(value, 10) || 0
-      });
-    } else {
-      setFormData({
-        ...formData,
-        [name]: value
-      });
-    }
-  };
+  const { name, value, type, checked } = e.target;
+
+  if (type === 'checkbox') {
+    setFormData(prev => ({
+      ...prev,
+      [name]: checked
+    }));
+    return;
+  }
+
+  if (type === 'number') {
+    const num = parseFloat(value);
+    setFormData(prev => ({
+      ...prev,
+      [name]: Number.isFinite(num) ? num : 0
+    }));
+    return;
+  }
+
+  // default: text, select, radio
+  setFormData(prev => ({
+    ...prev,
+    [name]: value
+  }));
+};
+
 
   const handleMultiSelect = (item, arrayName) => {
     const currentArray = [...formData[arrayName]];
@@ -284,11 +291,15 @@ const OnboardingForm = () => {
                 type="number"
                 name="maxDrawdown"
                 value={formData.maxDrawdown}
-                onChange={handleInputChange}
                 min="0"
                 max="100"
-                className="w-full px-4 py-3 bg-[#0A0F1C] text-[#F3ECDC] border border-[#C87933]/50 rounded-md focus:outline-none focus:ring-2 focus:ring-[#F3ECDC]/60 focus:border-[#C87933]"
-              />
+                step="0.1"
+                onChange={(e) => {
+                  const v = Math.max(0, Math.min(100, parseFloat(e.target.value) || 0));
+                  handleInputChange({ target: { name: 'maxDrawdown', value: v, type: 'number' } });
+            }}
+            className="w-full px-4 py-3 bg-[#0A0F1C] text-[#F3ECDC] border border-[#C87933]/50 rounded-md focus:outline-none focus:ring-2 focus:ring-[#F3ECDC]/60 focus:border-[#C87933]"
+           />
               <div className="absolute inset-y-0 right-0 flex items-center pr-3 pointer-events-none">
                 <span className="text-[#9BA4B5]">%</span>
               </div>
@@ -759,11 +770,15 @@ const OnboardingForm = () => {
                       id="concentrationCap"
                       name="concentrationCap"
                       value={formData.concentrationCap}
-                      onChange={handleInputChange}
-                      min="1"
+                      min="0"
                       max="100"
-                      className="w-full px-4 py-3 bg-[#0A0F1C] text-[#F3ECDC] border border-[#C87933]/50 rounded-md focus:outline-none focus:ring-2 focus:ring-[#F3ECDC]/60 focus:border-[#C87933]"
-                    />
+                      step="0.5"
+                      onChange={(e) => {
+                        const v = Math.max(0, Math.min(100, parseFloat(e.target.value) || 0));
+                        handleInputChange({ target: { name: 'concentrationCap', value: v, type: 'number' } });
+                       }}
+                       className="w-full px-4 py-3 bg-[#0A0F1C] text-[#F3ECDC] border border-[#C87933]/50 rounded-md focus:outline-none focus:ring-2 focus:ring-[#F3ECDC]/60 focus:border-[#C87933]"
+                      />
                     <div className="absolute inset-y-0 right-0 flex items-center pr-3 pointer-events-none">
                       <span className="text-[#9BA4B5]">%</span>
                     </div>
