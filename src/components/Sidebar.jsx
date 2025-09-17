@@ -15,12 +15,13 @@ const Sidebar = () => {
     { name: 'Wallet', path: '/wallet', icon: DocumentReportIcon },
     { name: 'Account', path: '/profile', icon: UserIcon },
     { name: 'Settings Market', path: '/settings', icon: CogIcon },
+    { name: 'Plans & Pricing', path: '/pricing', icon: ChatIcon },
   ];
 
   return (
     <div className="bg-[#111726] w-64 min-h-screen flex flex-col shadow-lg">
       {/* Logo section with increased top padding */}
-      <div className="px-6 sidebar-top-padding">
+      <div className="px-6 sidebar-top-padding m-3">
         <div className="flex items-center">
           <img src="/logo.jpg" alt="Neural Broker" className="h-10 w-10 rounded-md" />
           <span className="ml-3 text-xl font-semibold text-[#F3ECDC]">Neural Broker</span>

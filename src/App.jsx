@@ -10,6 +10,7 @@ import Signup from './pages/Signup';
 import LogoutButton from './components/LogoutButton';
 import CustomerProfile from './pages/CustomerProfile';
 import SettingsMarket from './pages/SettingsMarket';
+import Pricing from './pages/Pricing';
 import './App.css';
 
 // Create authentication context
@@ -163,6 +164,13 @@ function App() {
             <ProtectedRoute>
               <DashboardLayout>
                 <SettingsMarket />
+              </DashboardLayout>
+            </ProtectedRoute>
+          } />
+            <Route path="/pricing" element={
+            <ProtectedRoute>
+              <DashboardLayout>
+                <Pricing />
               </DashboardLayout>
             </ProtectedRoute>
           } />
