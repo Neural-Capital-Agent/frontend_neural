@@ -76,6 +76,32 @@ const OnboardingForm = () => {
   }));
 };
 
+  const { name, value, type, checked } = e.target;
+
+  if (type === 'checkbox') {
+    setFormData(prev => ({
+      ...prev,
+      [name]: checked
+    }));
+    return;
+  }
+
+  if (type === 'number') {
+    const num = parseFloat(value);
+    setFormData(prev => ({
+      ...prev,
+      [name]: Number.isFinite(num) ? num : 0
+    }));
+    return;
+  }
+
+  // default: text, select, radio
+  setFormData(prev => ({
+    ...prev,
+    [name]: value
+  }));
+};
+
 
   const handleMultiSelect = (item, arrayName) => {
     const currentArray = [...formData[arrayName]];
@@ -293,6 +319,13 @@ const OnboardingForm = () => {
                 value={formData.maxDrawdown}
                 min="0"
                 max="100"
+                step="0.1"
+                onChange={(e) => {
+                  const v = Math.max(0, Math.min(100, parseFloat(e.target.value) || 0));
+                  handleInputChange({ target: { name: 'maxDrawdown', value: v, type: 'number' } });
+            }}
+            className="w-full px-4 py-3 bg-[#0A0F1C] text-[#F3ECDC] border border-[#C87933]/50 rounded-md focus:outline-none focus:ring-2 focus:ring-[#F3ECDC]/60 focus:border-[#C87933]"
+           />
                 step="0.1"
                 onChange={(e) => {
                   const v = Math.max(0, Math.min(100, parseFloat(e.target.value) || 0));
@@ -771,7 +804,15 @@ const OnboardingForm = () => {
                       name="concentrationCap"
                       value={formData.concentrationCap}
                       min="0"
+                      min="0"
                       max="100"
+                      step="0.5"
+                      onChange={(e) => {
+                        const v = Math.max(0, Math.min(100, parseFloat(e.target.value) || 0));
+                        handleInputChange({ target: { name: 'concentrationCap', value: v, type: 'number' } });
+                       }}
+                       className="w-full px-4 py-3 bg-[#0A0F1C] text-[#F3ECDC] border border-[#C87933]/50 rounded-md focus:outline-none focus:ring-2 focus:ring-[#F3ECDC]/60 focus:border-[#C87933]"
+                      />
                       step="0.5"
                       onChange={(e) => {
                         const v = Math.max(0, Math.min(100, parseFloat(e.target.value) || 0));

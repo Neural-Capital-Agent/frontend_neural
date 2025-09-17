@@ -2,13 +2,14 @@ import React, { useState } from 'react';
 
 const Chat = () => {
   const [message, setMessage] = useState('');
-  
+  const [userId, setUserId] = useState('user123');
+
   // Mock chat history
   const [chatHistory, setChatHistory] = useState([
     { 
       id: 1, 
       sender: 'ai', 
-      message: 'Hello! I\'m your Neural Broker AI assistant. How can I help you with your trading today?',
+      message: 'Hello! I\'m your Neural Broker AI assistant. Which are your investment goals?',
       timestamp: '9:30 AM'
     }
   ]);
@@ -29,23 +30,49 @@ const Chat = () => {
     setMessage('');
 
 
-    fetch("http://localhost:8000/api/v1/chat", {
+    fetch(`http://localhost:8000/api/v1/llm/parse-goal?goal_text=${encodeURIComponent(message)}&user_id=${encodeURIComponent(userId)}`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json"
-      },
-      body: JSON.stringify({ message })
+      }
     })
     .then(response => response.json())
     .then(data => {
+      // Handle LLM response
+      let responseMessage = "Sorry, I couldn't process that request.";
+      
+      if (data && Object.keys(data).length > 0) {
+        // Format the structured data for display
+        responseMessage = "I've analyzed your financial goal:\n\n";
+        
+        // Format the response object into a readable message
+        Object.entries(data).forEach(([key, value]) => {
+          if (typeof value === 'object') {
+            responseMessage += `${key}: ${JSON.stringify(value, null, 2)}\n`;
+          } else {
+            responseMessage += `${key}: ${value}\n`;
+          }
+        });
+      }
+      
       const aiResponse = {
         id: chatHistory.length + 2,
         sender: 'ai',
-        message: data.response,
+        message: responseMessage,
         timestamp: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
       };
       setChatHistory(prev => [...prev, aiResponse]);
-    }, 1000);
+    })
+    .catch(error => {
+      console.error("Error:", error);
+      const errorResponse = {
+        id: chatHistory.length + 2,
+        sender: 'ai',
+        message: "I'm sorry, I encountered an error while processing your request. Please try again later.",
+        timestamp: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
+      };
+      setChatHistory(prev => [...prev, errorResponse]);
+    });
   };
 
   return (

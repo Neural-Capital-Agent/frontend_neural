@@ -1,5 +1,6 @@
 import React from 'react';
 import Chat from '../components/Chat';
+import OnboardingForm from '../components/OnboardingForm';
 
 const Home = () => {
   return (
@@ -10,7 +11,8 @@ const Home = () => {
           Your AI-powered trading assistant. Ask anything about markets, stocks, or get investment advice.
         </p>
       </div>
-      <Chat />
+      <OnboardingForm />
+      
     </div>
   );
 };
