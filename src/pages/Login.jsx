@@ -99,7 +99,7 @@ const Login = () => {
         setShowToast(true);
         setTimeout(() => {
         setShowToast(false);
-        login(data.access_token);
+        login(data.access_token, data.user_id); // Store token and userId
         navigate(from, { replace: true });
       }, 1500);
 

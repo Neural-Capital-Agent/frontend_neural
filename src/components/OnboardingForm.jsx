@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
+
 const OnboardingForm = () => {
   const navigate = useNavigate();
   const [chatHistory, setChatHistory] = useState([
@@ -16,7 +17,7 @@ const OnboardingForm = () => {
   ]);
 
   const [currentQuestion, setCurrentQuestion] = useState(0);
-  const [userInput, setUserInput] = useState('');
+  const userId = localStorage.getItem('userId'); // Assuming userId is stored in localStorage after login
   const [formData, setFormData] = useState({
     // Step 1 - Profile & Goal
     primaryGoal: '',
@@ -62,6 +63,9 @@ const OnboardingForm = () => {
     consentToAutomation: false
   });
 
+  const [customInput, setCustomInput] = useState('');
+  const [showCustomInput, setShowCustomInput] = useState(false);
+
   const questions = [
     {
       id: 1,
@@ -86,13 +90,6 @@ const OnboardingForm = () => {
     },
     {
       id: 4,
-      message: "What tax wrapper will you be using?",
-      type: 'multiple_choice',
-      field: 'taxWrapper',
-      options: ['Taxable', 'IRA/401k', 'Roth', 'Other', 'Not sure']
-    },
-    {
-      id: 5,
       message: "On a scale of 1-5, what's your risk tolerance? (1=Conservative, 5=Aggressive)",
       type: 'number_input',
       field: 'riskTolerance',
@@ -100,15 +97,7 @@ const OnboardingForm = () => {
       max: 5
     },
     {
-      id: 6,
-      message: "What's the maximum portfolio drawdown you're comfortable with? (in %)",
-      type: 'number_input',
-      field: 'maxDrawdown',
-      min: 0,
-      max: 100
-    },
-    {
-      id: 7,
+      id: 5,
       message: "Which assets are you comfortable investing in? (Select all that apply)",
       type: 'multi_select',
       field: 'comfortableAssets',
@@ -127,96 +116,56 @@ const OnboardingForm = () => {
       ]
     },
     {
-      id: 8,
-      message: "Are there any assets you'd like to avoid? (Select all that apply)",
-      type: 'multi_select',
-      field: 'assetsToAvoid',
-      options: [
-        { label: 'ESG concerns', value: 'esg_concerns' },
-        { label: 'Sin stocks', value: 'sin_stocks' },
-        { label: 'Crypto', value: 'crypto' },
-        { label: 'Tobacco', value: 'tobacco' },
-        { label: 'Gambling', value: 'gambling' },
-        { label: 'Weapons', value: 'weapons' },
-        { label: 'Fossil fuels', value: 'fossil_fuels' }
-      ]
-    },
-    {
-      id: 9,
+      id: 6,
       message: "What's your starting investment amount?",
       type: 'currency_input',
       field: 'startingAmount'
     },
     {
-      id: 10,
+      id: 7,
       message: "What's your monthly contribution amount?",
       type: 'currency_input',
       field: 'monthlyContribution'
     },
     {
-      id: 11,
-      message: "What's your preferred DCA cadence?",
-      type: 'multiple_choice',
-      field: 'dcaCadence',
-      options: ['Weekly', 'Biweekly', 'Monthly', 'Off']
-    },
-    {
-      id: 12,
+      id: 8,
       message: "What's your budget guardrail amount? (Minimum cash to keep)",
       type: 'currency_input',
       field: 'budgetGuardrail'
     },
     {
-      id: 13,
+      id: 9,
       message: "What's your default stop-loss percentage per position?",
       type: 'percentage_input',
       field: 'equityStopLoss'
     },
     {
-      id: 14,
+      id: 10,
       message: "What's your default take-profit percentage per position?",
       type: 'percentage_input',
       field: 'equityTakeProfit'
     },
     {
-      id: 15,
-      message: "At what portfolio drawdown percentage should I alert you?",
-      type: 'percentage_input',
-      field: 'portfolioDrawdownAlert'
-    },
-    {
-      id: 16,
+      id: 11,
       message: "How often would you like to rebalance your portfolio?",
       type: 'multiple_choice',
       field: 'rebalancing',
       options: ['Quarterly', 'Semiannual', 'Threshold-based (±5%)', 'Off']
     },
     {
-      id: 17,
+      id: 12,
       message: "Would you like to create an auto-split for incoming deposits?",
       type: 'yes_no',
       field: 'createAutoSplit'
     },
     {
-      id: 18,
+      id: 13,
       message: "Would you like to set up auto-pay to savings or T-Bill ladder?",
       type: 'yes_no',
       field: 'autoPayToSavings'
     },
     {
-      id: 19,
-      message: "What's your state of residence? (For tax optimization hints)",
-      type: 'state_select',
-      field: 'stateOfResidence'
-    },
-    {
-      id: 20,
-      message: "What's your maximum concentration cap per single stock?",
-      type: 'percentage_input',
-      field: 'concentrationCap'
-    },
-    {
-      id: 21,
+      id: 14,
       message: "Do you consent to automation rules controlling your portfolio?",
       type: 'consent',
       field: 'consentToAutomation',
@@ -234,7 +183,9 @@ const OnboardingForm = () => {
     } else if (currentQ.type === 'number_input' || currentQ.type === 'currency_input' || currentQ.type === 'percentage_input') {
       newFormData[currentQ.field] = parseFloat(response) || response;
     } else if (currentQ.type === 'multi_select') {
-      if (Array.isArray(response)) {
+      if (response === 'continue') {
+        // Just continue to the next question without changing the selection
+      } else if (Array.isArray(response)) {
         newFormData[currentQ.field] = response;
       } else {
         // Toggle selection
@@ -263,26 +214,48 @@ const OnboardingForm = () => {
       type: 'response'
     };
 
-    setChatHistory(prev => [...prev, userMessage]);
+    // If it's a multi-select and the user clicked 'continue', show the selected options as a comma-separated list
+    if (currentQ.type === 'multi_select' && response === 'continue') {
+      const selectedLabels = newFormData[currentQ.field].map(val => {
+        const option = currentQ.options.find(opt => opt.value === val);
+        return option ? option.label : val;
+      }).join(', ');
+      
+      userMessage.message = selectedLabels || 'None selected';
+    }
+
+    // Don't add user message for multi-select when selecting individual options (only on continue)
+    if (!(currentQ.type === 'multi_select' && response !== 'continue')) {
+      setChatHistory(prev => [...prev, userMessage]);
+    }
+
+    // Reset custom input state if we just submitted a custom input
+    if (showCustomInput && currentQ.field === 'primaryGoal') {
+      setShowCustomInput(false);
+      setCustomInput('');
+    }
 
     // Move to next question or complete
     if (currentQuestion < questions.length - 1) {
-      setTimeout(() => {
-        const nextQ = questions[currentQuestion + 1];
-        const aiMessage = {
-          id: chatHistory.length + 2,
-          sender: 'ai',
-          message: nextQ.message,
-          timestamp: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
-          type: nextQ.type,
-          field: nextQ.field,
-          options: nextQ.options,
-          min: nextQ.min,
-          max: nextQ.max
-        };
-        setChatHistory([ aiMessage]);
-        setCurrentQuestion(currentQuestion + 1);
-      }, 500);
+      // Only proceed to next question for non-multi-select or when continue is clicked for multi-select
+      if (currentQ.type !== 'multi_select' || response === 'continue') {
+        setTimeout(() => {
+          const nextQ = questions[currentQuestion + 1];
+          const aiMessage = {
+            id: chatHistory.length + 2,
+            sender: 'ai',
+            message: nextQ.message,
+            timestamp: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
+            type: nextQ.type,
+            field: nextQ.field,
+            options: nextQ.options,
+            min: nextQ.min,
+            max: nextQ.max
+          };
+          setChatHistory([aiMessage]);
+          setCurrentQuestion(currentQuestion + 1);
+        }, 500);
+      }
     } else {
       // Complete onboarding
       setTimeout(() => {
@@ -303,7 +276,7 @@ const OnboardingForm = () => {
 
   const handleSubmit = async (data) => {
     try {
-      const response = await fetch('http://localhost:8000/api/v1/onboarding', {
+      const response = await fetch(`http://localhost:8000/api/v1/user/${userId}/setup`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'
@@ -325,9 +298,8 @@ const OnboardingForm = () => {
   };
 
   const renderChatMessage = (message) => {
-    
     const isAI = message.sender === 'ai';
-
+    
     return (
       <div key={message.id} className={`flex ${isAI ? 'justify-start' : 'justify-end'} mb-4`}>
         <div className={`max-w-[80%] rounded-lg p-4 ${
@@ -339,17 +311,52 @@ const OnboardingForm = () => {
 
           {/* Render options for AI questions */}
           {isAI && message.type === 'multiple_choice' && message.options && (
-            console.log('hola'),
             <div className="flex flex-wrap gap-2 mt-3">
               {message.options.map((option) => (
                 <button
                   key={option}
-                  onClick={() => handleUserResponse(option)}
+                  onClick={() => {
+                    if (option === 'Custom' && message.field === 'primaryGoal') {
+                      setShowCustomInput(true);
+                    } else {
+                      handleUserResponse(option);
+                    }
+                  }}
                   className="px-3 py-2 bg-[#C87933]/20 hover:bg-[#C87933]/40 text-[#F3ECDC] text-xs rounded-md transition-colors border border-[#C87933]/30"
                 >
                   {option}
                 </button>
               ))}
+            </div>
+          )}
+
+          {/* Custom input field for primaryGoal */}
+          {isAI && showCustomInput && message.field === 'primaryGoal' && (
+            <div className="mt-3">
+              <div className="flex gap-2">
+                <input
+                  type="text"
+                  value={customInput}
+                  onChange={(e) => setCustomInput(e.target.value)}
+                  className="flex-1 px-3 py-2 bg-[#111726] text-[#F3ECDC] border border-[#C87933]/30 rounded-md focus:outline-none focus:ring-2 focus:ring-[#C87933]/50 text-sm"
+                  placeholder="Enter your custom investment goal"
+                  onKeyPress={(e) => {
+                    if (e.key === 'Enter' && customInput.trim() !== '') {
+                      handleUserResponse(customInput.trim());
+                    }
+                  }}
+                />
+                <button 
+                  onClick={() => {
+                    if (customInput.trim() !== '') {
+                      handleUserResponse(customInput.trim());
+                    }
+                  }} 
+                  className="px-4 py-2 bg-[#C87933] hover:bg-[#C87933]/80 text-[#F3ECDC] text-sm rounded-md transition-colors whitespace-nowrap"
+                >
+                  Submit
+                </button>
+              </div>
             </div>
           )}
 
@@ -443,26 +450,6 @@ const OnboardingForm = () => {
                   Continue
                 </button>
               )}
-            </div>
-          )}
-
-          {isAI && message.type === 'state_select' && (
-            <div className="mt-3">
-              <select
-                onChange={(e) => handleUserResponse(e.target.value)}
-                className="w-full px-3 py-2 bg-[#111726] text-[#F3ECDC] border border-[#C87933]/30 rounded-md focus:outline-none focus:ring-2 focus:ring-</button>[#C87933]/50 text-sm"
-              >
-                <option value="">Select your state</option>
-                {['Alabama', 'Alaska', 'Arizona', 'Arkansas', 'California', 'Colorado', 'Connecticut', 'Delaware',
-                  'Florida', 'Georgia', 'Hawaii', 'Idaho', 'Illinois', 'Indiana', 'Iowa', 'Kansas', 'Kentucky',
-                  'Louisiana', 'Maine', 'Maryland', 'Massachusetts', 'Michigan', 'Minnesota', 'Mississippi',
-                  'Missouri', 'Montana', 'Nebraska', 'Nevada', 'New Hampshire', 'New Jersey', 'New Mexico',
-                  'New York', 'North Carolina', 'North Dakota', 'Ohio', 'Oklahoma', 'Oregon', 'Pennsylvania',
-                  'Rhode Island', 'South Carolina', 'South Dakota', 'Tennessee', 'Texas', 'Utah', 'Vermont',
-                  'Virginia', 'Washington', 'West Virginia', 'Wisconsin', 'Wyoming'].map((state) => (
-                  <option key={state} value={state}>{state}</option>
-                ))}
-              </select>
             </div>
           )}
 

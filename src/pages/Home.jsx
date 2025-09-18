@@ -1,6 +1,7 @@
 import React from 'react';
 import Chat from '../components/Chat';
 import OnboardingForm from '../components/OnboardingForm';
+//import {ifsetup} from '../utils/auth';
 
 const Home = () => {
   return (
@@ -11,8 +12,8 @@ const Home = () => {
           Your AI-powered trading assistant. Ask anything about markets, stocks, or get investment advice.
         </p>
       </div>
+      {/* {ifsetup === false ? <OnboardingForm /> : <Chat />} */}
       <OnboardingForm />
-      
     </div>
   );
 };
