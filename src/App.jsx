@@ -34,8 +34,9 @@ const AuthProvider = ({ children }) => {
     checkAuthStatus();
   }, []);
 
-  const login = (token) => {
+  const login = (token, userId) => {
     localStorage.setItem('authToken', token);
+    localStorage.setItem('userId', userId);
     setIsAuthenticated(true);
   };
 
