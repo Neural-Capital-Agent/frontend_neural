@@ -1,3 +1,4 @@
+// WalletPro.jsx
 import React, { useMemo, useState } from "react";
 
 /* ---------- helpers ---------- */
@@ -10,70 +11,58 @@ const formatTxDate = (iso) =>
 const formatTxAmount = (n) =>
   `${n > 0 ? "+" : n < 0 ? "-" : ""}$${Math.abs(n).toLocaleString("en-US", { minimumFractionDigits: 2 })}`;
 
-/* ---------- mock data (safe to leave empty) ---------- */
-const mockTx = [
-  { date: "2025-09-12", type: "Deposit",  amount: 2500,  status: "Completed" },
-  { date: "2025-09-10", type: "Withdraw", amount: -300,  status: "Pending"   },
+/* ---------- demo data (safe to remove) ---------- */
+const demoTx = [
+  { date: "2025-09-11", type: "Deposit",  amount: 2500,  status: "Completed" },
+  { date: "2025-09-09", type: "Withdraw", amount: -300,  status: "Pending"   },
   { date: "2025-08-30", type: "Deposit",  amount: 1500,  status: "Completed" },
 ];
 
-export default function Wallet() {
+export default function WalletPro() {
   const [balance] = useState(10000);
   const [tab, setTab] = useState("all"); // all | deposits | withdrawals
   const [loading, setLoading] = useState(false);
 
   const dollars = useMemo(() => Math.floor(balance).toLocaleString("en-US"), [balance]);
-  const cents = useMemo(() => (balance % 1).toFixed(2).split(".")[1] || "00", [balance]);
+  const cents   = useMemo(() => (balance % 1).toFixed(2).split(".")[1] || "00", [balance]);
 
-  const filteredTx =
-    tab === "deposits"
-      ? mockTx.filter((t) => t.type === "Deposit")
-      : tab === "withdrawals"
-      ? mockTx.filter((t) => t.type === "Withdraw")
-      : mockTx;
+  const tx = useMemo(() => {
+    if (tab === "deposits")     return demoTx.filter((t) => t.type === "Deposit");
+    if (tab === "withdrawals")  return demoTx.filter((t) => t.type === "Withdraw");
+    return demoTx;
+  }, [tab]);
 
   const onDeposit = async () => {
     setLoading(true);
-    try {
-      // TODO: open deposit modal / route to /deposit
-      await new Promise((r) => setTimeout(r, 400));
-    } finally {
-      setLoading(false);
-    }
+    try { /* TODO: open deposit modal / route */ await new Promise(r => setTimeout(r, 350)); }
+    finally { setLoading(false); }
   };
 
   const onWithdraw = async () => {
     setLoading(true);
-    try {
-      // TODO: open withdraw modal / route to /withdraw
-      await new Promise((r) => setTimeout(r, 400));
-    } finally {
-      setLoading(false);
-    }
+    try { /* TODO: open withdraw modal / route */ await new Promise(r => setTimeout(r, 350)); }
+    finally { setLoading(false); }
   };
 
   return (
-    <div className="mx-auto w-full max-w-3xl px-4 py-10">
-      {/* CARD */}
+    <div className="mx-auto w-full max-w-3xl px-4 pt-6 pb-10">
       <section className="rounded-xl border border-white/5 bg-[#111726] shadow-[0_12px_24px_-18px_rgba(0,0,0,0.6)] overflow-hidden">
 
-        {/* 1) BALANCE HEADER — premium split */}
+        {/* HEADER */}
         <header className="px-6 sm:px-8 py-5 bg-[#0F1524] border-b border-white/5">
           <div className="flex items-start justify-between gap-4">
-            {/* left: wallet badge + labels */}
             <div className="flex items-center gap-3">
               <div className="h-9 w-9 rounded-xl bg-[#111726] border border-white/10 grid place-items-center">
-                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#C87933" strokeWidth="1.8">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#C87933" strokeWidth="2.2">
                   <path strokeLinecap="round" strokeLinejoin="round" d="M3 7h18M5 6h14a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2z" />
                 </svg>
               </div>
               <div>
-                <p className="text-xs uppercase tracking-wider text-slate-400">Current balance</p>
-                <p className="text-[11px] uppercase tracking-wide text-slate-500">USD</p>
+                <p className="text-[11px] uppercase tracking-wider text-slate-400">Current balance</p>
+                <p className="text-[10px] uppercase tracking-wide text-slate-500">USD</p>
               </div>
             </div>
 
-            {/* right: refined number */}
             <div className="text-right leading-none">
               <span className="text-[42px] sm:text-[56px] font-bold tracking-tight tabular-nums text-slate-100">
                 {dollars}
@@ -85,7 +74,7 @@ export default function Wallet() {
           </div>
         </header>
 
-        {/* 2) ACTIONS */}
+        {/* ACTIONS */}
         <div className="px-6 sm:px-8 py-6 border-b border-white/5">
           <div className="flex flex-col sm:flex-row gap-2">
             <button
@@ -123,7 +112,7 @@ export default function Wallet() {
           </div>
         </div>
 
-        {/* 2.5) MICRO METRICS */}
+        {/* MICRO METRICS */}
         <div className="px-6 sm:px-8 pb-4">
           <div className="grid grid-cols-3 gap-3 text-xs sm:text-sm">
             <div className="rounded-lg bg-[#0F1524] border border-white/10 px-3 py-2">
@@ -141,7 +130,7 @@ export default function Wallet() {
           </div>
         </div>
 
-        {/* 3) ACCOUNT HEALTH */}
+        {/* ACCOUNT HEALTH */}
         <div className="px-6 sm:px-8 pb-6">
           <div className="flex items-center gap-4 rounded-lg border border-[#1b2336] bg-[#0F1524] px-4 py-3">
             <div className="flex items-center gap-4 text-xs sm:text-sm text-slate-300">
@@ -156,51 +145,52 @@ export default function Wallet() {
               </span>
             </div>
             <div className="flex-1" />
-            <button
-              type="button"
-              className="text-xs font-semibold text-[#EFB570] hover:text-[#FDE3B1] underline underline-offset-4"
-            >
+            <button type="button" className="text-xs font-semibold text-[#EFB570] hover:text-[#FDE3B1] underline underline-offset-4">
               Enable 2FA
             </button>
           </div>
         </div>
 
-        {/* 4) TRANSACTIONS */}
+        {/* TRANSACTIONS HEADER + TABS */}
         <div className="px-6 sm:px-8 pb-2 flex items-center justify-between">
           <h3 className="text-base font-semibold text-slate-200">Recent Transactions</h3>
-          <div className="flex items-center gap-2 text-xs">
+          <div className="flex items-center gap-3 text-xs">
             <button
               onClick={() => setTab("all")}
-              className={`px-1.5 py-1 text-xs font-medium transition
-                          ${tab === "all"
-                            ? "text-slate-200 underline underline-offset-8 decoration-[#C87933] decoration-2"
-                            : "text-slate-400 hover:text-slate-200"}`}
+              className={`px-1.5 py-1 font-medium transition ${
+                tab === "all"
+                  ? "text-slate-200 underline underline-offset-8 decoration-[#C87933] decoration-2"
+                  : "text-slate-400 hover:text-slate-200"
+              }`}
             >
               All
             </button>
             <button
               onClick={() => setTab("deposits")}
-              className={`px-1.5 py-1 text-xs font-medium transition
-                          ${tab === "deposits"
-                            ? "text-slate-200 underline underline-offset-8 decoration-[#C87933] decoration-2"
-                            : "text-slate-400 hover:text-slate-200"}`}
+              className={`px-1.5 py-1 font-medium transition ${
+                tab === "deposits"
+                  ? "text-slate-200 underline underline-offset-8 decoration-[#C87933] decoration-2"
+                  : "text-slate-400 hover:text-slate-200"
+              }`}
             >
               Deposits
             </button>
             <button
               onClick={() => setTab("withdrawals")}
-              className={`px-1.5 py-1 text-xs font-medium transition
-                          ${tab === "withdrawals"
-                            ? "text-slate-200 underline underline-offset-8 decoration-[#C87933] decoration-2"
-                            : "text-slate-400 hover:text-slate-200"}`}
+              className={`px-1.5 py-1 font-medium transition ${
+                tab === "withdrawals"
+                  ? "text-slate-200 underline underline-offset-8 decoration-[#C87933] decoration-2"
+                  : "text-slate-400 hover:text-slate-200"
+              }`}
             >
               Withdrawals
             </button>
           </div>
         </div>
 
+        {/* TRANSACTIONS BODY */}
         <div className="px-6 sm:px-8 pb-8">
-          {filteredTx.length === 0 ? (
+          {tx.length === 0 ? (
             <div className="flex flex-col items-center justify-center text-center gap-2 py-10 rounded-lg border border-dashed border-[#C87933]/25 bg-[#0F1524]/50">
               <div className="h-10 w-10 rounded-full bg-[#C87933]/15 grid place-items-center">
                 <svg className="w-5 h-5 text-[#C87933]" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8">
@@ -215,35 +205,35 @@ export default function Wallet() {
               <table className="w-full text-sm text-left rounded-xl overflow-hidden">
                 <thead className="bg-[#0F1524]">
                   <tr className="border-b border-[#C87933]/20">
-                    <th className="py-3 px-3 text-[#F3ECDC]/80 font-medium">Date</th>
-                    <th className="py-3 px-3 text-[#F3ECDC]/80 font-medium">Type</th>
-                    <th className="py-3 px-3 text-[#F3ECDC]/80 font-medium">Amount</th>
-                    <th className="py-3 px-3 text-[#F3ECDC]/80 font-medium">Status</th>
+                    <th className="py-2 px-3 text-[#F3ECDC]/80 font-medium">Date</th>
+                    <th className="py-2 px-3 text-[#F3ECDC]/80 font-medium">Type</th>
+                    <th className="py-2 px-3 text-[#F3ECDC]/80 font-medium">Amount</th>
+                    <th className="py-2 px-3 text-[#F3ECDC]/80 font-medium">Status</th>
                   </tr>
                 </thead>
                 <tbody className="divide-y divide-[#C87933]/12">
-                  {filteredTx.map((tx, idx) => (
+                  {tx.map((t, idx) => (
                     <tr key={idx} className="hover:bg-white/[0.03] transition-colors">
-                      <td className="py-2 px-3 text-[#F3ECDC] whitespace-nowrap">{formatTxDate(tx.date)}</td>
+                      <td className="py-2 px-3 text-[#F3ECDC] whitespace-nowrap">{formatTxDate(t.date)}</td>
                       <td className="py-2 px-3">
                         <span className={`inline-flex items-center px-2.5 py-1 rounded-full text-xs font-semibold border
-                          ${tx.type === "Deposit"
+                          ${t.type === "Deposit"
                             ? "bg-green-500/10 text-green-400 border-green-500/30"
                             : "bg-red-500/10 text-red-400 border-red-500/30"}`}>
-                          {tx.type}
+                          {t.type}
                         </span>
                       </td>
                       <td className="py-2 px-3 font-bold whitespace-nowrap">
-                        <span className={tx.amount > 0 ? "text-green-400" : "text-red-400"}>
-                          {formatTxAmount(tx.amount)}
+                        <span className={t.amount > 0 ? "text-green-400" : "text-red-400"}>
+                          {formatTxAmount(t.amount)}
                         </span>
                       </td>
                       <td className="py-2 px-3">
                         <span className={`inline-flex items-center px-2.5 py-1 rounded-full text-xs font-semibold border
-                          ${tx.status === "Completed"
+                          ${t.status === "Completed"
                             ? "bg-emerald-500/10 text-emerald-300 border-emerald-500/30"
                             : "bg-amber-500/10 text-amber-300 border-amber-500/30"}`}>
-                          {tx.status}
+                          {t.status}
                         </span>
                       </td>
                     </tr>
