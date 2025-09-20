@@ -1,4 +1,5 @@
 import React, { useState, useCallback } from "react";
+import apiService from "../services/api";
 
 const QuickAdvice = () => {
   const [question, setQuestion] = useState("");
@@ -6,43 +7,23 @@ const QuickAdvice = () => {
   const [response, setResponse] = useState(null);
   const [error, setError] = useState(null);
 
-  const handleSubmit = useCallback((event) => {
+  const handleSubmit = useCallback(async (event) => {
     event.preventDefault();
     setLoading(true);
     setError(null);
     setResponse(null);
-    const kwargs = { "user_id": localStorage.getItem("userId") };
 
-    const url = new URL("http://localhost:8000/api/v1/crew/quick-advice");
-    url.searchParams.append("args", question);
-    url.searchParams.append("user_id", localStorage); 
-    url.searchParams.append("kwargs", JSON.stringify(kwargs));
-
-    fetch(url.toString(), {
-      method: "POST", // Changed to POST since we're using query parameters
-      headers: {
-        "accept": "application/json"
-      }
-    })
-    .then(response => {
-      if (!response.ok) {
-        throw new Error("Network response was not ok");
-      }
-      return response.json();
-    })
-    .then(data => {
-      // Handle the response data
+    try {
+      const data = await apiService.crewAI.quickAdvice(question);
       console.log("Quick Advice Response:", data);
       setResponse(data);
-      setQuestion(""); // Clear the input after successful submission
-    })
-    .catch(error => {
+      setQuestion("");
+    } catch (error) {
       console.error("Error:", error);
       setError("Failed to get advice. Please try again.");
-    })
-    .finally(() => {
+    } finally {
       setLoading(false);
-    });
+    }
   }, [question]);
 
   return (

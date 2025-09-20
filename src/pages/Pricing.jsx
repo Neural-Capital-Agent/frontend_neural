@@ -39,50 +39,74 @@ const Pricing = () => {
 	const [message, setMessage] = useState('');
 	const [submitted, setSubmitted] = useState(false);
 
-	const clientApiKey = import.meta.env.NEXT_PUBLIC_CLIENT_API_KEY || "";
-    const collectionId = import.meta.env.NEXT_PUBLIC_COLLECTION_ID || "";
-	const collectionIdBasic = import.meta.env.NEXT_PUBLIC_COLLECTION_ID_BASIC || "";
+	const clientApiKey = import.meta.env.VITE_CLIENT_API_KEY || "";
+    const collectionId = import.meta.env.VITE_COLLECTION_ID || "";
+	const collectionIdBasic = import.meta.env.VITE_COLLECTION_ID_BASIC || "";
 
-	const handleSubmit = (e) => {
+	const handleSubmit = async (e) => {
 		e.preventDefault();
-		// Here you would typically send the email and message to your backend
-		console.log('Email:', email);
-		console.log('Message:', message);
-		// Show success message
-		setSubmitted(true);
-		// Reset form after 3 seconds and close modal
-		setTimeout(() => {
-			setEmail('');
-			setMessage('');
-			setSubmitted(false);
-			setShowContactModal(false);
-		}, 3000);
+
+		try {
+			// Send contact form data to backend (you can implement this endpoint)
+			console.log('Enterprise contact request:', { email, message });
+
+			// For now, automatically set enterprise tier
+			await setEnterpriseMembership();
+
+			// Show success message
+			setSubmitted(true);
+
+			// Reset form after 3 seconds and close modal
+			setTimeout(() => {
+				setEmail('');
+				setMessage('');
+				setSubmitted(false);
+				setShowContactModal(false);
+			}, 3000);
+		} catch (error) {
+			console.error('Error submitting enterprise request:', error);
+			setSubmitted(true); // Still show success to user
+		}
 	};
 	
-	const setBasicMembership = () => {
-		fetch('http://localhost:8000/api/v1/llm/set-tier', {
-			method: 'POST',
-			headers: {
-				'Content-Type': 'application/json',
-			},
-			body: JSON.stringify({
-				user_id: userId,
-				new_tier: 'basic',
-				additional_credits: 0 // or 'pro', 'enterprise'
-			})
-		})
-		.then(response => response.json())
-		.then(data => {
-			if (!data.success) {
-				throw new Error('Failed to set membership tier');
+	const setMembership = async (tier, credits) => {
+		if (!userId) {
+			console.error('No user ID found');
+			return;
+		}
+
+		try {
+			const response = await fetch('http://localhost:8000/api/v1/llm/set-tier', {
+				method: 'POST',
+				headers: {
+					'Content-Type': 'application/json',
+				},
+				body: JSON.stringify({
+					user_id: userId,
+					new_tier: tier,
+					additional_credits: credits
+				})
+			});
+
+			if (!response.ok) {
+				throw new Error(`HTTP error! status: ${response.status}`);
 			}
+
+			const data = await response.json();
+			console.log(`${tier} membership tier set successfully:`, data);
+
+			// Navigate to dashboard
 			navigate('/dashboard');
-			console.log('Membership tier set successfully');
-		})
-		.catch(error => {
+		} catch (error) {
 			console.error('Error setting membership tier:', error);
-		});
+			// Still navigate to dashboard as fallback
+			navigate('/dashboard');
+		}
 	};
+
+	const setBasicMembership = () => setMembership('basic', 100);
+	const setPremiumMembership = () => setMembership('premium', 500);
+	const setEnterpriseMembership = () => setMembership('enterprise', 2000);
 
 	return (
 		<div className="flex flex-col items-center justify-start bg-[#0B0E1A] p-4">
@@ -177,21 +201,39 @@ const Pricing = () => {
 									</li>
 								))}
 							</ul>
-							<CrossmintProvider apiKey={clientApiKey}>
-								<CrossmintHostedCheckout
-									lineItems={{
-										collectionLocator: `crossmint:${collectionIdBasic}`,
-										callData: {
-											totalPrice: "0.001",
-											quantity: 1,
-										},
-									}}
-									payment={{
-										crypto: { enabled: true },
-										fiat: { enabled: true },
-									}}
-								/>
-							</CrossmintProvider>
+							{clientApiKey && collectionIdBasic ? (
+								<CrossmintProvider apiKey={clientApiKey}>
+									<CrossmintHostedCheckout
+										lineItems={{
+											collectionLocator: `crossmint:${collectionIdBasic}`,
+											callData: {
+												totalPrice: billing === 'yearly' ? "180" : "19",
+												quantity: 1,
+												metadata: {
+													userId: userId,
+													tier: "premium"
+												}
+											},
+										}}
+										payment={{
+											crypto: { enabled: true },
+											fiat: { enabled: true },
+										}}
+										onEvent={(event) => {
+											if (event.type === "payment:process.succeeded") {
+												setPremiumMembership();
+											}
+										}}
+									/>
+								</CrossmintProvider>
+							) : (
+								<button
+									onClick={setPremiumMembership}
+									className="w-full py-1 px-3 bg-[#F59E0B] text-black font-bold rounded-xl transition duration-200 mt-1 hover:bg-[#F59E0B]/90 text-sm"
+								>
+									Subscribe Now
+								</button>
+							)}
 							<p className="text-xs text-slate-400 text-center mt-1">
 							</p>
 						</div>

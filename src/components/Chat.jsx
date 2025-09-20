@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import apiService from '../services/api';
 
 const Chat = () => {
   const [message, setMessage] = useState('');
@@ -30,49 +31,44 @@ const Chat = () => {
     setMessage('');
 
 
-    fetch(`http://localhost:8000/api/v1/llm/parse-goal?goal_text=${encodeURIComponent(message)}&user_id=${encodeURIComponent(userId)}`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json"
-      }
-    })
-    .then(response => response.json())
-    .then(data => {
-      // Handle LLM response
-      let responseMessage = "Sorry, I couldn't process that request.";
-      
-      if (data && Object.keys(data).length > 0) {
-        // Format the structured data for display
-        responseMessage = "I've analyzed your financial goal:\n\n";
-        
-        // Format the response object into a readable message
-        Object.entries(data).forEach(([key, value]) => {
-          if (typeof value === 'object') {
-            responseMessage += `${key}: ${JSON.stringify(value, null, 2)}\n`;
-          } else {
-            responseMessage += `${key}: ${value}\n`;
-          }
-        });
-      }
-      
-      const aiResponse = {
-        id: chatHistory.length + 2,
-        sender: 'ai',
-        message: responseMessage,
-        timestamp: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
-      };
-      setChatHistory(prev => [...prev, aiResponse]);
-    })
-    .catch(error => {
-      console.error("Error:", error);
-      const errorResponse = {
-        id: chatHistory.length + 2,
-        sender: 'ai',
-        message: "I'm sorry, I encountered an error while processing your request. Please try again later.",
-        timestamp: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
-      };
-      setChatHistory(prev => [...prev, errorResponse]);
-    });
+    // Use the API service to parse the goal
+    apiService.plannerAgent.parseGoal(message, userId)
+      .then(data => {
+        // Handle LLM response
+        let responseMessage = "Sorry, I couldn't process that request.";
+
+        if (data && Object.keys(data).length > 0) {
+          // Format the structured data for display
+          responseMessage = "I've analyzed your financial goal:\n\n";
+
+          // Format the response object into a readable message
+          Object.entries(data).forEach(([key, value]) => {
+            if (typeof value === 'object') {
+              responseMessage += `${key}: ${JSON.stringify(value, null, 2)}\n`;
+            } else {
+              responseMessage += `${key}: ${value}\n`;
+            }
+          });
+        }
+
+        const aiResponse = {
+          id: chatHistory.length + 2,
+          sender: 'ai',
+          message: responseMessage,
+          timestamp: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
+        };
+        setChatHistory(prev => [...prev, aiResponse]);
+      })
+      .catch(error => {
+        console.error("Error:", error);
+        const errorResponse = {
+          id: chatHistory.length + 2,
+          sender: 'ai',
+          message: "I'm sorry, I encountered an error while processing your request. Please try again later.",
+          timestamp: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
+        };
+        setChatHistory(prev => [...prev, errorResponse]);
+      });
   };
 
   return (
