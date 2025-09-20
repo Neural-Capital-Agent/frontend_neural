@@ -9,7 +9,7 @@ const Chat = () => {
     { 
       id: 1, 
       sender: 'ai', 
-      message: 'Hello! I\'m your Neural Broker AI assistant. Which are your investment goals?',
+      message: 'Hello! I\'m your Neural Broker AI assistant.',
       timestamp: '9:30 AM'
     }
   ]);

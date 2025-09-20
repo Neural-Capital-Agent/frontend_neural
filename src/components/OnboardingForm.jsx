@@ -6,7 +6,7 @@ const OnboardingForm = () => {
   const navigate = useNavigate();
   const [chatHistory, setChatHistory] = useState([
     {
-      id: 1,
+      id: `ai-initial-${Date.now()}`,
       sender: 'ai',
       message: "Welcome to Neural Broker! I'm here to help you set up your personalized investment profile. Let's start with your primary investment goal.",
       timestamp: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
@@ -207,7 +207,7 @@ const OnboardingForm = () => {
 
     // Add user response to chat
     const userMessage = {
-      id: chatHistory.length + 1,
+      id: `user-${Date.now()}-${Math.random().toString(36).substr(2, 5)}`,
       sender: 'user',
       message: response,
       timestamp: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
@@ -242,7 +242,7 @@ const OnboardingForm = () => {
         setTimeout(() => {
           const nextQ = questions[currentQuestion + 1];
           const aiMessage = {
-            id: chatHistory.length + 2,
+            id: `ai-${Date.now()}-${Math.random().toString(36).substr(2, 5)}`,
             sender: 'ai',
             message: nextQ.message,
             timestamp: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
@@ -260,7 +260,7 @@ const OnboardingForm = () => {
       // Complete onboarding
       setTimeout(() => {
         const completionMessage = {
-          id: chatHistory.length + 2,
+          id: `ai-completion-${Date.now()}-${Math.random().toString(36).substr(2, 5)}`,
           sender: 'ai',
           message: "Perfect! I've collected all your investment preferences. Let me create your personalized portfolio strategy.",
           timestamp: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
@@ -275,26 +275,35 @@ const OnboardingForm = () => {
   };
 
   const handleSubmit = async (data) => {
-    try {
-      const response = await fetch(`http://localhost:8000/api/v1/user/${userId}/setup`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(data)
-      });
-
-      if (!response.ok) {
-        throw new Error('Network response was not ok');
-      }
-      const result = await response.json();
-      // Navigate to dashboard or next step
-      setTimeout(() => {
-        navigate('/dashboard');
-      }, 2000);
-    } catch (error) {
-      console.error('Error submitting form:', error);
+   try {
+    // Use proper await syntax instead of mixing await with .then()
+    const response = await fetch(`http://localhost:8000/api/v1/user/${userId}/setup`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(data)
+    });
+    
+    // Check if the response is ok before proceeding
+    if (!response.ok) {
+      throw new Error('Network response was not ok');
     }
+    
+    const responseData = await response.json();
+    console.log('Response:', responseData); // Add logging to debug
+    
+    if (responseData.preferences_id) {
+      console.log('Navigation triggered to /dashboard');
+      navigate('/pricing'); // Use navigate instead of reloadpage
+    } else {
+      console.error('Missing preferences_id in response:', responseData);
+      throw new Error('Invalid response format');
+    }
+  } catch (error) {
+    console.error('Error submitting form:', error);
+    // Consider showing an error message to the user here
+  }
   };
 
   const renderChatMessage = (message) => {

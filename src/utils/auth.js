@@ -1,9 +1,8 @@
-const userid = localStorage.getItem('userid');
-fetch(`http://localhost:8000/api/user/${userid}/profile`)
-  .then(response => response.json())
-  .then(data => {
-    // Handle the user profile data
-  })
-  .catch(error => {
-    console.error('Error fetching user profile:', error);
-  });
+const userid = localStorage.getItem('userId');
+const checkUserSetup = async () => {
+  const response = await fetch(`http://localhost:8000/api/v1/user/${userid}/setup`);
+  const data = await response.json();
+  return data === true;
+};
+
+export {checkUserSetup};
