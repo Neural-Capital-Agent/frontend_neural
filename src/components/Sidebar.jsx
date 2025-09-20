@@ -11,10 +11,9 @@ const Sidebar = () => {
   
   const menuItems = [
     { name: 'Dashboard', path: '/dashboard', icon: HomeIcon },
-    { name: 'Portfolio', path: '/stocks', icon: ChartBarIcon },
-    { name: 'Wallet', path: '/wallet', icon: DocumentReportIcon },
+    { name: 'Market', path: '/stocks', icon: ChartBarIcon }, 
     { name: 'Account', path: '/profile', icon: UserIcon },
-    { name: 'Settings Market', path: '/settings', icon: CogIcon },
+    { name: 'Macro Info', path: '/settings', icon: DocumentReportIcon },
     { name: 'Plans & Pricing', path: '/pricing', icon: ChatIcon },
   ];
 

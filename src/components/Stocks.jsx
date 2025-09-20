@@ -22,7 +22,21 @@ const Stocks = () => {
       <div className="flex justify-between items-center mb-8">
         <h2 className="text-2xl font-semibold text-[#F3ECDC] tracking-wide">Market Overview</h2>
         <div className="flex space-x-2">
+          <div className="px-3 py-1 bg-[#C87933]/10 border border-[#C87933]/30 rounded-md text-xs text-[#F3ECDC]">
+            <span className="flex items-center">
+              <svg xmlns="http://www.w3.org/2000/svg" className="h-3 w-3 mr-1 text-[#C87933]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+              </svg>
+              Demo Data
+            </span>
+          </div>
         </div>
+      </div>
+      
+      <div className="bg-[#0A0F1C]/50 border border-[#C87933]/10 rounded-lg p-3 mb-4">
+        <p className="text-sm text-[#9BA4B5] italic">
+          <span className="text-[#C87933] font-medium">Note:</span> This market overview displays a limited selection of assets for demonstration purposes. The full version will include comprehensive market data.
+        </p>
       </div>
       
       <div className="overflow-x-auto">
@@ -40,9 +54,6 @@ const Stocks = () => {
               </th>
               <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-[#9BA4B5] uppercase tracking-wider">
                 Change
-              </th>
-              <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-[#9BA4B5] uppercase tracking-wider">
-                Actions
               </th>
             </tr>
           </thead>
@@ -68,11 +79,7 @@ const Stocks = () => {
                     {stock.change >= 0 ? '▲' : '▼'} {Math.abs(stock.change).toFixed(2)} ({Math.abs(stock.changePercent).toFixed(2)}%)
                   </div>
                 </td>
-                <td className="px-6 py-4 whitespace-nowrap text-sm">
-                  <button className="text-[#C87933] hover:text-[#D98324] transition-colors mr-3 focus:outline-none focus:ring-2 focus:ring-[#F3ECDC]/60 focus:ring-offset-1 focus:ring-offset-[#C87933] rounded-md">Buy</button>
-                  <button className="text-[#C87933] hover:text-[#D98324] transition-colors mr-3 focus:outline-none focus:ring-2 focus:ring-[#F3ECDC]/60 focus:ring-offset-1 focus:ring-offset-[#C87933] rounded-md">Sell</button>
-                  <button className="text-[#9BA4B5] hover:text-[#F3ECDC] transition-colors focus:outline-none focus:ring-2 focus:ring-[#F3ECDC]/60 focus:ring-offset-1 focus:ring-offset-[#C87933] rounded-md">Watch</button>
-                </td>
+               
               </tr>
             ))}
           </tbody>
