@@ -1,5 +1,4 @@
 import react from 'react';
-import QuickAdvice from './QuickAnalisis';
 import MarketTools from './MarketTools';  
 
 const TierStatus = ({ memberShipData}) => {
@@ -16,8 +15,7 @@ const TierStatus = ({ memberShipData}) => {
         <div className="mb-6">
             <p>Credits remaining: {memberShipData.credits_remaining}</p>
         </div>
-        <MarketTools />
-         <QuickAdvice />
+        <MarketTools typeTier={memberShipData.tier} />
         </div>
     );
     }else

@@ -1,4 +1,6 @@
 import React, { useState } from 'react';
+import QuickAdvice from './QuickAnalisis';
+import PlanCreator from './PlanCreator';
 
 const MarketTools = () => {
   const [activeCard, setActiveCard] = useState(null);
@@ -6,10 +8,16 @@ const MarketTools = () => {
   // Tool cards data
   const tools = [
     {
-      id: 'market-analysis',
-      title: 'Market Analysis',
-      description: 'Advanced analytics and trend detection for major market indices and sectors',
-      component: <MarketAnalysisComponent />
+      id: 'quick-advice',
+      title: 'Quick Advice',
+      description: 'Get instant insights and recommendations for your investments',
+      component: <QuickAdvice />
+    },
+    {
+      id: 'create-a-plan',
+      title: 'Plan Creator',
+      description: 'Comprehensive market analysis with charts and trends',
+      component: <PlanCreator />
     },
     {
       id: 'portfolio-advisory',
@@ -53,23 +61,20 @@ const MarketTools = () => {
   };
 
   return (
-    <div className="container mx-auto px-4 py-8">
-      <h2 className="text-3xl font-bold text-white mb-8 text-center">Market Tools</h2>
-      
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
+    <div className="container mx-auto px-2 py-2">
+      <div className="grid grid-cols-4 sm:grid-cols-4 md:grid-cols-4 lg:grid-cols-6 gap-3 mb-3">
         {activeCard === null ? (
-          // Show all cards when none is active
           tools.map(tool => (
             <div key={tool.id} className="flex flex-col">
               <div 
-                className="bg-[#1A1D29] rounded-xl shadow-lg p-6 cursor-pointer transition-all duration-300 h-full hover:shadow-md hover:shadow-[#F59E0B]/10"
+                className="bg-[#1A1D29] rounded-md shadow-md p-3 cursor-pointer transition-all duration-300 aspect-square flex flex-col justify-between hover:shadow-sm hover:shadow-[#F59E0B]/10"
                 onClick={() => handleCardClick(tool.id)}
               >
-                <h3 className="text-xl font-semibold text-white mb-4">{tool.title}</h3>
-                <p className="text-slate-300 mb-4">{tool.description}</p>
-                <div className="mt-auto flex justify-end">
-                  <span className="text-[#F59E0B] text-sm font-medium">
-                    Click to open
+                <h3 className="text-base font-semibold text-white">{tool.title}</h3>
+                <p className="text-slate-300 text-xs flex-grow mt-1 line-clamp-3">{tool.description}</p>
+                <div className="mt-1 flex justify-center">
+                  <span className="text-[#F59E0B] text-xs font-medium bg-[#10131C] px-2 py-0.5 rounded-md">
+                    Open
                   </span>
                 </div>
               </div>
@@ -78,10 +83,10 @@ const MarketTools = () => {
         ) : (
           // Show only the active card and its content
           <>
-            <div className="col-span-full mb-4">
+            <div className="col-span-full mb-2">
               <button 
                 onClick={() => setActiveCard(null)}
-                className="text-[#F59E0B] flex items-center mb-4 hover:underline"
+                className="text-[#F59E0B] hover:underline bg-[#1A1D29] px-2 py-1 rounded-md text-xs"
               >
                 Back to all tools
               </button>
@@ -89,12 +94,12 @@ const MarketTools = () => {
             
             {tools.filter(tool => tool.id === activeCard).map(tool => (
               <div key={tool.id} className="col-span-full animate-fadeIn">
-                <div className="bg-[#1A1D29] rounded-xl shadow-lg p-6 mb-4 ring-2 ring-[#F59E0B] shadow-[#F59E0B]/20">
-                  <h3 className="text-xl font-semibold text-white mb-4">{tool.title}</h3>
-                  <p className="text-slate-300">{tool.description}</p>
+                <div className="bg-[#1A1D29] rounded-md shadow-md p-3 mb-2 ring-1 ring-[#F59E0B] shadow-[#F59E0B]/20">
+                  <h3 className="text-lg font-semibold text-white mb-1 text-center">{tool.title}</h3>
+                  <p className="text-slate-300 text-center max-w-2xl mx-auto text-xs">{tool.description}</p>
                 </div>
                 
-                <div className="bg-[#10131C] border border-[#2D3348] rounded-xl p-6 shadow-lg animate-fadeIn">
+                <div className="bg-[#10131C] border border-[#2D3348] rounded-md p-3 shadow-md animate-fadeIn">
                   {tool.component}
                 </div>
               </div>

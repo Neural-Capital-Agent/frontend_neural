@@ -15,7 +15,7 @@ const QuickAdvice = () => {
 
     const url = new URL("http://localhost:8000/api/v1/crew/quick-advice");
     url.searchParams.append("args", question);
-    url.searchParams.append("user_id", localStorage.getItem("userId")); 
+    url.searchParams.append("user_id", localStorage); 
     url.searchParams.append("kwargs", JSON.stringify(kwargs));
 
     fetch(url.toString(), {
@@ -47,11 +47,6 @@ const QuickAdvice = () => {
 
   return (
     <div className="bg-[#1A1D29] rounded-2xl shadow-lg p-6 max-w-3xl mx-auto">
-      <h2 className="text-2xl font-bold text-white mb-4">Quick Analysis</h2>
-      <p className="text-slate-300 mb-6">
-        Ask any financial or investment question and get an instant analysis.
-      </p>
-
       <form onSubmit={handleSubmit} className="space-y-4">
         <div>
           <label htmlFor="question" className="block text-sm font-medium text-slate-300 mb-2">
