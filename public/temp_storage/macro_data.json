@@ -1,0 +1,2412 @@
+{
+  "indicators": {
+    "GDP": [
+      {
+        "indicator": "GDP",
+        "value": 30353.902,
+        "date": "2025-04-01T00:00:00",
+        "frequency": "daily"
+      },
+      {
+        "indicator": "GDP",
+        "value": 29962.047,
+        "date": "2025-01-01T00:00:00",
+        "frequency": "daily"
+      },
+      {
+        "indicator": "GDP",
+        "value": 29723.864,
+        "date": "2024-10-01T00:00:00",
+        "frequency": "daily"
+      },
+      {
+        "indicator": "GDP",
+        "value": 29374.914,
+        "date": "2024-07-01T00:00:00",
+        "frequency": "daily"
+      },
+      {
+        "indicator": "GDP",
+        "value": 29016.714,
+        "date": "2024-04-01T00:00:00",
+        "frequency": "daily"
+      },
+      {
+        "indicator": "GDP",
+        "value": 28624.069,
+        "date": "2024-01-01T00:00:00",
+        "frequency": "daily"
+      },
+      {
+        "indicator": "GDP",
+        "value": 28296.967,
+        "date": "2023-10-01T00:00:00",
+        "frequency": "daily"
+      },
+      {
+        "indicator": "GDP",
+        "value": 27967.697,
+        "date": "2023-07-01T00:00:00",
+        "frequency": "daily"
+      },
+      {
+        "indicator": "GDP",
+        "value": 27453.815,
+        "date": "2023-04-01T00:00:00",
+        "frequency": "daily"
+      },
+      {
+        "indicator": "GDP",
+        "value": 27164.359,
+        "date": "2023-01-01T00:00:00",
+        "frequency": "daily"
+      },
+      {
+        "indicator": "GDP",
+        "value": 26734.277,
+        "date": "2022-10-01T00:00:00",
+        "frequency": "daily"
+      },
+      {
+        "indicator": "GDP",
+        "value": 26272.011,
+        "date": "2022-07-01T00:00:00",
+        "frequency": "daily"
+      },
+      {
+        "indicator": "GDP",
+        "value": 25805.791,
+        "date": "2022-04-01T00:00:00",
+        "frequency": "daily"
+      },
+      {
+        "indicator": "GDP",
+        "value": 25215.491,
+        "date": "2022-01-01T00:00:00",
+        "frequency": "daily"
+      },
+      {
+        "indicator": "GDP",
+        "value": 24777.038,
+        "date": "2021-10-01T00:00:00",
+        "frequency": "daily"
+      },
+      {
+        "indicator": "GDP",
+        "value": 23921.991,
+        "date": "2021-07-01T00:00:00",
+        "frequency": "daily"
+      },
+      {
+        "indicator": "GDP",
+        "value": 23368.861,
+        "date": "2021-04-01T00:00:00",
+        "frequency": "daily"
+      },
+      {
+        "indicator": "GDP",
+        "value": 22656.793,
+        "date": "2021-01-01T00:00:00",
+        "frequency": "daily"
+      },
+      {
+        "indicator": "GDP",
+        "value": 22068.767,
+        "date": "2020-10-01T00:00:00",
+        "frequency": "daily"
+      },
+      {
+        "indicator": "GDP",
+        "value": 21684.551,
+        "date": "2020-07-01T00:00:00",
+        "frequency": "daily"
+      },
+      {
+        "indicator": "GDP",
+        "value": 19935.444,
+        "date": "2020-04-01T00:00:00",
+        "frequency": "daily"
+      },
+      {
+        "indicator": "GDP",
+        "value": 21727.657,
+        "date": "2020-01-01T00:00:00",
+        "frequency": "daily"
+      },
+      {
+        "indicator": "GDP",
+        "value": 21933.217,
+        "date": "2019-10-01T00:00:00",
+        "frequency": "daily"
+      },
+      {
+        "indicator": "GDP",
+        "value": 21717.171,
+        "date": "2019-07-01T00:00:00",
+        "frequency": "daily"
+      },
+      {
+        "indicator": "GDP",
+        "value": 21397.938,
+        "date": "2019-04-01T00:00:00",
+        "frequency": "daily"
+      },
+      {
+        "indicator": "GDP",
+        "value": 21111.6,
+        "date": "2019-01-01T00:00:00",
+        "frequency": "daily"
+      },
+      {
+        "indicator": "GDP",
+        "value": 20917.867,
+        "date": "2018-10-01T00:00:00",
+        "frequency": "daily"
+      },
+      {
+        "indicator": "GDP",
+        "value": 20798.73,
+        "date": "2018-07-01T00:00:00",
+        "frequency": "daily"
+      },
+      {
+        "indicator": "GDP",
+        "value": 20580.912,
+        "date": "2018-04-01T00:00:00",
+        "frequency": "daily"
+      },
+      {
+        "indicator": "GDP",
+        "value": 20328.553,
+        "date": "2018-01-01T00:00:00",
+        "frequency": "daily"
+      },
+      {
+        "indicator": "GDP",
+        "value": 20037.088,
+        "date": "2017-10-01T00:00:00",
+        "frequency": "daily"
+      },
+      {
+        "indicator": "GDP",
+        "value": 19692.595,
+        "date": "2017-07-01T00:00:00",
+        "frequency": "daily"
+      },
+      {
+        "indicator": "GDP",
+        "value": 19438.643,
+        "date": "2017-04-01T00:00:00",
+        "frequency": "daily"
+      },
+      {
+        "indicator": "GDP",
+        "value": 19280.084,
+        "date": "2017-01-01T00:00:00",
+        "frequency": "daily"
+      },
+      {
+        "indicator": "GDP",
+        "value": 19089.379,
+        "date": "2016-10-01T00:00:00",
+        "frequency": "daily"
+      },
+      {
+        "indicator": "GDP",
+        "value": 18892.639,
+        "date": "2016-07-01T00:00:00",
+        "frequency": "daily"
+      },
+      {
+        "indicator": "GDP",
+        "value": 18711.702,
+        "date": "2016-04-01T00:00:00",
+        "frequency": "daily"
+      },
+      {
+        "indicator": "GDP",
+        "value": 18525.933,
+        "date": "2016-01-01T00:00:00",
+        "frequency": "daily"
+      },
+      {
+        "indicator": "GDP",
+        "value": 18435.137,
+        "date": "2015-10-01T00:00:00",
+        "frequency": "daily"
+      },
+      {
+        "indicator": "GDP",
+        "value": 18401.626,
+        "date": "2015-07-01T00:00:00",
+        "frequency": "daily"
+      },
+      {
+        "indicator": "GDP",
+        "value": 18279.784,
+        "date": "2015-04-01T00:00:00",
+        "frequency": "daily"
+      },
+      {
+        "indicator": "GDP",
+        "value": 18063.529,
+        "date": "2015-01-01T00:00:00",
+        "frequency": "daily"
+      },
+      {
+        "indicator": "GDP",
+        "value": 17912.079,
+        "date": "2014-10-01T00:00:00",
+        "frequency": "daily"
+      },
+      {
+        "indicator": "GDP",
+        "value": 17804.228,
+        "date": "2014-07-01T00:00:00",
+        "frequency": "daily"
+      },
+      {
+        "indicator": "GDP",
+        "value": 17518.508,
+        "date": "2014-04-01T00:00:00",
+        "frequency": "daily"
+      },
+      {
+        "indicator": "GDP",
+        "value": 17197.738,
+        "date": "2014-01-01T00:00:00",
+        "frequency": "daily"
+      },
+      {
+        "indicator": "GDP",
+        "value": 17192.019,
+        "date": "2013-10-01T00:00:00",
+        "frequency": "daily"
+      },
+      {
+        "indicator": "GDP",
+        "value": 16953.838,
+        "date": "2013-07-01T00:00:00",
+        "frequency": "daily"
+      },
+      {
+        "indicator": "GDP",
+        "value": 16728.687,
+        "date": "2013-04-01T00:00:00",
+        "frequency": "daily"
+      },
+      {
+        "indicator": "GDP",
+        "value": 16648.189,
+        "date": "2013-01-01T00:00:00",
+        "frequency": "daily"
+      },
+      {
+        "indicator": "GDP",
+        "value": 16420.419,
+        "date": "2012-10-01T00:00:00",
+        "frequency": "daily"
+      },
+      {
+        "indicator": "GDP",
+        "value": 16319.541,
+        "date": "2012-07-01T00:00:00",
+        "frequency": "daily"
+      },
+      {
+        "indicator": "GDP",
+        "value": 16207.115,
+        "date": "2012-04-01T00:00:00",
+        "frequency": "daily"
+      },
+      {
+        "indicator": "GDP",
+        "value": 16068.805,
+        "date": "2012-01-01T00:00:00",
+        "frequency": "daily"
+      },
+      {
+        "indicator": "GDP",
+        "value": 15842.259,
+        "date": "2011-10-01T00:00:00",
+        "frequency": "daily"
+      },
+      {
+        "indicator": "GDP",
+        "value": 15647.68,
+        "date": "2011-07-01T00:00:00",
+        "frequency": "daily"
+      },
+      {
+        "indicator": "GDP",
+        "value": 15557.539,
+        "date": "2011-04-01T00:00:00",
+        "frequency": "daily"
+      },
+      {
+        "indicator": "GDP",
+        "value": 15351.448,
+        "date": "2011-01-01T00:00:00",
+        "frequency": "daily"
+      },
+      {
+        "indicator": "GDP",
+        "value": 15309.474,
+        "date": "2010-10-01T00:00:00",
+        "frequency": "daily"
+      },
+      {
+        "indicator": "GDP",
+        "value": 15141.607,
+        "date": "2010-07-01T00:00:00",
+        "frequency": "daily"
+      },
+      {
+        "indicator": "GDP",
+        "value": 14980.193,
+        "date": "2010-04-01T00:00:00",
+        "frequency": "daily"
+      },
+      {
+        "indicator": "GDP",
+        "value": 14764.61,
+        "date": "2010-01-01T00:00:00",
+        "frequency": "daily"
+      },
+      {
+        "indicator": "GDP",
+        "value": 14651.249,
+        "date": "2009-10-01T00:00:00",
+        "frequency": "daily"
+      },
+      {
+        "indicator": "GDP",
+        "value": 14448.882,
+        "date": "2009-07-01T00:00:00",
+        "frequency": "daily"
+      },
+      {
+        "indicator": "GDP",
+        "value": 14381.236,
+        "date": "2009-04-01T00:00:00",
+        "frequency": "daily"
+      },
+      {
+        "indicator": "GDP",
+        "value": 14430.902,
+        "date": "2009-01-01T00:00:00",
+        "frequency": "daily"
+      },
+      {
+        "indicator": "GDP",
+        "value": 14608.209,
+        "date": "2008-10-01T00:00:00",
+        "frequency": "daily"
+      },
+      {
+        "indicator": "GDP",
+        "value": 14898.999,
+        "date": "2008-07-01T00:00:00",
+        "frequency": "daily"
+      },
+      {
+        "indicator": "GDP",
+        "value": 14865.701,
+        "date": "2008-04-01T00:00:00",
+        "frequency": "daily"
+      },
+      {
+        "indicator": "GDP",
+        "value": 14706.538,
+        "date": "2008-01-01T00:00:00",
+        "frequency": "daily"
+      },
+      {
+        "indicator": "GDP",
+        "value": 14715.058,
+        "date": "2007-10-01T00:00:00",
+        "frequency": "daily"
+      },
+      {
+        "indicator": "GDP",
+        "value": 14564.117,
+        "date": "2007-07-01T00:00:00",
+        "frequency": "daily"
+      },
+      {
+        "indicator": "GDP",
+        "value": 14402.082,
+        "date": "2007-04-01T00:00:00",
+        "frequency": "daily"
+      },
+      {
+        "indicator": "GDP",
+        "value": 14215.651,
+        "date": "2007-01-01T00:00:00",
+        "frequency": "daily"
+      },
+      {
+        "indicator": "GDP",
+        "value": 14039.56,
+        "date": "2006-10-01T00:00:00",
+        "frequency": "daily"
+      },
+      {
+        "indicator": "GDP",
+        "value": 13870.188,
+        "date": "2006-07-01T00:00:00",
+        "frequency": "daily"
+      },
+      {
+        "indicator": "GDP",
+        "value": 13753.424,
+        "date": "2006-04-01T00:00:00",
+        "frequency": "daily"
+      },
+      {
+        "indicator": "GDP",
+        "value": 13599.16,
+        "date": "2006-01-01T00:00:00",
+        "frequency": "daily"
+      },
+      {
+        "indicator": "GDP",
+        "value": 13324.204,
+        "date": "2005-10-01T00:00:00",
+        "frequency": "daily"
+      },
+      {
+        "indicator": "GDP",
+        "value": 13142.642,
+        "date": "2005-07-01T00:00:00",
+        "frequency": "daily"
+      },
+      {
+        "indicator": "GDP",
+        "value": 12922.656,
+        "date": "2005-04-01T00:00:00",
+        "frequency": "daily"
+      },
+      {
+        "indicator": "GDP",
+        "value": 12767.286,
+        "date": "2005-01-01T00:00:00",
+        "frequency": "daily"
+      },
+      {
+        "indicator": "GDP",
+        "value": 12527.214,
+        "date": "2004-10-01T00:00:00",
+        "frequency": "daily"
+      },
+      {
+        "indicator": "GDP",
+        "value": 12305.307,
+        "date": "2004-07-01T00:00:00",
+        "frequency": "daily"
+      },
+      {
+        "indicator": "GDP",
+        "value": 12112.815,
+        "date": "2004-04-01T00:00:00",
+        "frequency": "daily"
+      },
+      {
+        "indicator": "GDP",
+        "value": 11923.447,
+        "date": "2004-01-01T00:00:00",
+        "frequency": "daily"
+      },
+      {
+        "indicator": "GDP",
+        "value": 11772.234,
+        "date": "2003-10-01T00:00:00",
+        "frequency": "daily"
+      },
+      {
+        "indicator": "GDP",
+        "value": 11566.669,
+        "date": "2003-07-01T00:00:00",
+        "frequency": "daily"
+      },
+      {
+        "indicator": "GDP",
+        "value": 11312.766,
+        "date": "2003-04-01T00:00:00",
+        "frequency": "daily"
+      },
+      {
+        "indicator": "GDP",
+        "value": 11174.129,
+        "date": "2003-01-01T00:00:00",
+        "frequency": "daily"
+      },
+      {
+        "indicator": "GDP",
+        "value": 11061.433,
+        "date": "2002-10-01T00:00:00",
+        "frequency": "daily"
+      },
+      {
+        "indicator": "GDP",
+        "value": 10984.04,
+        "date": "2002-07-01T00:00:00",
+        "frequency": "daily"
+      },
+      {
+        "indicator": "GDP",
+        "value": 10887.46,
+        "date": "2002-04-01T00:00:00",
+        "frequency": "daily"
+      },
+      {
+        "indicator": "GDP",
+        "value": 10783.5,
+        "date": "2002-01-01T00:00:00",
+        "frequency": "daily"
+      },
+      {
+        "indicator": "GDP",
+        "value": 10660.465,
+        "date": "2001-10-01T00:00:00",
+        "frequency": "daily"
+      },
+      {
+        "indicator": "GDP",
+        "value": 10598.02,
+        "date": "2001-07-01T00:00:00",
+        "frequency": "daily"
+      },
+      {
+        "indicator": "GDP",
+        "value": 10599.0,
+        "date": "2001-04-01T00:00:00",
+        "frequency": "daily"
+      },
+      {
+        "indicator": "GDP",
+        "value": 10470.231,
+        "date": "2001-01-01T00:00:00",
+        "frequency": "daily"
+      },
+      {
+        "indicator": "GDP",
+        "value": 10435.744,
+        "date": "2000-10-01T00:00:00",
+        "frequency": "daily"
+      },
+      {
+        "indicator": "GDP",
+        "value": 10318.165,
+        "date": "2000-07-01T00:00:00",
+        "frequency": "daily"
+      }
+    ],
+    "INFLATION": [
+      {
+        "indicator": "INFLATION",
+        "value": 323.976,
+        "date": "2025-08-01T00:00:00",
+        "frequency": "daily"
+      },
+      {
+        "indicator": "INFLATION",
+        "value": 323.048,
+        "date": "2025-07-01T00:00:00",
+        "frequency": "daily"
+      },
+      {
+        "indicator": "INFLATION",
+        "value": 322.561,
+        "date": "2025-06-01T00:00:00",
+        "frequency": "daily"
+      },
+      {
+        "indicator": "INFLATION",
+        "value": 321.465,
+        "date": "2025-05-01T00:00:00",
+        "frequency": "daily"
+      },
+      {
+        "indicator": "INFLATION",
+        "value": 320.795,
+        "date": "2025-04-01T00:00:00",
+        "frequency": "daily"
+      },
+      {
+        "indicator": "INFLATION",
+        "value": 319.799,
+        "date": "2025-03-01T00:00:00",
+        "frequency": "daily"
+      },
+      {
+        "indicator": "INFLATION",
+        "value": 319.082,
+        "date": "2025-02-01T00:00:00",
+        "frequency": "daily"
+      },
+      {
+        "indicator": "INFLATION",
+        "value": 317.671,
+        "date": "2025-01-01T00:00:00",
+        "frequency": "daily"
+      },
+      {
+        "indicator": "INFLATION",
+        "value": 315.605,
+        "date": "2024-12-01T00:00:00",
+        "frequency": "daily"
+      },
+      {
+        "indicator": "INFLATION",
+        "value": 315.493,
+        "date": "2024-11-01T00:00:00",
+        "frequency": "daily"
+      },
+      {
+        "indicator": "INFLATION",
+        "value": 315.664,
+        "date": "2024-10-01T00:00:00",
+        "frequency": "daily"
+      },
+      {
+        "indicator": "INFLATION",
+        "value": 315.301,
+        "date": "2024-09-01T00:00:00",
+        "frequency": "daily"
+      },
+      {
+        "indicator": "INFLATION",
+        "value": 314.796,
+        "date": "2024-08-01T00:00:00",
+        "frequency": "daily"
+      },
+      {
+        "indicator": "INFLATION",
+        "value": 314.54,
+        "date": "2024-07-01T00:00:00",
+        "frequency": "daily"
+      },
+      {
+        "indicator": "INFLATION",
+        "value": 314.175,
+        "date": "2024-06-01T00:00:00",
+        "frequency": "daily"
+      },
+      {
+        "indicator": "INFLATION",
+        "value": 314.069,
+        "date": "2024-05-01T00:00:00",
+        "frequency": "daily"
+      },
+      {
+        "indicator": "INFLATION",
+        "value": 313.548,
+        "date": "2024-04-01T00:00:00",
+        "frequency": "daily"
+      },
+      {
+        "indicator": "INFLATION",
+        "value": 312.332,
+        "date": "2024-03-01T00:00:00",
+        "frequency": "daily"
+      },
+      {
+        "indicator": "INFLATION",
+        "value": 310.326,
+        "date": "2024-02-01T00:00:00",
+        "frequency": "daily"
+      },
+      {
+        "indicator": "INFLATION",
+        "value": 308.417,
+        "date": "2024-01-01T00:00:00",
+        "frequency": "daily"
+      },
+      {
+        "indicator": "INFLATION",
+        "value": 306.746,
+        "date": "2023-12-01T00:00:00",
+        "frequency": "daily"
+      },
+      {
+        "indicator": "INFLATION",
+        "value": 307.051,
+        "date": "2023-11-01T00:00:00",
+        "frequency": "daily"
+      },
+      {
+        "indicator": "INFLATION",
+        "value": 307.671,
+        "date": "2023-10-01T00:00:00",
+        "frequency": "daily"
+      },
+      {
+        "indicator": "INFLATION",
+        "value": 307.789,
+        "date": "2023-09-01T00:00:00",
+        "frequency": "daily"
+      },
+      {
+        "indicator": "INFLATION",
+        "value": 307.026,
+        "date": "2023-08-01T00:00:00",
+        "frequency": "daily"
+      },
+      {
+        "indicator": "INFLATION",
+        "value": 305.691,
+        "date": "2023-07-01T00:00:00",
+        "frequency": "daily"
+      },
+      {
+        "indicator": "INFLATION",
+        "value": 305.109,
+        "date": "2023-06-01T00:00:00",
+        "frequency": "daily"
+      },
+      {
+        "indicator": "INFLATION",
+        "value": 304.127,
+        "date": "2023-05-01T00:00:00",
+        "frequency": "daily"
+      },
+      {
+        "indicator": "INFLATION",
+        "value": 303.363,
+        "date": "2023-04-01T00:00:00",
+        "frequency": "daily"
+      },
+      {
+        "indicator": "INFLATION",
+        "value": 301.836,
+        "date": "2023-03-01T00:00:00",
+        "frequency": "daily"
+      },
+      {
+        "indicator": "INFLATION",
+        "value": 300.84,
+        "date": "2023-02-01T00:00:00",
+        "frequency": "daily"
+      },
+      {
+        "indicator": "INFLATION",
+        "value": 299.17,
+        "date": "2023-01-01T00:00:00",
+        "frequency": "daily"
+      },
+      {
+        "indicator": "INFLATION",
+        "value": 296.797,
+        "date": "2022-12-01T00:00:00",
+        "frequency": "daily"
+      },
+      {
+        "indicator": "INFLATION",
+        "value": 297.711,
+        "date": "2022-11-01T00:00:00",
+        "frequency": "daily"
+      },
+      {
+        "indicator": "INFLATION",
+        "value": 298.012,
+        "date": "2022-10-01T00:00:00",
+        "frequency": "daily"
+      },
+      {
+        "indicator": "INFLATION",
+        "value": 296.808,
+        "date": "2022-09-01T00:00:00",
+        "frequency": "daily"
+      },
+      {
+        "indicator": "INFLATION",
+        "value": 296.171,
+        "date": "2022-08-01T00:00:00",
+        "frequency": "daily"
+      },
+      {
+        "indicator": "INFLATION",
+        "value": 296.276,
+        "date": "2022-07-01T00:00:00",
+        "frequency": "daily"
+      },
+      {
+        "indicator": "INFLATION",
+        "value": 296.311,
+        "date": "2022-06-01T00:00:00",
+        "frequency": "daily"
+      },
+      {
+        "indicator": "INFLATION",
+        "value": 292.296,
+        "date": "2022-05-01T00:00:00",
+        "frequency": "daily"
+      },
+      {
+        "indicator": "INFLATION",
+        "value": 289.109,
+        "date": "2022-04-01T00:00:00",
+        "frequency": "daily"
+      },
+      {
+        "indicator": "INFLATION",
+        "value": 287.504,
+        "date": "2022-03-01T00:00:00",
+        "frequency": "daily"
+      },
+      {
+        "indicator": "INFLATION",
+        "value": 283.716,
+        "date": "2022-02-01T00:00:00",
+        "frequency": "daily"
+      },
+      {
+        "indicator": "INFLATION",
+        "value": 281.148,
+        "date": "2022-01-01T00:00:00",
+        "frequency": "daily"
+      },
+      {
+        "indicator": "INFLATION",
+        "value": 278.802,
+        "date": "2021-12-01T00:00:00",
+        "frequency": "daily"
+      },
+      {
+        "indicator": "INFLATION",
+        "value": 277.948,
+        "date": "2021-11-01T00:00:00",
+        "frequency": "daily"
+      },
+      {
+        "indicator": "INFLATION",
+        "value": 276.589,
+        "date": "2021-10-01T00:00:00",
+        "frequency": "daily"
+      },
+      {
+        "indicator": "INFLATION",
+        "value": 274.31,
+        "date": "2021-09-01T00:00:00",
+        "frequency": "daily"
+      },
+      {
+        "indicator": "INFLATION",
+        "value": 273.567,
+        "date": "2021-08-01T00:00:00",
+        "frequency": "daily"
+      },
+      {
+        "indicator": "INFLATION",
+        "value": 273.003,
+        "date": "2021-07-01T00:00:00",
+        "frequency": "daily"
+      },
+      {
+        "indicator": "INFLATION",
+        "value": 271.696,
+        "date": "2021-06-01T00:00:00",
+        "frequency": "daily"
+      },
+      {
+        "indicator": "INFLATION",
+        "value": 269.195,
+        "date": "2021-05-01T00:00:00",
+        "frequency": "daily"
+      },
+      {
+        "indicator": "INFLATION",
+        "value": 267.054,
+        "date": "2021-04-01T00:00:00",
+        "frequency": "daily"
+      },
+      {
+        "indicator": "INFLATION",
+        "value": 264.877,
+        "date": "2021-03-01T00:00:00",
+        "frequency": "daily"
+      },
+      {
+        "indicator": "INFLATION",
+        "value": 263.014,
+        "date": "2021-02-01T00:00:00",
+        "frequency": "daily"
+      },
+      {
+        "indicator": "INFLATION",
+        "value": 261.582,
+        "date": "2021-01-01T00:00:00",
+        "frequency": "daily"
+      },
+      {
+        "indicator": "INFLATION",
+        "value": 260.474,
+        "date": "2020-12-01T00:00:00",
+        "frequency": "daily"
+      },
+      {
+        "indicator": "INFLATION",
+        "value": 260.229,
+        "date": "2020-11-01T00:00:00",
+        "frequency": "daily"
+      },
+      {
+        "indicator": "INFLATION",
+        "value": 260.388,
+        "date": "2020-10-01T00:00:00",
+        "frequency": "daily"
+      },
+      {
+        "indicator": "INFLATION",
+        "value": 260.28,
+        "date": "2020-09-01T00:00:00",
+        "frequency": "daily"
+      },
+      {
+        "indicator": "INFLATION",
+        "value": 259.918,
+        "date": "2020-08-01T00:00:00",
+        "frequency": "daily"
+      },
+      {
+        "indicator": "INFLATION",
+        "value": 259.101,
+        "date": "2020-07-01T00:00:00",
+        "frequency": "daily"
+      },
+      {
+        "indicator": "INFLATION",
+        "value": 257.797,
+        "date": "2020-06-01T00:00:00",
+        "frequency": "daily"
+      },
+      {
+        "indicator": "INFLATION",
+        "value": 256.394,
+        "date": "2020-05-01T00:00:00",
+        "frequency": "daily"
+      },
+      {
+        "indicator": "INFLATION",
+        "value": 256.389,
+        "date": "2020-04-01T00:00:00",
+        "frequency": "daily"
+      },
+      {
+        "indicator": "INFLATION",
+        "value": 258.115,
+        "date": "2020-03-01T00:00:00",
+        "frequency": "daily"
+      },
+      {
+        "indicator": "INFLATION",
+        "value": 258.678,
+        "date": "2020-02-01T00:00:00",
+        "frequency": "daily"
+      },
+      {
+        "indicator": "INFLATION",
+        "value": 257.971,
+        "date": "2020-01-01T00:00:00",
+        "frequency": "daily"
+      },
+      {
+        "indicator": "INFLATION",
+        "value": 256.974,
+        "date": "2019-12-01T00:00:00",
+        "frequency": "daily"
+      },
+      {
+        "indicator": "INFLATION",
+        "value": 257.208,
+        "date": "2019-11-01T00:00:00",
+        "frequency": "daily"
+      },
+      {
+        "indicator": "INFLATION",
+        "value": 257.346,
+        "date": "2019-10-01T00:00:00",
+        "frequency": "daily"
+      },
+      {
+        "indicator": "INFLATION",
+        "value": 256.759,
+        "date": "2019-09-01T00:00:00",
+        "frequency": "daily"
+      },
+      {
+        "indicator": "INFLATION",
+        "value": 256.558,
+        "date": "2019-08-01T00:00:00",
+        "frequency": "daily"
+      },
+      {
+        "indicator": "INFLATION",
+        "value": 256.571,
+        "date": "2019-07-01T00:00:00",
+        "frequency": "daily"
+      },
+      {
+        "indicator": "INFLATION",
+        "value": 256.143,
+        "date": "2019-06-01T00:00:00",
+        "frequency": "daily"
+      },
+      {
+        "indicator": "INFLATION",
+        "value": 256.092,
+        "date": "2019-05-01T00:00:00",
+        "frequency": "daily"
+      },
+      {
+        "indicator": "INFLATION",
+        "value": 255.548,
+        "date": "2019-04-01T00:00:00",
+        "frequency": "daily"
+      },
+      {
+        "indicator": "INFLATION",
+        "value": 254.202,
+        "date": "2019-03-01T00:00:00",
+        "frequency": "daily"
+      },
+      {
+        "indicator": "INFLATION",
+        "value": 252.776,
+        "date": "2019-02-01T00:00:00",
+        "frequency": "daily"
+      },
+      {
+        "indicator": "INFLATION",
+        "value": 251.712,
+        "date": "2019-01-01T00:00:00",
+        "frequency": "daily"
+      },
+      {
+        "indicator": "INFLATION",
+        "value": 251.233,
+        "date": "2018-12-01T00:00:00",
+        "frequency": "daily"
+      },
+      {
+        "indicator": "INFLATION",
+        "value": 252.038,
+        "date": "2018-11-01T00:00:00",
+        "frequency": "daily"
+      },
+      {
+        "indicator": "INFLATION",
+        "value": 252.885,
+        "date": "2018-10-01T00:00:00",
+        "frequency": "daily"
+      },
+      {
+        "indicator": "INFLATION",
+        "value": 252.439,
+        "date": "2018-09-01T00:00:00",
+        "frequency": "daily"
+      },
+      {
+        "indicator": "INFLATION",
+        "value": 252.146,
+        "date": "2018-08-01T00:00:00",
+        "frequency": "daily"
+      },
+      {
+        "indicator": "INFLATION",
+        "value": 252.006,
+        "date": "2018-07-01T00:00:00",
+        "frequency": "daily"
+      },
+      {
+        "indicator": "INFLATION",
+        "value": 251.989,
+        "date": "2018-06-01T00:00:00",
+        "frequency": "daily"
+      },
+      {
+        "indicator": "INFLATION",
+        "value": 251.588,
+        "date": "2018-05-01T00:00:00",
+        "frequency": "daily"
+      },
+      {
+        "indicator": "INFLATION",
+        "value": 250.546,
+        "date": "2018-04-01T00:00:00",
+        "frequency": "daily"
+      },
+      {
+        "indicator": "INFLATION",
+        "value": 249.554,
+        "date": "2018-03-01T00:00:00",
+        "frequency": "daily"
+      },
+      {
+        "indicator": "INFLATION",
+        "value": 248.991,
+        "date": "2018-02-01T00:00:00",
+        "frequency": "daily"
+      },
+      {
+        "indicator": "INFLATION",
+        "value": 247.867,
+        "date": "2018-01-01T00:00:00",
+        "frequency": "daily"
+      },
+      {
+        "indicator": "INFLATION",
+        "value": 246.524,
+        "date": "2017-12-01T00:00:00",
+        "frequency": "daily"
+      },
+      {
+        "indicator": "INFLATION",
+        "value": 246.669,
+        "date": "2017-11-01T00:00:00",
+        "frequency": "daily"
+      },
+      {
+        "indicator": "INFLATION",
+        "value": 246.663,
+        "date": "2017-10-01T00:00:00",
+        "frequency": "daily"
+      },
+      {
+        "indicator": "INFLATION",
+        "value": 246.819,
+        "date": "2017-09-01T00:00:00",
+        "frequency": "daily"
+      },
+      {
+        "indicator": "INFLATION",
+        "value": 245.519,
+        "date": "2017-08-01T00:00:00",
+        "frequency": "daily"
+      },
+      {
+        "indicator": "INFLATION",
+        "value": 244.786,
+        "date": "2017-07-01T00:00:00",
+        "frequency": "daily"
+      },
+      {
+        "indicator": "INFLATION",
+        "value": 244.955,
+        "date": "2017-06-01T00:00:00",
+        "frequency": "daily"
+      },
+      {
+        "indicator": "INFLATION",
+        "value": 244.733,
+        "date": "2017-05-01T00:00:00",
+        "frequency": "daily"
+      }
+    ],
+    "UNEMPLOYMENT": [
+      {
+        "indicator": "UNEMPLOYMENT",
+        "value": 4.3,
+        "date": "2025-08-01T00:00:00",
+        "frequency": "daily"
+      },
+      {
+        "indicator": "UNEMPLOYMENT",
+        "value": 4.2,
+        "date": "2025-07-01T00:00:00",
+        "frequency": "daily"
+      },
+      {
+        "indicator": "UNEMPLOYMENT",
+        "value": 4.1,
+        "date": "2025-06-01T00:00:00",
+        "frequency": "daily"
+      },
+      {
+        "indicator": "UNEMPLOYMENT",
+        "value": 4.2,
+        "date": "2025-05-01T00:00:00",
+        "frequency": "daily"
+      },
+      {
+        "indicator": "UNEMPLOYMENT",
+        "value": 4.2,
+        "date": "2025-04-01T00:00:00",
+        "frequency": "daily"
+      },
+      {
+        "indicator": "UNEMPLOYMENT",
+        "value": 4.2,
+        "date": "2025-03-01T00:00:00",
+        "frequency": "daily"
+      },
+      {
+        "indicator": "UNEMPLOYMENT",
+        "value": 4.1,
+        "date": "2025-02-01T00:00:00",
+        "frequency": "daily"
+      },
+      {
+        "indicator": "UNEMPLOYMENT",
+        "value": 4.0,
+        "date": "2025-01-01T00:00:00",
+        "frequency": "daily"
+      },
+      {
+        "indicator": "UNEMPLOYMENT",
+        "value": 4.1,
+        "date": "2024-12-01T00:00:00",
+        "frequency": "daily"
+      },
+      {
+        "indicator": "UNEMPLOYMENT",
+        "value": 4.2,
+        "date": "2024-11-01T00:00:00",
+        "frequency": "daily"
+      },
+      {
+        "indicator": "UNEMPLOYMENT",
+        "value": 4.1,
+        "date": "2024-10-01T00:00:00",
+        "frequency": "daily"
+      },
+      {
+        "indicator": "UNEMPLOYMENT",
+        "value": 4.1,
+        "date": "2024-09-01T00:00:00",
+        "frequency": "daily"
+      },
+      {
+        "indicator": "UNEMPLOYMENT",
+        "value": 4.2,
+        "date": "2024-08-01T00:00:00",
+        "frequency": "daily"
+      },
+      {
+        "indicator": "UNEMPLOYMENT",
+        "value": 4.2,
+        "date": "2024-07-01T00:00:00",
+        "frequency": "daily"
+      },
+      {
+        "indicator": "UNEMPLOYMENT",
+        "value": 4.1,
+        "date": "2024-06-01T00:00:00",
+        "frequency": "daily"
+      },
+      {
+        "indicator": "UNEMPLOYMENT",
+        "value": 4.0,
+        "date": "2024-05-01T00:00:00",
+        "frequency": "daily"
+      },
+      {
+        "indicator": "UNEMPLOYMENT",
+        "value": 3.9,
+        "date": "2024-04-01T00:00:00",
+        "frequency": "daily"
+      },
+      {
+        "indicator": "UNEMPLOYMENT",
+        "value": 3.9,
+        "date": "2024-03-01T00:00:00",
+        "frequency": "daily"
+      },
+      {
+        "indicator": "UNEMPLOYMENT",
+        "value": 3.9,
+        "date": "2024-02-01T00:00:00",
+        "frequency": "daily"
+      },
+      {
+        "indicator": "UNEMPLOYMENT",
+        "value": 3.7,
+        "date": "2024-01-01T00:00:00",
+        "frequency": "daily"
+      },
+      {
+        "indicator": "UNEMPLOYMENT",
+        "value": 3.8,
+        "date": "2023-12-01T00:00:00",
+        "frequency": "daily"
+      },
+      {
+        "indicator": "UNEMPLOYMENT",
+        "value": 3.7,
+        "date": "2023-11-01T00:00:00",
+        "frequency": "daily"
+      },
+      {
+        "indicator": "UNEMPLOYMENT",
+        "value": 3.9,
+        "date": "2023-10-01T00:00:00",
+        "frequency": "daily"
+      },
+      {
+        "indicator": "UNEMPLOYMENT",
+        "value": 3.8,
+        "date": "2023-09-01T00:00:00",
+        "frequency": "daily"
+      },
+      {
+        "indicator": "UNEMPLOYMENT",
+        "value": 3.7,
+        "date": "2023-08-01T00:00:00",
+        "frequency": "daily"
+      },
+      {
+        "indicator": "UNEMPLOYMENT",
+        "value": 3.5,
+        "date": "2023-07-01T00:00:00",
+        "frequency": "daily"
+      },
+      {
+        "indicator": "UNEMPLOYMENT",
+        "value": 3.6,
+        "date": "2023-06-01T00:00:00",
+        "frequency": "daily"
+      },
+      {
+        "indicator": "UNEMPLOYMENT",
+        "value": 3.6,
+        "date": "2023-05-01T00:00:00",
+        "frequency": "daily"
+      },
+      {
+        "indicator": "UNEMPLOYMENT",
+        "value": 3.4,
+        "date": "2023-04-01T00:00:00",
+        "frequency": "daily"
+      },
+      {
+        "indicator": "UNEMPLOYMENT",
+        "value": 3.5,
+        "date": "2023-03-01T00:00:00",
+        "frequency": "daily"
+      },
+      {
+        "indicator": "UNEMPLOYMENT",
+        "value": 3.6,
+        "date": "2023-02-01T00:00:00",
+        "frequency": "daily"
+      },
+      {
+        "indicator": "UNEMPLOYMENT",
+        "value": 3.5,
+        "date": "2023-01-01T00:00:00",
+        "frequency": "daily"
+      },
+      {
+        "indicator": "UNEMPLOYMENT",
+        "value": 3.5,
+        "date": "2022-12-01T00:00:00",
+        "frequency": "daily"
+      },
+      {
+        "indicator": "UNEMPLOYMENT",
+        "value": 3.6,
+        "date": "2022-11-01T00:00:00",
+        "frequency": "daily"
+      },
+      {
+        "indicator": "UNEMPLOYMENT",
+        "value": 3.6,
+        "date": "2022-10-01T00:00:00",
+        "frequency": "daily"
+      },
+      {
+        "indicator": "UNEMPLOYMENT",
+        "value": 3.5,
+        "date": "2022-09-01T00:00:00",
+        "frequency": "daily"
+      },
+      {
+        "indicator": "UNEMPLOYMENT",
+        "value": 3.6,
+        "date": "2022-08-01T00:00:00",
+        "frequency": "daily"
+      },
+      {
+        "indicator": "UNEMPLOYMENT",
+        "value": 3.5,
+        "date": "2022-07-01T00:00:00",
+        "frequency": "daily"
+      },
+      {
+        "indicator": "UNEMPLOYMENT",
+        "value": 3.6,
+        "date": "2022-06-01T00:00:00",
+        "frequency": "daily"
+      },
+      {
+        "indicator": "UNEMPLOYMENT",
+        "value": 3.6,
+        "date": "2022-05-01T00:00:00",
+        "frequency": "daily"
+      },
+      {
+        "indicator": "UNEMPLOYMENT",
+        "value": 3.7,
+        "date": "2022-04-01T00:00:00",
+        "frequency": "daily"
+      },
+      {
+        "indicator": "UNEMPLOYMENT",
+        "value": 3.7,
+        "date": "2022-03-01T00:00:00",
+        "frequency": "daily"
+      },
+      {
+        "indicator": "UNEMPLOYMENT",
+        "value": 3.8,
+        "date": "2022-02-01T00:00:00",
+        "frequency": "daily"
+      },
+      {
+        "indicator": "UNEMPLOYMENT",
+        "value": 4.0,
+        "date": "2022-01-01T00:00:00",
+        "frequency": "daily"
+      },
+      {
+        "indicator": "UNEMPLOYMENT",
+        "value": 3.9,
+        "date": "2021-12-01T00:00:00",
+        "frequency": "daily"
+      },
+      {
+        "indicator": "UNEMPLOYMENT",
+        "value": 4.2,
+        "date": "2021-11-01T00:00:00",
+        "frequency": "daily"
+      },
+      {
+        "indicator": "UNEMPLOYMENT",
+        "value": 4.5,
+        "date": "2021-10-01T00:00:00",
+        "frequency": "daily"
+      },
+      {
+        "indicator": "UNEMPLOYMENT",
+        "value": 4.7,
+        "date": "2021-09-01T00:00:00",
+        "frequency": "daily"
+      },
+      {
+        "indicator": "UNEMPLOYMENT",
+        "value": 5.1,
+        "date": "2021-08-01T00:00:00",
+        "frequency": "daily"
+      },
+      {
+        "indicator": "UNEMPLOYMENT",
+        "value": 5.4,
+        "date": "2021-07-01T00:00:00",
+        "frequency": "daily"
+      },
+      {
+        "indicator": "UNEMPLOYMENT",
+        "value": 5.9,
+        "date": "2021-06-01T00:00:00",
+        "frequency": "daily"
+      },
+      {
+        "indicator": "UNEMPLOYMENT",
+        "value": 5.8,
+        "date": "2021-05-01T00:00:00",
+        "frequency": "daily"
+      },
+      {
+        "indicator": "UNEMPLOYMENT",
+        "value": 6.1,
+        "date": "2021-04-01T00:00:00",
+        "frequency": "daily"
+      },
+      {
+        "indicator": "UNEMPLOYMENT",
+        "value": 6.1,
+        "date": "2021-03-01T00:00:00",
+        "frequency": "daily"
+      },
+      {
+        "indicator": "UNEMPLOYMENT",
+        "value": 6.2,
+        "date": "2021-02-01T00:00:00",
+        "frequency": "daily"
+      },
+      {
+        "indicator": "UNEMPLOYMENT",
+        "value": 6.4,
+        "date": "2021-01-01T00:00:00",
+        "frequency": "daily"
+      },
+      {
+        "indicator": "UNEMPLOYMENT",
+        "value": 6.7,
+        "date": "2020-12-01T00:00:00",
+        "frequency": "daily"
+      },
+      {
+        "indicator": "UNEMPLOYMENT",
+        "value": 6.7,
+        "date": "2020-11-01T00:00:00",
+        "frequency": "daily"
+      },
+      {
+        "indicator": "UNEMPLOYMENT",
+        "value": 6.9,
+        "date": "2020-10-01T00:00:00",
+        "frequency": "daily"
+      },
+      {
+        "indicator": "UNEMPLOYMENT",
+        "value": 7.8,
+        "date": "2020-09-01T00:00:00",
+        "frequency": "daily"
+      },
+      {
+        "indicator": "UNEMPLOYMENT",
+        "value": 8.4,
+        "date": "2020-08-01T00:00:00",
+        "frequency": "daily"
+      },
+      {
+        "indicator": "UNEMPLOYMENT",
+        "value": 10.2,
+        "date": "2020-07-01T00:00:00",
+        "frequency": "daily"
+      },
+      {
+        "indicator": "UNEMPLOYMENT",
+        "value": 11.0,
+        "date": "2020-06-01T00:00:00",
+        "frequency": "daily"
+      },
+      {
+        "indicator": "UNEMPLOYMENT",
+        "value": 13.2,
+        "date": "2020-05-01T00:00:00",
+        "frequency": "daily"
+      },
+      {
+        "indicator": "UNEMPLOYMENT",
+        "value": 14.8,
+        "date": "2020-04-01T00:00:00",
+        "frequency": "daily"
+      },
+      {
+        "indicator": "UNEMPLOYMENT",
+        "value": 4.4,
+        "date": "2020-03-01T00:00:00",
+        "frequency": "daily"
+      },
+      {
+        "indicator": "UNEMPLOYMENT",
+        "value": 3.5,
+        "date": "2020-02-01T00:00:00",
+        "frequency": "daily"
+      },
+      {
+        "indicator": "UNEMPLOYMENT",
+        "value": 3.6,
+        "date": "2020-01-01T00:00:00",
+        "frequency": "daily"
+      },
+      {
+        "indicator": "UNEMPLOYMENT",
+        "value": 3.6,
+        "date": "2019-12-01T00:00:00",
+        "frequency": "daily"
+      },
+      {
+        "indicator": "UNEMPLOYMENT",
+        "value": 3.6,
+        "date": "2019-11-01T00:00:00",
+        "frequency": "daily"
+      },
+      {
+        "indicator": "UNEMPLOYMENT",
+        "value": 3.6,
+        "date": "2019-10-01T00:00:00",
+        "frequency": "daily"
+      },
+      {
+        "indicator": "UNEMPLOYMENT",
+        "value": 3.5,
+        "date": "2019-09-01T00:00:00",
+        "frequency": "daily"
+      },
+      {
+        "indicator": "UNEMPLOYMENT",
+        "value": 3.6,
+        "date": "2019-08-01T00:00:00",
+        "frequency": "daily"
+      },
+      {
+        "indicator": "UNEMPLOYMENT",
+        "value": 3.7,
+        "date": "2019-07-01T00:00:00",
+        "frequency": "daily"
+      },
+      {
+        "indicator": "UNEMPLOYMENT",
+        "value": 3.6,
+        "date": "2019-06-01T00:00:00",
+        "frequency": "daily"
+      },
+      {
+        "indicator": "UNEMPLOYMENT",
+        "value": 3.6,
+        "date": "2019-05-01T00:00:00",
+        "frequency": "daily"
+      },
+      {
+        "indicator": "UNEMPLOYMENT",
+        "value": 3.7,
+        "date": "2019-04-01T00:00:00",
+        "frequency": "daily"
+      },
+      {
+        "indicator": "UNEMPLOYMENT",
+        "value": 3.8,
+        "date": "2019-03-01T00:00:00",
+        "frequency": "daily"
+      },
+      {
+        "indicator": "UNEMPLOYMENT",
+        "value": 3.8,
+        "date": "2019-02-01T00:00:00",
+        "frequency": "daily"
+      },
+      {
+        "indicator": "UNEMPLOYMENT",
+        "value": 4.0,
+        "date": "2019-01-01T00:00:00",
+        "frequency": "daily"
+      },
+      {
+        "indicator": "UNEMPLOYMENT",
+        "value": 3.9,
+        "date": "2018-12-01T00:00:00",
+        "frequency": "daily"
+      },
+      {
+        "indicator": "UNEMPLOYMENT",
+        "value": 3.8,
+        "date": "2018-11-01T00:00:00",
+        "frequency": "daily"
+      },
+      {
+        "indicator": "UNEMPLOYMENT",
+        "value": 3.8,
+        "date": "2018-10-01T00:00:00",
+        "frequency": "daily"
+      },
+      {
+        "indicator": "UNEMPLOYMENT",
+        "value": 3.7,
+        "date": "2018-09-01T00:00:00",
+        "frequency": "daily"
+      },
+      {
+        "indicator": "UNEMPLOYMENT",
+        "value": 3.8,
+        "date": "2018-08-01T00:00:00",
+        "frequency": "daily"
+      },
+      {
+        "indicator": "UNEMPLOYMENT",
+        "value": 3.8,
+        "date": "2018-07-01T00:00:00",
+        "frequency": "daily"
+      },
+      {
+        "indicator": "UNEMPLOYMENT",
+        "value": 4.0,
+        "date": "2018-06-01T00:00:00",
+        "frequency": "daily"
+      },
+      {
+        "indicator": "UNEMPLOYMENT",
+        "value": 3.8,
+        "date": "2018-05-01T00:00:00",
+        "frequency": "daily"
+      },
+      {
+        "indicator": "UNEMPLOYMENT",
+        "value": 4.0,
+        "date": "2018-04-01T00:00:00",
+        "frequency": "daily"
+      },
+      {
+        "indicator": "UNEMPLOYMENT",
+        "value": 4.0,
+        "date": "2018-03-01T00:00:00",
+        "frequency": "daily"
+      },
+      {
+        "indicator": "UNEMPLOYMENT",
+        "value": 4.1,
+        "date": "2018-02-01T00:00:00",
+        "frequency": "daily"
+      },
+      {
+        "indicator": "UNEMPLOYMENT",
+        "value": 4.0,
+        "date": "2018-01-01T00:00:00",
+        "frequency": "daily"
+      },
+      {
+        "indicator": "UNEMPLOYMENT",
+        "value": 4.1,
+        "date": "2017-12-01T00:00:00",
+        "frequency": "daily"
+      },
+      {
+        "indicator": "UNEMPLOYMENT",
+        "value": 4.2,
+        "date": "2017-11-01T00:00:00",
+        "frequency": "daily"
+      },
+      {
+        "indicator": "UNEMPLOYMENT",
+        "value": 4.2,
+        "date": "2017-10-01T00:00:00",
+        "frequency": "daily"
+      },
+      {
+        "indicator": "UNEMPLOYMENT",
+        "value": 4.3,
+        "date": "2017-09-01T00:00:00",
+        "frequency": "daily"
+      },
+      {
+        "indicator": "UNEMPLOYMENT",
+        "value": 4.4,
+        "date": "2017-08-01T00:00:00",
+        "frequency": "daily"
+      },
+      {
+        "indicator": "UNEMPLOYMENT",
+        "value": 4.3,
+        "date": "2017-07-01T00:00:00",
+        "frequency": "daily"
+      },
+      {
+        "indicator": "UNEMPLOYMENT",
+        "value": 4.3,
+        "date": "2017-06-01T00:00:00",
+        "frequency": "daily"
+      },
+      {
+        "indicator": "UNEMPLOYMENT",
+        "value": 4.4,
+        "date": "2017-05-01T00:00:00",
+        "frequency": "daily"
+      }
+    ],
+    "INTEREST_RATES": [
+      {
+        "indicator": "INTEREST_RATES",
+        "value": 4.33,
+        "date": "2025-08-01T00:00:00",
+        "frequency": "daily"
+      },
+      {
+        "indicator": "INTEREST_RATES",
+        "value": 4.33,
+        "date": "2025-07-01T00:00:00",
+        "frequency": "daily"
+      },
+      {
+        "indicator": "INTEREST_RATES",
+        "value": 4.33,
+        "date": "2025-06-01T00:00:00",
+        "frequency": "daily"
+      },
+      {
+        "indicator": "INTEREST_RATES",
+        "value": 4.33,
+        "date": "2025-05-01T00:00:00",
+        "frequency": "daily"
+      },
+      {
+        "indicator": "INTEREST_RATES",
+        "value": 4.33,
+        "date": "2025-04-01T00:00:00",
+        "frequency": "daily"
+      },
+      {
+        "indicator": "INTEREST_RATES",
+        "value": 4.33,
+        "date": "2025-03-01T00:00:00",
+        "frequency": "daily"
+      },
+      {
+        "indicator": "INTEREST_RATES",
+        "value": 4.33,
+        "date": "2025-02-01T00:00:00",
+        "frequency": "daily"
+      },
+      {
+        "indicator": "INTEREST_RATES",
+        "value": 4.33,
+        "date": "2025-01-01T00:00:00",
+        "frequency": "daily"
+      },
+      {
+        "indicator": "INTEREST_RATES",
+        "value": 4.48,
+        "date": "2024-12-01T00:00:00",
+        "frequency": "daily"
+      },
+      {
+        "indicator": "INTEREST_RATES",
+        "value": 4.64,
+        "date": "2024-11-01T00:00:00",
+        "frequency": "daily"
+      },
+      {
+        "indicator": "INTEREST_RATES",
+        "value": 4.83,
+        "date": "2024-10-01T00:00:00",
+        "frequency": "daily"
+      },
+      {
+        "indicator": "INTEREST_RATES",
+        "value": 5.13,
+        "date": "2024-09-01T00:00:00",
+        "frequency": "daily"
+      },
+      {
+        "indicator": "INTEREST_RATES",
+        "value": 5.33,
+        "date": "2024-08-01T00:00:00",
+        "frequency": "daily"
+      },
+      {
+        "indicator": "INTEREST_RATES",
+        "value": 5.33,
+        "date": "2024-07-01T00:00:00",
+        "frequency": "daily"
+      },
+      {
+        "indicator": "INTEREST_RATES",
+        "value": 5.33,
+        "date": "2024-06-01T00:00:00",
+        "frequency": "daily"
+      },
+      {
+        "indicator": "INTEREST_RATES",
+        "value": 5.33,
+        "date": "2024-05-01T00:00:00",
+        "frequency": "daily"
+      },
+      {
+        "indicator": "INTEREST_RATES",
+        "value": 5.33,
+        "date": "2024-04-01T00:00:00",
+        "frequency": "daily"
+      },
+      {
+        "indicator": "INTEREST_RATES",
+        "value": 5.33,
+        "date": "2024-03-01T00:00:00",
+        "frequency": "daily"
+      },
+      {
+        "indicator": "INTEREST_RATES",
+        "value": 5.33,
+        "date": "2024-02-01T00:00:00",
+        "frequency": "daily"
+      },
+      {
+        "indicator": "INTEREST_RATES",
+        "value": 5.33,
+        "date": "2024-01-01T00:00:00",
+        "frequency": "daily"
+      },
+      {
+        "indicator": "INTEREST_RATES",
+        "value": 5.33,
+        "date": "2023-12-01T00:00:00",
+        "frequency": "daily"
+      },
+      {
+        "indicator": "INTEREST_RATES",
+        "value": 5.33,
+        "date": "2023-11-01T00:00:00",
+        "frequency": "daily"
+      },
+      {
+        "indicator": "INTEREST_RATES",
+        "value": 5.33,
+        "date": "2023-10-01T00:00:00",
+        "frequency": "daily"
+      },
+      {
+        "indicator": "INTEREST_RATES",
+        "value": 5.33,
+        "date": "2023-09-01T00:00:00",
+        "frequency": "daily"
+      },
+      {
+        "indicator": "INTEREST_RATES",
+        "value": 5.33,
+        "date": "2023-08-01T00:00:00",
+        "frequency": "daily"
+      },
+      {
+        "indicator": "INTEREST_RATES",
+        "value": 5.12,
+        "date": "2023-07-01T00:00:00",
+        "frequency": "daily"
+      },
+      {
+        "indicator": "INTEREST_RATES",
+        "value": 5.08,
+        "date": "2023-06-01T00:00:00",
+        "frequency": "daily"
+      },
+      {
+        "indicator": "INTEREST_RATES",
+        "value": 5.06,
+        "date": "2023-05-01T00:00:00",
+        "frequency": "daily"
+      },
+      {
+        "indicator": "INTEREST_RATES",
+        "value": 4.83,
+        "date": "2023-04-01T00:00:00",
+        "frequency": "daily"
+      },
+      {
+        "indicator": "INTEREST_RATES",
+        "value": 4.65,
+        "date": "2023-03-01T00:00:00",
+        "frequency": "daily"
+      },
+      {
+        "indicator": "INTEREST_RATES",
+        "value": 4.57,
+        "date": "2023-02-01T00:00:00",
+        "frequency": "daily"
+      },
+      {
+        "indicator": "INTEREST_RATES",
+        "value": 4.33,
+        "date": "2023-01-01T00:00:00",
+        "frequency": "daily"
+      },
+      {
+        "indicator": "INTEREST_RATES",
+        "value": 4.1,
+        "date": "2022-12-01T00:00:00",
+        "frequency": "daily"
+      },
+      {
+        "indicator": "INTEREST_RATES",
+        "value": 3.78,
+        "date": "2022-11-01T00:00:00",
+        "frequency": "daily"
+      },
+      {
+        "indicator": "INTEREST_RATES",
+        "value": 3.08,
+        "date": "2022-10-01T00:00:00",
+        "frequency": "daily"
+      },
+      {
+        "indicator": "INTEREST_RATES",
+        "value": 2.56,
+        "date": "2022-09-01T00:00:00",
+        "frequency": "daily"
+      },
+      {
+        "indicator": "INTEREST_RATES",
+        "value": 2.33,
+        "date": "2022-08-01T00:00:00",
+        "frequency": "daily"
+      },
+      {
+        "indicator": "INTEREST_RATES",
+        "value": 1.68,
+        "date": "2022-07-01T00:00:00",
+        "frequency": "daily"
+      },
+      {
+        "indicator": "INTEREST_RATES",
+        "value": 1.21,
+        "date": "2022-06-01T00:00:00",
+        "frequency": "daily"
+      },
+      {
+        "indicator": "INTEREST_RATES",
+        "value": 0.77,
+        "date": "2022-05-01T00:00:00",
+        "frequency": "daily"
+      },
+      {
+        "indicator": "INTEREST_RATES",
+        "value": 0.33,
+        "date": "2022-04-01T00:00:00",
+        "frequency": "daily"
+      },
+      {
+        "indicator": "INTEREST_RATES",
+        "value": 0.2,
+        "date": "2022-03-01T00:00:00",
+        "frequency": "daily"
+      },
+      {
+        "indicator": "INTEREST_RATES",
+        "value": 0.08,
+        "date": "2022-02-01T00:00:00",
+        "frequency": "daily"
+      },
+      {
+        "indicator": "INTEREST_RATES",
+        "value": 0.08,
+        "date": "2022-01-01T00:00:00",
+        "frequency": "daily"
+      },
+      {
+        "indicator": "INTEREST_RATES",
+        "value": 0.08,
+        "date": "2021-12-01T00:00:00",
+        "frequency": "daily"
+      },
+      {
+        "indicator": "INTEREST_RATES",
+        "value": 0.08,
+        "date": "2021-11-01T00:00:00",
+        "frequency": "daily"
+      },
+      {
+        "indicator": "INTEREST_RATES",
+        "value": 0.08,
+        "date": "2021-10-01T00:00:00",
+        "frequency": "daily"
+      },
+      {
+        "indicator": "INTEREST_RATES",
+        "value": 0.08,
+        "date": "2021-09-01T00:00:00",
+        "frequency": "daily"
+      },
+      {
+        "indicator": "INTEREST_RATES",
+        "value": 0.09,
+        "date": "2021-08-01T00:00:00",
+        "frequency": "daily"
+      },
+      {
+        "indicator": "INTEREST_RATES",
+        "value": 0.1,
+        "date": "2021-07-01T00:00:00",
+        "frequency": "daily"
+      },
+      {
+        "indicator": "INTEREST_RATES",
+        "value": 0.08,
+        "date": "2021-06-01T00:00:00",
+        "frequency": "daily"
+      },
+      {
+        "indicator": "INTEREST_RATES",
+        "value": 0.06,
+        "date": "2021-05-01T00:00:00",
+        "frequency": "daily"
+      },
+      {
+        "indicator": "INTEREST_RATES",
+        "value": 0.07,
+        "date": "2021-04-01T00:00:00",
+        "frequency": "daily"
+      },
+      {
+        "indicator": "INTEREST_RATES",
+        "value": 0.07,
+        "date": "2021-03-01T00:00:00",
+        "frequency": "daily"
+      },
+      {
+        "indicator": "INTEREST_RATES",
+        "value": 0.08,
+        "date": "2021-02-01T00:00:00",
+        "frequency": "daily"
+      },
+      {
+        "indicator": "INTEREST_RATES",
+        "value": 0.09,
+        "date": "2021-01-01T00:00:00",
+        "frequency": "daily"
+      },
+      {
+        "indicator": "INTEREST_RATES",
+        "value": 0.09,
+        "date": "2020-12-01T00:00:00",
+        "frequency": "daily"
+      },
+      {
+        "indicator": "INTEREST_RATES",
+        "value": 0.09,
+        "date": "2020-11-01T00:00:00",
+        "frequency": "daily"
+      },
+      {
+        "indicator": "INTEREST_RATES",
+        "value": 0.09,
+        "date": "2020-10-01T00:00:00",
+        "frequency": "daily"
+      },
+      {
+        "indicator": "INTEREST_RATES",
+        "value": 0.09,
+        "date": "2020-09-01T00:00:00",
+        "frequency": "daily"
+      },
+      {
+        "indicator": "INTEREST_RATES",
+        "value": 0.1,
+        "date": "2020-08-01T00:00:00",
+        "frequency": "daily"
+      },
+      {
+        "indicator": "INTEREST_RATES",
+        "value": 0.09,
+        "date": "2020-07-01T00:00:00",
+        "frequency": "daily"
+      },
+      {
+        "indicator": "INTEREST_RATES",
+        "value": 0.08,
+        "date": "2020-06-01T00:00:00",
+        "frequency": "daily"
+      },
+      {
+        "indicator": "INTEREST_RATES",
+        "value": 0.05,
+        "date": "2020-05-01T00:00:00",
+        "frequency": "daily"
+      },
+      {
+        "indicator": "INTEREST_RATES",
+        "value": 0.05,
+        "date": "2020-04-01T00:00:00",
+        "frequency": "daily"
+      },
+      {
+        "indicator": "INTEREST_RATES",
+        "value": 0.65,
+        "date": "2020-03-01T00:00:00",
+        "frequency": "daily"
+      },
+      {
+        "indicator": "INTEREST_RATES",
+        "value": 1.58,
+        "date": "2020-02-01T00:00:00",
+        "frequency": "daily"
+      },
+      {
+        "indicator": "INTEREST_RATES",
+        "value": 1.55,
+        "date": "2020-01-01T00:00:00",
+        "frequency": "daily"
+      },
+      {
+        "indicator": "INTEREST_RATES",
+        "value": 1.55,
+        "date": "2019-12-01T00:00:00",
+        "frequency": "daily"
+      },
+      {
+        "indicator": "INTEREST_RATES",
+        "value": 1.55,
+        "date": "2019-11-01T00:00:00",
+        "frequency": "daily"
+      },
+      {
+        "indicator": "INTEREST_RATES",
+        "value": 1.83,
+        "date": "2019-10-01T00:00:00",
+        "frequency": "daily"
+      },
+      {
+        "indicator": "INTEREST_RATES",
+        "value": 2.04,
+        "date": "2019-09-01T00:00:00",
+        "frequency": "daily"
+      },
+      {
+        "indicator": "INTEREST_RATES",
+        "value": 2.13,
+        "date": "2019-08-01T00:00:00",
+        "frequency": "daily"
+      },
+      {
+        "indicator": "INTEREST_RATES",
+        "value": 2.4,
+        "date": "2019-07-01T00:00:00",
+        "frequency": "daily"
+      },
+      {
+        "indicator": "INTEREST_RATES",
+        "value": 2.38,
+        "date": "2019-06-01T00:00:00",
+        "frequency": "daily"
+      },
+      {
+        "indicator": "INTEREST_RATES",
+        "value": 2.39,
+        "date": "2019-05-01T00:00:00",
+        "frequency": "daily"
+      },
+      {
+        "indicator": "INTEREST_RATES",
+        "value": 2.42,
+        "date": "2019-04-01T00:00:00",
+        "frequency": "daily"
+      },
+      {
+        "indicator": "INTEREST_RATES",
+        "value": 2.41,
+        "date": "2019-03-01T00:00:00",
+        "frequency": "daily"
+      },
+      {
+        "indicator": "INTEREST_RATES",
+        "value": 2.4,
+        "date": "2019-02-01T00:00:00",
+        "frequency": "daily"
+      },
+      {
+        "indicator": "INTEREST_RATES",
+        "value": 2.4,
+        "date": "2019-01-01T00:00:00",
+        "frequency": "daily"
+      },
+      {
+        "indicator": "INTEREST_RATES",
+        "value": 2.27,
+        "date": "2018-12-01T00:00:00",
+        "frequency": "daily"
+      },
+      {
+        "indicator": "INTEREST_RATES",
+        "value": 2.2,
+        "date": "2018-11-01T00:00:00",
+        "frequency": "daily"
+      },
+      {
+        "indicator": "INTEREST_RATES",
+        "value": 2.19,
+        "date": "2018-10-01T00:00:00",
+        "frequency": "daily"
+      },
+      {
+        "indicator": "INTEREST_RATES",
+        "value": 1.95,
+        "date": "2018-09-01T00:00:00",
+        "frequency": "daily"
+      },
+      {
+        "indicator": "INTEREST_RATES",
+        "value": 1.91,
+        "date": "2018-08-01T00:00:00",
+        "frequency": "daily"
+      },
+      {
+        "indicator": "INTEREST_RATES",
+        "value": 1.91,
+        "date": "2018-07-01T00:00:00",
+        "frequency": "daily"
+      },
+      {
+        "indicator": "INTEREST_RATES",
+        "value": 1.82,
+        "date": "2018-06-01T00:00:00",
+        "frequency": "daily"
+      },
+      {
+        "indicator": "INTEREST_RATES",
+        "value": 1.7,
+        "date": "2018-05-01T00:00:00",
+        "frequency": "daily"
+      },
+      {
+        "indicator": "INTEREST_RATES",
+        "value": 1.69,
+        "date": "2018-04-01T00:00:00",
+        "frequency": "daily"
+      },
+      {
+        "indicator": "INTEREST_RATES",
+        "value": 1.51,
+        "date": "2018-03-01T00:00:00",
+        "frequency": "daily"
+      },
+      {
+        "indicator": "INTEREST_RATES",
+        "value": 1.42,
+        "date": "2018-02-01T00:00:00",
+        "frequency": "daily"
+      },
+      {
+        "indicator": "INTEREST_RATES",
+        "value": 1.41,
+        "date": "2018-01-01T00:00:00",
+        "frequency": "daily"
+      },
+      {
+        "indicator": "INTEREST_RATES",
+        "value": 1.3,
+        "date": "2017-12-01T00:00:00",
+        "frequency": "daily"
+      },
+      {
+        "indicator": "INTEREST_RATES",
+        "value": 1.16,
+        "date": "2017-11-01T00:00:00",
+        "frequency": "daily"
+      },
+      {
+        "indicator": "INTEREST_RATES",
+        "value": 1.15,
+        "date": "2017-10-01T00:00:00",
+        "frequency": "daily"
+      },
+      {
+        "indicator": "INTEREST_RATES",
+        "value": 1.15,
+        "date": "2017-09-01T00:00:00",
+        "frequency": "daily"
+      },
+      {
+        "indicator": "INTEREST_RATES",
+        "value": 1.16,
+        "date": "2017-08-01T00:00:00",
+        "frequency": "daily"
+      },
+      {
+        "indicator": "INTEREST_RATES",
+        "value": 1.15,
+        "date": "2017-07-01T00:00:00",
+        "frequency": "daily"
+      },
+      {
+        "indicator": "INTEREST_RATES",
+        "value": 1.04,
+        "date": "2017-06-01T00:00:00",
+        "frequency": "daily"
+      },
+      {
+        "indicator": "INTEREST_RATES",
+        "value": 0.91,
+        "date": "2017-05-01T00:00:00",
+        "frequency": "daily"
+      }
+    ]
+  }
+}

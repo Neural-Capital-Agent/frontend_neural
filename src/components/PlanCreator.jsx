@@ -208,14 +208,21 @@ const PlanCreator = () => {
       const entries = Object.entries(allocation);
       if (entries.length === 0) return [];
 
+      // Filter out invalid percentages and convert to numbers
+      const validEntries = entries
+        .map(([asset, percentage]) => [asset, parseFloat(percentage) || 0])
+        .filter(([_, percentage]) => !isNaN(percentage) && percentage > 0);
+
+      if (validEntries.length === 0) return [];
+
       // Calculate total percentage to normalize
-      const totalPercentage = entries.reduce((sum, [_, percentage]) => sum + (percentage || 0), 0);
+      const totalPercentage = validEntries.reduce((sum, [_, percentage]) => sum + percentage, 0);
 
       // If total is 0, return empty
       if (totalPercentage === 0) return [];
 
       // Normalize percentages to add up to 100%
-      const normalizedEntries = entries.map(([asset, percentage]) => {
+      const normalizedEntries = validEntries.map(([asset, percentage]) => {
         const normalizedPercentage = (percentage / totalPercentage) * 100;
         const usdAmount = (normalizedPercentage / 100) * targetAmount;
 
@@ -351,43 +358,219 @@ const PlanCreator = () => {
 
         {/* Investment Milestones */}
         <div className="bg-[#232736] rounded-lg overflow-hidden">
-          <div className="bg-[#2A2F3F] px-4 py-2 border-b border-[#3D4252]">
-            <h4 className="text-white font-semibold">Investment Milestones</h4>
-          </div>
-          <div className="p-5">
-            <div className="relative pl-8">
-              <div className="absolute left-3 top-0 h-full w-0.5 bg-[#3D4252]"></div>
-              {milestones.map((milestone, index) => (
-                <div key={index} className="mb-6 relative last:mb-0">
-                
-                  <div className="text-[#F59E0B] font-semibold">{milestone.timeline}</div>
-                  <div className="text-white mt-1">{milestone.checkpoint}</div>
-                  {index < milestones.length - 1 && (
-                    <div className="absolute -left-3 top-6 h-6 w-px border-l border-dashed border-[#3D4252]"></div>
-                  )}
+          <div className="bg-gradient-to-r from-[#2A2F3F] to-[#232736] px-4 py-3 border-b border-[#3D4252]">
+            <div className="flex items-center justify-between">
+              <div className="flex items-center">
+                <div className="w-8 h-8 bg-[#F59E0B]/20 rounded-lg flex items-center justify-center mr-3">
+                  <svg className="w-4 h-4 text-[#F59E0B]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
+                  </svg>
                 </div>
-              ))}
+                <h4 className="text-white font-semibold">Investment Milestones</h4>
+              </div>
+              <div className="text-xs text-slate-400 bg-[#1A1D29] px-2 py-1 rounded">
+                {milestones.length} milestones
+              </div>
             </div>
-          </div>:
+          </div>
+          <div className="p-6">
+            {milestones.length > 0 ? (
+              <div className="space-y-6">
+                {milestones.map((milestone, index) => (
+                  <div key={index} className="relative">
+                    <div className="flex items-start">
+                      <div className="flex-shrink-0 mr-4">
+                        <div className={`w-10 h-10 rounded-full flex items-center justify-center border-2 ${
+                          index === 0 ? 'bg-[#F59E0B] border-[#F59E0B] text-black' :
+                          index === 1 ? 'bg-blue-500/20 border-blue-500 text-blue-400' :
+                          index === 2 ? 'bg-green-500/20 border-green-500 text-green-400' :
+                          'bg-purple-500/20 border-purple-500 text-purple-400'
+                        }`}>
+                          <span className="text-sm font-bold">{index + 1}</span>
+                        </div>
+                        {index < milestones.length - 1 && (
+                          <div className="w-px h-16 bg-gradient-to-b from-[#3D4252] to-transparent ml-5 mt-2"></div>
+                        )}
+                      </div>
+                      <div className="flex-1 min-w-0">
+                        <div className="flex items-center justify-between mb-2">
+                          <div className={`inline-flex items-center px-3 py-1 rounded-full text-xs font-medium ${
+                            index === 0 ? 'bg-[#F59E0B]/20 text-[#F59E0B]' :
+                            index === 1 ? 'bg-blue-500/20 text-blue-400' :
+                            index === 2 ? 'bg-green-500/20 text-green-400' :
+                            'bg-purple-500/20 text-purple-400'
+                          }`}>
+                            <svg className="w-3 h-3 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+                            </svg>
+                            {milestone.timeline}
+                          </div>
+                          <div className="text-xs text-slate-500">
+                            Target {index + 1}
+                          </div>
+                        </div>
+                        <div className="bg-[#1A1D29] rounded-lg p-4 border border-[#3D4252]">
+                          <p className="text-white font-medium leading-relaxed">{milestone.checkpoint}</p>
+                          <div className="mt-3 flex items-center text-xs text-slate-400">
+                            <svg className="w-3 h-3 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                            </svg>
+                            Milestone {index + 1} of {milestones.length}
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                ))}
+                <div className="mt-6 bg-gradient-to-r from-[#F59E0B]/10 to-transparent p-4 rounded-lg border-l-4 border-[#F59E0B]">
+                  <div className="flex items-center">
+                    <svg className="w-5 h-5 text-[#F59E0B] mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                    </svg>
+                    <span className="text-sm text-slate-300">
+                      Track your progress towards these milestones in your investment dashboard
+                    </span>
+                  </div>
+                </div>
+              </div>
+            ) : (
+              <div className="text-center py-8">
+                <div className="w-16 h-16 bg-[#3D4252] rounded-full flex items-center justify-center mx-auto mb-4">
+                  <svg className="w-8 h-8 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
+                  </svg>
+                </div>
+                <p className="text-slate-400">No milestones available for this plan</p>
+              </div>
+            )}
+          </div>
         </div>
 
         {/* Risk Considerations */}
         <div className="bg-[#232736] rounded-lg overflow-hidden">
-          <div className="bg-[#2A2F3F] px-4 py-2 border-b border-[#3D4252]">
-            <h4 className="text-white font-semibold">Risk Considerations</h4>
-          </div>
-          <div className="p-4 divide-y divide-[#3D4252]">
-            {Object.entries(risks).map(([risk, description], index) => (
-              <div key={risk} className={`py-3 ${index === 0 ? 'pt-0' : ''}`}>
-                <div className="flex items-center mb-2">
-                  <div className="w-2 h-2 rounded-full bg-[#F59E0B] mr-2"></div>
-                  <h5 className="text-white font-medium capitalize">
-                    {risk.replace(/_/g, ' ')}
-                  </h5>
+          <div className="bg-gradient-to-r from-[#2A2F3F] to-[#232736] px-4 py-3 border-b border-[#3D4252]">
+            <div className="flex items-center justify-between">
+              <div className="flex items-center">
+                <div className="w-8 h-8 bg-red-500/20 rounded-lg flex items-center justify-center mr-3">
+                  <svg className="w-4 h-4 text-red-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-2.5L13.732 4c-.77-.833-1.964-.833-2.732 0L3.732 16.5c-.77.833.192 2.5 1.732 2.5z" />
+                  </svg>
                 </div>
-                <p className="text-slate-300 text-sm pl-4">{description}</p>
+                <h4 className="text-white font-semibold">Risk Considerations</h4>
               </div>
-            ))}
+              <div className="text-xs text-slate-400 bg-[#1A1D29] px-2 py-1 rounded">
+                {Object.keys(risks).length} risk factors
+              </div>
+            </div>
+          </div>
+          <div className="p-6">
+            {Object.keys(risks).length > 0 ? (
+              <div className="space-y-4">
+                {Object.entries(risks).map(([risk, description], index) => {
+                  const riskTypes = {
+                    market: { color: 'red', icon: 'chart', severity: 'High' },
+                    liquidity: { color: 'orange', icon: 'currency', severity: 'Medium' },
+                    credit: { color: 'yellow', icon: 'document', severity: 'Medium' },
+                    operational: { color: 'blue', icon: 'cog', severity: 'Low' },
+                    regulatory: { color: 'purple', icon: 'scale', severity: 'Medium' },
+                    interest_rate: { color: 'pink', icon: 'trending', severity: 'High' },
+                    inflation: { color: 'indigo', icon: 'fire', severity: 'Medium' },
+                    default: { color: 'gray', icon: 'exclamation', severity: 'Medium' }
+                  };
+
+                  const riskKey = risk.toLowerCase().replace(/\s+/g, '_');
+                  const riskInfo = riskTypes[riskKey] || riskTypes.default;
+
+                  const colorClasses = {
+                    red: { bg: 'bg-red-500/10', border: 'border-red-500/30', text: 'text-red-400', badge: 'bg-red-500/20 text-red-300' },
+                    orange: { bg: 'bg-orange-500/10', border: 'border-orange-500/30', text: 'text-orange-400', badge: 'bg-orange-500/20 text-orange-300' },
+                    yellow: { bg: 'bg-yellow-500/10', border: 'border-yellow-500/30', text: 'text-yellow-400', badge: 'bg-yellow-500/20 text-yellow-300' },
+                    blue: { bg: 'bg-blue-500/10', border: 'border-blue-500/30', text: 'text-blue-400', badge: 'bg-blue-500/20 text-blue-300' },
+                    purple: { bg: 'bg-purple-500/10', border: 'border-purple-500/30', text: 'text-purple-400', badge: 'bg-purple-500/20 text-purple-300' },
+                    pink: { bg: 'bg-pink-500/10', border: 'border-pink-500/30', text: 'text-pink-400', badge: 'bg-pink-500/20 text-pink-300' },
+                    indigo: { bg: 'bg-indigo-500/10', border: 'border-indigo-500/30', text: 'text-indigo-400', badge: 'bg-indigo-500/20 text-indigo-300' },
+                    gray: { bg: 'bg-gray-500/10', border: 'border-gray-500/30', text: 'text-gray-400', badge: 'bg-gray-500/20 text-gray-300' }
+                  };
+
+                  const colors = colorClasses[riskInfo.color];
+
+                  const getIcon = (iconType) => {
+                    const iconPaths = {
+                      chart: "M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z",
+                      currency: "M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1",
+                      document: "M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z",
+                      cog: "M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z M15 12a3 3 0 11-6 0 3 3 0 016 0z",
+                      scale: "M3 6l3 1m0 0l-3 9a5.002 5.002 0 006.001 0M6 7l3 9M6 7l6-2m6 2l3-1m-3 1l-3 9a5.002 5.002 0 006.001 0M18 7l3 9m-3-9l-6-2m0-2v2m0 16V5m0 16H9m3 0h3",
+                      trending: "M13 7h8m0 0v8m0-8l-8 8-4-4-6 6",
+                      fire: "M17.657 18.657A8 8 0 016.343 7.343S7 9 9 10c0-2 1-4 4-4 2 0 3 1 3 3 1 1 0 4-1 4 1 0 2.5-.5 2.5-2.5 0 0 .5 1.5 0 3z",
+                      exclamation: "M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-2.5L13.732 4c-.77-.833-1.964-.833-2.732 0L3.732 16.5c-.77.833.192 2.5 1.732 2.5z"
+                    };
+                    return iconPaths[iconType] || iconPaths.exclamation;
+                  };
+
+                  return (
+                    <div key={risk} className={`border rounded-lg p-4 ${colors.bg} ${colors.border}`}>
+                      <div className="flex items-start justify-between mb-3">
+                        <div className="flex items-center">
+                          <div className={`w-8 h-8 rounded-lg flex items-center justify-center mr-3 ${colors.badge}`}>
+                            <svg className={`w-4 h-4 ${colors.text}`} fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d={getIcon(riskInfo.icon)} />
+                            </svg>
+                          </div>
+                          <div>
+                            <h5 className={`font-semibold capitalize ${colors.text}`}>
+                              {risk.replace(/_/g, ' ')}
+                            </h5>
+                            <div className="flex items-center mt-1">
+                              <span className={`text-xs px-2 py-1 rounded-full ${colors.badge} font-medium`}>
+                                {riskInfo.severity} Risk
+                              </span>
+                            </div>
+                          </div>
+                        </div>
+                        <div className="text-xs text-slate-500 bg-[#1A1D29] px-2 py-1 rounded">
+                          #{index + 1}
+                        </div>
+                      </div>
+                      <p className="text-slate-300 text-sm leading-relaxed pl-11">{description}</p>
+
+                      <div className="mt-3 pl-11">
+                        <div className="flex items-center text-xs text-slate-400">
+                          <svg className="w-3 h-3 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                          </svg>
+                          Consider this risk when making investment decisions
+                        </div>
+                      </div>
+                    </div>
+                  );
+                })}
+
+                <div className="mt-6 bg-gradient-to-r from-red-500/10 to-transparent p-4 rounded-lg border-l-4 border-red-500">
+                  <div className="flex items-start">
+                    <svg className="w-5 h-5 text-red-400 mr-3 mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-2.5L13.732 4c-.77-.833-1.964-.833-2.732 0L3.732 16.5c-.77.833.192 2.5 1.732 2.5z" />
+                    </svg>
+                    <div>
+                      <h6 className="text-red-300 font-medium text-sm mb-1">Important Disclaimer</h6>
+                      <p className="text-slate-300 text-sm leading-relaxed">
+                        All investments carry risk. Past performance does not guarantee future results.
+                        Please consult with a financial advisor to understand how these risks apply to your specific situation.
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            ) : (
+              <div className="text-center py-8">
+                <div className="w-16 h-16 bg-[#3D4252] rounded-full flex items-center justify-center mx-auto mb-4">
+                  <svg className="w-8 h-8 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-2.5L13.732 4c-.77-.833-1.964-.833-2.732 0L3.732 16.5c-.77.833.192 2.5 1.732 2.5z" />
+                  </svg>
+                </div>
+                <p className="text-slate-400">No risk information available for this plan</p>
+              </div>
+            )}
           </div>
         </div>
       </div>

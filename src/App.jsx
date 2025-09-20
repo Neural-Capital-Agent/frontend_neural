@@ -11,6 +11,7 @@ import LogoutButton from './components/LogoutButton';
 import CustomerProfile from './pages/CustomerProfile';
 import SettingsMarket from './pages/SettingsMarket';
 import Pricing from './pages/Pricing';
+import MacroInfoPage from './pages/MacroInfoPage';
 import './App.css';
 
 // Create authentication context
@@ -175,7 +176,15 @@ function App() {
               </DashboardLayout>
             </ProtectedRoute>
           } />
-          
+
+          <Route path="/macro-info" element={
+            <ProtectedRoute>
+              <DashboardLayout>
+                <MacroInfoPage />
+              </DashboardLayout>
+            </ProtectedRoute>
+          } />
+
           {/* Redirect all unknown routes to home */}
           <Route path="*" element={<Navigate to="/" replace />} />
         </Routes>
