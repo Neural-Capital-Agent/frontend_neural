@@ -1,8 +1,8 @@
 import React from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import { 
-  HomeIcon, ChartBarIcon, CogIcon, UserIcon, 
-  ChatIcon, DocumentReportIcon, LogoutIcon 
+import {
+  HomeIcon, ChartBarIcon, CogIcon, UserIcon,
+  ChatIcon, DocumentReportIcon, LogoutIcon, CloudIcon
 } from '@heroicons/react/outline';
 
 const Sidebar = () => {
@@ -14,6 +14,7 @@ const Sidebar = () => {
     { name: 'Market', path: '/stocks', icon: ChartBarIcon },
     { name: 'Account', path: '/profile', icon: UserIcon },
     { name: 'Macro Info', path: '/macro-info', icon: DocumentReportIcon },
+    { name: 'Coral Protocol', path: '/coral', icon: CloudIcon },
     { name: 'Plans & Pricing', path: '/pricing', icon: ChatIcon },
   ];
 

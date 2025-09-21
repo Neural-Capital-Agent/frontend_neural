@@ -16,6 +16,7 @@ import SettingsMarket from './pages/SettingsMarket';
 import Pricing from './pages/Pricing';
 import PricingFixed from './pages/PricingFixed';
 import MacroInfoPage from './pages/MacroInfoPage';
+import CoralDashboard from './components/CoralDashboard';
 import './App.css';
 
 // Create authentication context
@@ -185,6 +186,14 @@ function App() {
             <ProtectedRoute>
               <DashboardLayout>
                 <MacroInfoPage />
+              </DashboardLayout>
+            </ProtectedRoute>
+          } />
+
+          <Route path="/coral" element={
+            <ProtectedRoute>
+              <DashboardLayout>
+                <CoralDashboard />
               </DashboardLayout>
             </ProtectedRoute>
           } />
