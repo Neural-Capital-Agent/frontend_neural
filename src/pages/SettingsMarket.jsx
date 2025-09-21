@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 
+const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || 'http://localhost:8000';
+
 const InfoTooltip = ({ text }) => (
   <span className="relative group inline-block ml-1 align-middle">
     <span className="text-slate-400 cursor-pointer">ℹ️</span>
@@ -45,9 +47,9 @@ const SettingsMarket = () => {
     try {
       // Fetch all three endpoints in parallel
       const [employmentResponse, inflationResponse, volatilityResponse] = await Promise.all([
-        axios.get('http://localhost:8000/api/v1/agents/data/macro/payems'),
-        axios.get('http://localhost:8000/api/v1/agents/data/macro/CPIAUCSL'),
-        axios.get('http://localhost:8000/api/v1/agents/data/macro/VIXCLS')
+        axios.get(`${API_BASE_URL}/api/v1/agents/data/macro/payems`),
+        axios.get(`${API_BASE_URL}/api/v1/agents/data/macro/CPIAUCSL`),
+        axios.get(`${API_BASE_URL}/api/v1/agents/data/macro/VIXCLS`)
       ]);
       
       // Store the raw data from each endpoint

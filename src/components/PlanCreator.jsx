@@ -81,7 +81,7 @@ const PlanCreator = () => {
     }
 
     try {
-      const response = await fetch(`http://localhost:8000/api/v1/plan-creator/plans/${userId}?active_only=true`);
+      const response = await fetch(`${getApiUrl()}/api/v1/plan-creator/plans/${userId}?active_only=true`);
 
       if (response.ok) {
         const data = await response.json();
@@ -110,7 +110,7 @@ const PlanCreator = () => {
 
     try {
       console.log("Fetching plan details for ID:", planId);
-      const response = await fetch(`http://localhost:8000/api/v1/plan-creator/plan/${planId}`);
+      const response = await fetch(`${getApiUrl()}/api/v1/plan-creator/plan/${planId}`);
 
       if (!response.ok) {
         throw new Error(`Failed to fetch plan details: ${response.status}`);

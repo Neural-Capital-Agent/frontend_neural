@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
+const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || 'http://localhost:8000';
+
 
 const OnboardingForm = () => {
   const navigate = useNavigate();
@@ -277,7 +279,7 @@ const OnboardingForm = () => {
   const handleSubmit = async (data) => {
    try {
     // Use proper await syntax instead of mixing await with .then()
-    const response = await fetch(`http://localhost:8000/api/v1/user/${userId}/setup`, {
+    const response = await fetch(`${API_BASE_URL}/api/v1/user/${userId}/setup`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'

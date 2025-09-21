@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import QuickAdvice from './QuickAnalisis';
+import EnhancedQuickAdvice from './EnhancedQuickAdvice';
 import PlanCreator from './PlanCreator';
 import AIInvestmentAdvisor from './AIInvestmentAdvisor';
 import MarketNews from './MarketNews';
@@ -15,7 +16,7 @@ const DashboardOptions = ({ memberShipData }) => {
             title: 'Quick Advice',
             description: 'Get instant insights and recommendations for your investments',
             icon: '📊',
-            component: <QuickAdvice />,
+            component: <EnhancedQuickAdvice />,
             tier: 'free'
         },
         {

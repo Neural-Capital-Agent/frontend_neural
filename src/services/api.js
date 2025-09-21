@@ -1,5 +1,5 @@
 // API Service for Neural Capital Financial Agents
-const API_BASE_URL = `${(import.meta?.env?.VITE_API_BASE_URL) || 'https://neural-capital-agent-api-backend.onrender.com'}/api/v1`;
+const API_BASE_URL = `${(import.meta?.env?.VITE_API_BASE_URL) || 'http://localhost:8000'}/api/v1`;
 
 class ApiService {
   constructor() {
