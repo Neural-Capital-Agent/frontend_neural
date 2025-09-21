@@ -3,6 +3,15 @@ import react from '@vitejs/plugin-react'
 
 // https://vite.dev/config/
 export default defineConfig({
-  envPrefix: 'NEXT_PUBLIC_',
   plugins: [react()],
+  build: {
+    outDir: 'dist',
+    sourcemap: true,
+  },
+  server: {
+    port: 3000,
+  },
+  preview: {
+    port: 4173,
+  }
 })

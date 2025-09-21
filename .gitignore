@@ -30,3 +30,6 @@ CHATCONTEXT.MD
 .env
 .env.local
 .env.*.local
+
+.claude/
+.claude
