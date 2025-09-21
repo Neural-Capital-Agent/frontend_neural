@@ -1,10 +1,6 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-// Temporarily comment out Crossmint to test if it's causing the issue
-// import { CrossmintProvider, CrossmintHostedCheckout } from "@crossmint/client-sdk-react-ui";
 
-// Move localStorage call inside component to avoid SSR issues
-// const userId = localStorage.getItem('userId');
 const features = [
 	[
 		{ label: 'Basic dashboard & portfolio', icon: '✓', type: 'enabled' },
@@ -33,7 +29,7 @@ const iconColor = {
 	locked: 'text-slate-500',
 };
 
-const Pricing = () => {
+const PricingFixed = () => {
 	const navigate = useNavigate();
 	const [billing, setBilling] = useState('monthly');
 	const [showContactModal, setShowContactModal] = useState(false);
@@ -43,10 +39,6 @@ const Pricing = () => {
 
 	// Get userId inside component
 	const userId = localStorage.getItem('userId');
-
-	const clientApiKey = import.meta.env.VITE_CLIENT_API_KEY || "";
-    const collectionId = import.meta.env.VITE_COLLECTION_ID || "";
-	const collectionIdBasic = import.meta.env.VITE_COLLECTION_ID_BASIC || "";
 	const apiBaseUrl = import.meta.env.VITE_API_BASE_URL || "http://localhost:8000";
 
 	const handleSubmit = async (e) => {
@@ -74,7 +66,7 @@ const Pricing = () => {
 			setSubmitted(true); // Still show success to user
 		}
 	};
-	
+
 	const setMembership = async (tier, credits) => {
 		if (!userId) {
 			console.error('No user ID found');
@@ -117,7 +109,7 @@ const Pricing = () => {
 	return (
 		<div className="flex flex-col items-center justify-start bg-[#0B0E1A] p-4">
 			<h1 className="text-3xl font-bold text-slate-100 mb-6">Choose the plan that more fit with you</h1>
-			
+
 			{/* Main content container - fixed columns regardless of screen size */}
 			<div className="w-full max-w-7xl flex flex-row gap-4">
 				{/* Left column - Pricing plans */}
@@ -146,7 +138,7 @@ const Pricing = () => {
 							<span className="font-bold text-[#F59E0B]">Save 20%</span>
 						</span>
 					</div>
-					
+
 					{/* Pricing cards - always in grid */}
 					<div className="grid grid-cols-3 gap-3 w-full">
 						{/* Starter */}
@@ -178,7 +170,7 @@ const Pricing = () => {
 								No credit card required.
 							</p>
 						</div>
-						
+
 						{/* Pro (Most Popular) */}
 						<div className="bg-[#202433] rounded-2xl shadow-lg overflow-hidden flex flex-col border-2 border-[#F59E0B] relative px-2 pt-6 pb-3 scale-105 hover:scale-[1.08] transition-transform duration-200 hover:shadow-[0_0_0_1px_rgba(255,153,0,.25)]">
 							<div className="px-2 py-3 mb-1 relative">
@@ -216,7 +208,7 @@ const Pricing = () => {
 							<p className="text-xs text-slate-400 text-center mt-1">
 							</p>
 						</div>
-						
+
 						{/* Enterprise */}
 						<div className="bg-[#1A1D29] rounded-2xl shadow-lg overflow-hidden flex flex-col px-2 pt-4 pb-3 transition-shadow duration-200 hover:shadow-[0_0_32px_0_#F59E0B]">
 							<div className="px-2 py-3 mb-1">
@@ -235,7 +227,7 @@ const Pricing = () => {
 									</li>
 								))}
 							</ul>
-							<button 
+							<button
 								className="w-full py-1 px-3 border-2 border-[#F59E0B] text-[#F59E0B] font-bold rounded-xl transition duration-200 mt-1 bg-transparent hover:bg-[#F59E0B]/10 text-sm"
 								onClick={() => setShowContactModal(true)}
 							>
@@ -247,14 +239,14 @@ const Pricing = () => {
 						</div>
 					</div>
 				</div>
-				
+
 				{/* Right column - Comparison table */}
 				<div className="w-1/3">
 					<div className="bg-[#10131C] rounded-2xl shadow border border-[#202433] overflow-hidden h-full">
 						<div className="text-center text-base font-semibold bg-[#181E2C] text-slate-200 py-2">
 							Feature Comparison
 						</div>
-						
+
 						<div className="grid grid-cols-3 text-center text-xs font-semibold bg-[#181E2C] text-slate-300">
 							<div className="py-2">Assets</div>
 							<div className="py-2">Rebalancing</div>
@@ -275,7 +267,7 @@ const Pricing = () => {
 							<div className="py-1 border-t border-white/5">Real-time</div>
 							<div className="py-1 border-t border-white/5">✓+</div>
 						</div>
-						
+
 						<div className="grid grid-cols-3 text-center text-xs font-semibold bg-[#181E2C] text-slate-300 mt-2">
 							<div className="py-2">Data</div>
 							<div className="py-2">Support</div>
@@ -296,7 +288,7 @@ const Pricing = () => {
 							<div className="py-1 border-t border-white/5">Dedicated</div>
 							<div className="py-1 border-t border-white/5">Premium</div>
 						</div>
-						
+
 						{/* Trust Hints */}
 						<div className="mt-2 text-center text-xs text-slate-400 p-2">
 							Backtested • Explainable • Risk controls
@@ -309,7 +301,7 @@ const Pricing = () => {
 			{showContactModal && (
 				<div className="fixed inset-0 bg-black bg-opacity-70 flex items-center justify-center z-50 p-4">
 					<div className="bg-[#1A1D29] rounded-2xl shadow-xl max-w-md w-full p-6 relative">
-						<button 
+						<button
 							className="absolute top-3 right-3 text-slate-400 hover:text-white"
 							onClick={() => setShowContactModal(false)}
 						>
@@ -317,9 +309,9 @@ const Pricing = () => {
 								<path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
 							</svg>
 						</button>
-						
+
 						<h3 className="text-xl font-bold text-white mb-4">Contact Our Sales Team</h3>
-						
+
 						{submitted ? (
 							<div className="text-center py-8">
 								<div className="text-[#F59E0B] text-4xl mb-4">✓</div>
@@ -342,7 +334,7 @@ const Pricing = () => {
 										placeholder="your.email@example.com"
 									/>
 								</div>
-								
+
 								<div>
 									<label htmlFor="message" className="block text-sm font-medium text-slate-300 mb-1">
 										Message
@@ -356,7 +348,7 @@ const Pricing = () => {
 										placeholder="Tell us about your company and requirements..."
 									/>
 								</div>
-								
+
 								<button
 									type="submit"
 									className="w-full py-2 px-4 bg-[#F59E0B] text-black font-bold rounded-xl transition duration-200 hover:bg-[#F59E0B]/90"
@@ -372,4 +364,4 @@ const Pricing = () => {
 	);
 };
 
-export default Pricing;
+export default PricingFixed;

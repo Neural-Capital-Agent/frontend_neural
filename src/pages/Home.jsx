@@ -22,7 +22,8 @@ const Home = () => {
     // Fetch membership data
     const fetchMembershipData = async () => {
       try {
-        const response = await fetch(`http://localhost:8000/api/v1/llm/usage/${userId}`, {
+        const API_BASE_URL = getApiUrl();
+        const response = await fetch(`${API_BASE_URL}/llm/usage/${userId}`, {
           method: 'GET',
           headers: {
             'Content-Type': 'application/json',

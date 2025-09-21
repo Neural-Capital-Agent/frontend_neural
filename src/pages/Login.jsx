@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { useAuth } from '../App';
 import BackgroundCandles from '../components/layouts/BackgroundCandles';
+import { getApiUrl } from '../utils/apiConfig.js';
 
 const Login = () => {
   const navigate = useNavigate();
@@ -73,10 +74,10 @@ const Login = () => {
     setIsSubmitting(true);
     setErrors({});
     
+    const API_BASE_URL = getApiUrl();
+    
     try {
-      
-
-      const response = await fetch('http://localhost:8000/api/v1/user/login', {
+      const response = await fetch(`${API_BASE_URL}/user/login`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'
@@ -120,7 +121,7 @@ const Login = () => {
     } else if (error.name === 'TypeError' && error.message.includes('fetch')) {
       errorMessage = '🚫 API Server is not running. Please start the backend server on port 8000.';
     } else if (error.message === 'Failed to fetch') {
-      errorMessage = '🔌 Unable to connect to server. Check if the API is running on http://localhost:8000';
+      errorMessage = '🔌 Unable to connect to server. Check if the API is running.';
     } else if (error.name === 'TypeError') {
       errorMessage = '⚠️ Network error: Cannot reach the API server. Make sure the backend is running.';
     } else if (error.message) {

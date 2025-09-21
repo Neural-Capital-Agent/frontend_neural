@@ -1,4 +1,5 @@
 import React, { useState, useCallback, useEffect } from "react";
+import { getApiUrl } from '../utils/apiConfig.js';
 
 const PlanCreator = () => {
   const [additionalGoal, setAdditionalGoal] = useState("");
@@ -19,7 +20,8 @@ const PlanCreator = () => {
     const userId = localStorage.getItem("userId") || "anonymous_user";
 
     try {
-      const url = new URL("http://localhost:8000/api/v1/plan-creator/create-comprehensive-plan");
+      const baseUrl = getApiUrl();
+      const url = new URL(`${baseUrl}/plan-creator/create-comprehensive-plan`);
       url.searchParams.append("user_id", userId);
 
       // Only add if not empty

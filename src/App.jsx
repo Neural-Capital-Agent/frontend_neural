@@ -8,9 +8,13 @@ import StocksPage from './pages/StocksPage';
 import Login from './pages/Login';
 import Signup from './pages/Signup';
 import LogoutButton from './components/LogoutButton';
+import './debug.js'; // Temporary debug import
+import './envTest.js'; // Environment test
+import './tierDebug.js'; // Tier system debug
 import CustomerProfile from './pages/CustomerProfile';
 import SettingsMarket from './pages/SettingsMarket';
 import Pricing from './pages/Pricing';
+import PricingFixed from './pages/PricingFixed';
 import MacroInfoPage from './pages/MacroInfoPage';
 import './App.css';
 
@@ -172,7 +176,7 @@ function App() {
             <Route path="/pricing" element={
             <ProtectedRoute>
               <DashboardLayout>
-                <Pricing />
+                <PricingFixed />
               </DashboardLayout>
             </ProtectedRoute>
           } />

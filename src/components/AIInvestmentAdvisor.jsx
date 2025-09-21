@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useCrewAI } from '../hooks/useAgents';
 import FeatureGate from './FeatureGate';
+import { getApiUrl } from '../utils/apiConfig.js';
 
 const AIInvestmentAdvisor = () => {
   const [newGoal, setNewGoal] = useState('');
@@ -20,8 +21,9 @@ const AIInvestmentAdvisor = () => {
 
     try {
       const userId = localStorage.getItem('userId') || 'anonymous';
+      const API_BASE_URL = getApiUrl();
 
-      const response = await fetch(`http://localhost:8000/api/v1/agents/workflow/complete-analysis?user_id=${userId}`, {
+      const response = await fetch(`${API_BASE_URL}/agents/workflow/complete-analysis?user_id=${userId}`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

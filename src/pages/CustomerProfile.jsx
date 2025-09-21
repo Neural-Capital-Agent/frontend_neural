@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import BackgroundCandles from '../components/layouts/BackgroundCandles';
+import { getApiUrl } from '../utils/apiConfig.js';
 
 const CustomerProfile = () => {
   const [compact, setCompact] = React.useState(false);
@@ -17,7 +18,8 @@ const CustomerProfile = () => {
           throw new Error('User ID not found in local storage');
         }
 
-        const response = await fetch(`http://localhost:8000/api/v1/user/${userId}`);
+        const API_BASE_URL = getApiUrl();
+        const response = await fetch(`${API_BASE_URL}/user/${userId}`);
         
         if (!response.ok) {
           throw new Error(`API error: ${response.status}`);

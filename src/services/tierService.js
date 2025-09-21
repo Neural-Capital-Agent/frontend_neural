@@ -252,7 +252,9 @@ class TierService {
   // Check if user has access to a specific feature
   hasFeatureAccess(featureName) {
     if (!this.currentUserTier) {
-      return false;
+      // Default to free tier features when tier data is not loaded
+      const freeTierFeatures = this.getDefaultFeatures('free');
+      return freeTierFeatures[featureName] === true;
     }
 
     const features = this.currentUserTier.tier_features || this.getDefaultFeatures(this.currentUserTier.tier);
@@ -262,7 +264,8 @@ class TierService {
   // Check if user has remaining credits/usage
   hasUsageRemaining(featureName = null) {
     if (!this.currentUserTier) {
-      return false;
+      // Default to allowing usage when tier data is not loaded (free tier)
+      return true;
     }
 
     // Check daily limits

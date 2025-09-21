@@ -82,7 +82,11 @@ export const useTier = (userId) => {
 
   // Check if feature should be locked
   const isFeatureLocked = useCallback((featureName) => {
-    if (!tierData) return true;
+    // During loading or if tier data fails to load, allow free tier features by default
+    if (!tierData) {
+      const freeTierFeatures = ['ai_analysis', 'portfolio_optimization', 'real_time_data', 'chat_support'];
+      return !freeTierFeatures.includes(featureName);
+    }
 
     const hasAccess = hasFeatureAccess(featureName);
     const hasUsage = hasUsageRemaining(featureName);

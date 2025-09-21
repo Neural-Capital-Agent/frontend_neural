@@ -1,5 +1,7 @@
 // Agent API Service for Neural Capital Agent Results
-const API_BASE_URL = 'http://localhost:8000/api/v1';
+import { getApiUrl } from '../utils/apiConfig.js';
+
+const API_BASE_URL = getApiUrl();
 
 class AgentApiService {
   constructor() {

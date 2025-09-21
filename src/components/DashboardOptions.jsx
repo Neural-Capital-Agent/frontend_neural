@@ -75,9 +75,14 @@ const DashboardOptions = ({ memberShipData }) => {
     };
 
     const canAccessFeature = (requiredTier, userTier) => {
+        // Always allow access to free tier features
+        if (requiredTier === 'free') {
+            return true;
+        }
+
         const tierHierarchy = ['free', 'basic', 'premium', 'enterprise'];
         const requiredIndex = tierHierarchy.indexOf(requiredTier);
-        const userIndex = tierHierarchy.indexOf(userTier);
+        const userIndex = tierHierarchy.indexOf(userTier || 'free'); // Default to free if no tier
         return userIndex >= requiredIndex;
     };
 

@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import BackgroundCandles from '../components/layouts/BackgroundCandles';
+import { getApiUrl } from '../utils/apiConfig.js';
 
 const Signup = () => {
   const navigate = useNavigate();
@@ -108,12 +109,14 @@ const Signup = () => {
     
     setIsSubmitting(true);
     
+    const API_BASE_URL = getApiUrl();
+    
     try {
       
       console.log('Registration submitted:', formData);
       
-      // Simulate API call
-      fetch('http://localhost:8000/api/v1/user', {
+      // API call
+      fetch(`${API_BASE_URL}/user`, {
         method:'POST',
         headers: {
           'Content-Type': 'application/json'

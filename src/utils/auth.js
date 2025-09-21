@@ -1,3 +1,5 @@
+import { getApiUrl } from './apiConfig.js';
+
 const checkUserSetup = async () => {
   try {
     const userid = localStorage.getItem('userId');
@@ -5,7 +7,8 @@ const checkUserSetup = async () => {
       return false;
     }
 
-    const response = await fetch(`http://localhost:8000/api/v1/user/${userid}/setup`);
+    const API_BASE_URL = getApiUrl();
+    const response = await fetch(`${API_BASE_URL}/user/${userid}/setup`);
 
     if (!response.ok) {
       console.error('Setup check failed:', response.status);

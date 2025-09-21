@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>API Test</title>
+</head>
+<body>
+    <h1>API Connection Test</h1>
+    <button onclick="testApi()">Test API Connection</button>
+    <div id="results"></div>
+
+    <script>
+        async function testApi() {
+            const results = document.getElementById('results');
+            results.innerHTML = '<p>Testing...</p>';
+            
+            const apiUrl = 'https://neural-capital-agent-api-backend.onrender.com';
+            
+            try {
+                console.log('Testing API:', apiUrl);
+                
+                // Test health endpoint
+                const healthResponse = await fetch(`${apiUrl}/health`);
+                const healthData = await healthResponse.json();
+                console.log('Health check:', healthData);
+                
+                // Test root endpoint
+                const rootResponse = await fetch(`${apiUrl}/`);
+                const rootData = await rootResponse.json();
+                console.log('Root endpoint:', rootData);
+                
+                // Test API v1 endpoint
+                const apiResponse = await fetch(`${apiUrl}/api/v1/agents/health`);
+                const apiData = await apiResponse.json();
+                console.log('API v1 health:', apiData);
+                
+                results.innerHTML = `
+                    <h3>✅ API Connection Successful!</h3>
+                    <p><strong>Health Status:</strong> ${healthData.system}</p>
+                    <p><strong>API Version:</strong> ${rootData.version}</p>
+                    <p><strong>Service:</strong> ${rootData.service}</p>
+                    <p>Check browser console for full response data.</p>
+                `;
+                
+            } catch (error) {
+                console.error('API test failed:', error);
+                results.innerHTML = `
+                    <h3>❌ API Connection Failed</h3>
+                    <p><strong>Error:</strong> ${error.message}</p>
+                    <p>This is likely a CORS issue. Check the browser console for details.</p>
+                `;
+            }
+        }
+    </script>
+</body>
+</html>
