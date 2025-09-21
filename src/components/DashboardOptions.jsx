@@ -30,10 +30,11 @@ const DashboardOptions = ({ memberShipData }) => {
         {
             id: 'ai-investment-advisor',
             title: 'AI Investment Advisor',
-            description: 'Get personalized investment advice powered by advanced AI',
+            description: 'Get personalized investment advice powered by advanced AI (Coming Soon)',
             icon: '🤖',
             component: <AIInvestmentAdvisor />,
-            tier: 'free'
+            tier: 'premium',
+            comingSoon: true
         },
         {
             id: 'portfolio-advisor',

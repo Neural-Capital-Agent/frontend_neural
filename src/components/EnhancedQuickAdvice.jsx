@@ -1,5 +1,5 @@
 import React, { useState, useCallback, useEffect } from "react";
-import explainabilityAgent from "../services/explainabilityAgent";
+import frontendLLMService from "../services/frontendLLMService";
 
 const EnhancedQuickAdvice = () => {
   const [question, setQuestion] = useState("");
@@ -23,13 +23,9 @@ const EnhancedQuickAdvice = () => {
 
       try {
         setProfileLoading(true);
-        const [profile, portfolio] = await Promise.all([
-          explainabilityAgent.getUserProfile(userId).catch(() => null),
-          explainabilityAgent.getUserPortfolio(userId).catch(() => null)
-        ]);
-
-        setUserProfile(profile);
-        setUserPortfolio(portfolio);
+        const userData = await frontendLLMService.fetchUserData(userId);
+        setUserProfile(userData.profile);
+        setUserPortfolio(userData.portfolio);
       } catch (error) {
         console.error('Error loading user data:', error);
       } finally {
@@ -48,18 +44,23 @@ const EnhancedQuickAdvice = () => {
       return;
     }
 
+    if (!frontendLLMService.isConfigured()) {
+      setError("LLM service is not configured. Please check API key settings.");
+      return;
+    }
+
     setLoading(true);
     setError(null);
     setResponse(null);
 
     try {
-      const data = await explainabilityAgent.getPersonalizedAdvice(question, userId);
+      const data = await frontendLLMService.getPersonalizedAdvice(question, userId);
       console.log("Enhanced Quick Advice Response:", data);
       setResponse(data);
       setQuestion("");
     } catch (error) {
       console.error("Error:", error);
-      setError("Failed to get personalized advice. Please try again.");
+      setError(error.message || "Failed to get personalized advice. Please try again.");
     } finally {
       setLoading(false);
     }
@@ -71,12 +72,17 @@ const EnhancedQuickAdvice = () => {
       return;
     }
 
+    if (!frontendLLMService.isConfigured()) {
+      setError("LLM service is not configured. Please check API key settings.");
+      return;
+    }
+
     setLoading(true);
     setError(null);
     setResponse(null);
 
     try {
-      const data = await explainabilityAgent.analyzePortfolioForUser(userId);
+      const data = await frontendLLMService.analyzePortfolio(userId);
       console.log("Portfolio Analysis Response:", data);
       setResponse({
         ...data,
@@ -84,7 +90,7 @@ const EnhancedQuickAdvice = () => {
       });
     } catch (error) {
       console.error("Error:", error);
-      setError("Failed to analyze portfolio. Please try again.");
+      setError(error.message || "Failed to analyze portfolio. Please try again.");
     } finally {
       setLoading(false);
     }
@@ -184,56 +190,93 @@ const EnhancedQuickAdvice = () => {
 
       {/* Response Display */}
       {response && (
-        <div className="mt-6 p-6 bg-[#10131C] border border-[#2D3348] rounded-lg">
-          <h3 className="text-lg font-semibold text-[#F59E0B] mb-4">
-            {response.isPortfolioAnalysis ? "Portfolio Analysis" : "Personalized Analysis"}
-          </h3>
-
-          {/* Main advice/analysis */}
-          <div className="mb-4">
-            <div className="text-white whitespace-pre-line leading-relaxed">
-              {response.advice || response.analysis || response.message || JSON.stringify(response, null, 2)}
+        <div className="mt-6 space-y-4">
+          {/* Main Response Card */}
+          <div className="bg-gradient-to-br from-[#C87933]/10 to-[#F59E0B]/5 border border-[#C87933]/30 rounded-xl p-6">
+            <div className="flex items-center mb-4">
+              <div className="w-8 h-8 bg-[#C87933] rounded-full flex items-center justify-center mr-3">
+                {response.isPortfolioAnalysis ? (
+                  <svg className="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v4a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
+                  </svg>
+                ) : (
+                  <svg className="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                  </svg>
+                )}
+              </div>
+              <h3 className="text-xl font-bold text-[#F59E0B]">
+                {response.isPortfolioAnalysis ? "📊 Portfolio Analysis" : "🎯 Personalized Advice"}
+              </h3>
             </div>
+
+            {/* Main Response Content */}
+            <div className="bg-[#0A0F1C] rounded-lg p-4 border border-[#C87933]/20">
+              <div className="text-[#F3ECDC] text-lg leading-relaxed font-medium">
+                {response.advice || response.analysis || response.message}
+              </div>
+            </div>
+
+            {/* Question Context (for personalized advice) */}
+            {response.question && (
+              <div className="mt-4 p-3 bg-[#1A1D29]/50 rounded-lg border border-[#2D3348]">
+                <div className="text-sm text-[#9BA4B5] mb-1">Your Question:</div>
+                <div className="text-[#F3ECDC] text-sm italic">"{response.question}"</div>
+              </div>
+            )}
           </div>
 
-          {/* Additional sections for enhanced response */}
-          {response.explanation && (
-            <div className="mb-4 p-4 bg-[#1A1D29] rounded-lg border border-[#2D3348]">
-              <h4 className="text-md font-semibold text-[#C87933] mb-2">Explanation</h4>
-              <div className="text-[#9BA4B5] whitespace-pre-line">
-                {response.explanation}
+          {/* Data Sources Used */}
+          {response.dataUsed && (
+            <div className="bg-[#10131C] border border-[#2D3348] rounded-lg p-4">
+              <h4 className="text-md font-semibold text-[#C87933] mb-3 flex items-center">
+                <svg className="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                </svg>
+                Data Sources Used
+              </h4>
+              <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 text-sm">
+                <div className="flex items-center space-x-2">
+                  <div className={`w-2 h-2 rounded-full ${response.dataUsed.hasUserProfile ? 'bg-green-400' : 'bg-gray-400'}`}></div>
+                  <span className="text-[#9BA4B5]">User Profile</span>
+                  <span className="text-xs text-[#F3ECDC]">
+                    {response.dataUsed.hasUserProfile ? '✓' : '✗'}
+                  </span>
+                </div>
+                <div className="flex items-center space-x-2">
+                  <div className={`w-2 h-2 rounded-full ${response.dataUsed.hasMarketData ? 'bg-green-400' : 'bg-gray-400'}`}></div>
+                  <span className="text-[#9BA4B5]">Market Data</span>
+                  <span className="text-xs text-[#F3ECDC]">
+                    {response.dataUsed.hasMarketData ? '✓' : '✗'}
+                  </span>
+                </div>
+                <div className="flex items-center space-x-2">
+                  <div className={`w-2 h-2 rounded-full ${response.dataUsed.etfCount > 0 ? 'bg-green-400' : 'bg-gray-400'}`}></div>
+                  <span className="text-[#9BA4B5]">ETF Data</span>
+                  <span className="text-xs text-[#F3ECDC]">
+                    {response.dataUsed.etfCount || 0} ETFs
+                  </span>
+                </div>
               </div>
             </div>
           )}
 
-          {response.recommendations && Array.isArray(response.recommendations) && (
-            <div className="mb-4 p-4 bg-[#1A1D29] rounded-lg border border-[#2D3348]">
-              <h4 className="text-md font-semibold text-[#C87933] mb-2">Recommendations</h4>
-              <ul className="list-disc list-inside text-[#9BA4B5] space-y-1">
-                {response.recommendations.map((rec, index) => (
-                  <li key={index}>{rec}</li>
-                ))}
-              </ul>
-            </div>
-          )}
-
-          {response.risk_factors && Array.isArray(response.risk_factors) && (
-            <div className="mb-4 p-4 bg-[#1A1D29] rounded-lg border border-[#2D3348]">
-              <h4 className="text-md font-semibold text-[#C87933] mb-2">Risk Factors</h4>
-              <ul className="list-disc list-inside text-[#9BA4B5] space-y-1">
-                {response.risk_factors.map((risk, index) => (
-                  <li key={index}>{risk}</li>
-                ))}
-              </ul>
-            </div>
-          )}
-
           {/* Model and timestamp info */}
-          <div className="mt-4 pt-4 border-t border-[#2D3348] text-xs text-[#9BA4B5]">
-            <div className="flex justify-between items-center">
-              <span>Powered by Mistral LLM • Personalized for your profile</span>
+          <div className="bg-[#0A0F1C] border border-[#2D3348] rounded-lg p-3">
+            <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center space-y-2 sm:space-y-0 text-xs text-[#9BA4B5]">
+              <div className="flex items-center space-x-2">
+                <svg className="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" />
+                </svg>
+                <span>Powered by Mistral-7B • Real-time analysis</span>
+              </div>
               {response.timestamp && (
-                <span>{new Date(response.timestamp).toLocaleString()}</span>
+                <div className="flex items-center space-x-1">
+                  <svg className="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+                  </svg>
+                  <span>{new Date(response.timestamp).toLocaleString()}</span>
+                </div>
               )}
             </div>
           </div>
@@ -243,9 +286,14 @@ const EnhancedQuickAdvice = () => {
       {/* Info note */}
       <div className="mt-6 p-3 bg-[#0A0F1C] border border-[#2D3348] rounded-lg">
         <p className="text-xs text-[#9BA4B5]">
-          💡 This advice is personalized based on your profile, risk tolerance, and current portfolio.
-          The analysis considers your experience level and investment goals to provide contextual recommendations.
+          💡 Get concise, personalized financial advice in 30-40 words. Analysis combines your profile, current market data,
+          and real-time ETF prices using advanced AI. Responses are tailored to your risk tolerance and investment goals.
         </p>
+        {!frontendLLMService.isConfigured() && (
+          <div className="mt-2 p-2 bg-yellow-900/30 border border-yellow-500/50 rounded text-yellow-200 text-xs">
+            ⚠️ LLM service requires API key configuration to provide personalized advice.
+          </div>
+        )}
       </div>
     </div>
   );
