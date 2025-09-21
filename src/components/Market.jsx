@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { getApiUrl } from '../utils/apiConfig.js';
 
 const Market = () => {
   const [marketData, setMarketData] = useState([]);
@@ -6,6 +7,7 @@ const Market = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [lastRefresh, setLastRefresh] = useState(null);
+  const [isUsingMockData, setIsUsingMockData] = useState(false);
 
   // ETF display configuration matching Agent 1 output
   const etfConfig = {
@@ -19,17 +21,140 @@ const Market = () => {
     'BTC': { name: 'ProShares Bitcoin Strategy ETF', category: 'Crypto' }
   };
 
-  // API configuration - adjust URL as needed
-  const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || 'http://localhost:8000';
+  // Use centralized API configuration
 
-  const fetchMarketData = async (refresh = false) => {
+  // Mock data fallback
+  const getMockData = () => {
+    return [
+      {
+        symbol: 'SPY',
+        name: 'SPDR S&P 500 ETF',
+        category: 'Market',
+        price: 440.50,
+        previousClose: 438.20,
+        change: 2.30,
+        changePercent: 0.52,
+        volume: 50000000,
+        marketCap: 400000000000,
+        dayHigh: 441.00,
+        dayLow: 439.00,
+        yearHigh: 445.00,
+        yearLow: 350.00,
+        peRatio: 22.5,
+        dividendYield: 1.65,
+        timestamp: new Date().toISOString()
+      },
+      {
+        symbol: 'QQQ',
+        name: 'Invesco QQQ Trust',
+        category: 'Technology',
+        price: 380.75,
+        previousClose: 378.50,
+        change: 2.25,
+        changePercent: 0.59,
+        volume: 40000000,
+        marketCap: 200000000000,
+        dayHigh: 382.00,
+        dayLow: 379.00,
+        yearHigh: 385.00,
+        yearLow: 280.00,
+        peRatio: 28.3,
+        dividendYield: 0.45,
+        timestamp: new Date().toISOString()
+      }
+    ];
+  };
+
+  // Test network connectivity
+  const testConnectivity = async () => {
+    try {
+      console.log('Testing connectivity to:', getApiUrl());
+      const response = await fetch(`${getApiUrl()}/health`, {
+        method: 'GET',
+        mode: 'cors',
+        credentials: 'omit'
+      });
+      console.log('Connectivity test response:', response.status, response.statusText);
+      return response.ok;
+    } catch (error) {
+      console.error('Connectivity test failed:', error);
+      return false;
+    }
+  };
+
+  // Debug function to test basic API connectivity
+  const debugAPI = async () => {
+    const apiUrl = getApiUrl();
+    console.log('=== API DEBUG INFO ===');
+    console.log('API Base URL:', apiUrl);
+    console.log('Environment variables:', {
+      VITE_API_BASE_URL: import.meta.env.VITE_API_BASE_URL,
+      NODE_ENV: import.meta.env.NODE_ENV,
+      MODE: import.meta.env.MODE
+    });
+
+    // Test simple GET request
+    try {
+      console.log('Testing simple fetch to ETF endpoint...');
+      const response = await fetch(`${apiUrl}/dashboard/etfs`, {
+        method: 'GET',
+        mode: 'cors',
+        headers: {
+          'Accept': 'application/json'
+        }
+      });
+
+      console.log('Response status:', response.status);
+      console.log('Response headers:', Object.fromEntries(response.headers.entries()));
+
+      if (response.ok) {
+        const data = await response.json();
+        console.log('Response data preview:', {
+          status: data.status,
+          dataKeys: Object.keys(data.data || {}),
+          etfCount: Array.isArray(data.data?.etf_data) ? data.data.etf_data.length : 'Not array'
+        });
+        return data;
+      } else {
+        const errorText = await response.text();
+        console.error('API Error Response:', errorText);
+        throw new Error(`HTTP ${response.status}: ${errorText}`);
+      }
+    } catch (error) {
+      console.error('Debug API test failed:', error);
+      throw error;
+    }
+  };
+
+  const fetchMarketData = async (refresh = false, retryCount = 0) => {
+    const maxRetries = 2;
+
     try {
       setLoading(true);
       setError(null);
 
+      console.log(`Fetching market data - refresh: ${refresh}, retry: ${retryCount}`);
+
+      // Test connectivity first on retry attempts
+      if (retryCount > 0) {
+        const isConnected = await testConnectivity();
+        if (!isConnected) {
+          throw new Error('Network connectivity test failed');
+        }
+      }
+
       // Fetch ETF data from Agent 1 via dashboard endpoint
       const etfResponse = await fetch(
-        `${API_BASE_URL}/api/v1/dashboard/etfs?refresh=${refresh}`
+        `${getApiUrl()}/dashboard/etfs?refresh=${refresh}`,
+        {
+          method: 'GET',
+          headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json',
+          },
+          // Add timeout
+          signal: AbortSignal.timeout(30000) // 30 second timeout
+        }
       );
 
       if (!etfResponse.ok) {
@@ -37,10 +162,19 @@ const Market = () => {
       }
 
       const etfResult = await etfResponse.json();
+      console.log('ETF response received:', etfResult.status, 'data keys:', Object.keys(etfResult.data || {}));
 
       // Fetch market overview data
       const overviewResponse = await fetch(
-        `${API_BASE_URL}/api/v1/dashboard/market-overview?refresh=${refresh}`
+        `${getApiUrl()}/dashboard/market-overview?refresh=${refresh}`,
+        {
+          method: 'GET',
+          headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json',
+          },
+          signal: AbortSignal.timeout(30000)
+        }
       );
 
       if (!overviewResponse.ok) {
@@ -48,10 +182,154 @@ const Market = () => {
       }
 
       const overviewResult = await overviewResponse.json();
+      console.log('Market overview received:', overviewResult.status, 'data keys:', Object.keys(overviewResult.data || {}));
 
-      // Process ETF data
-      if (etfResult.status === 'success' && etfResult.data?.etf_data) {
-        const processedData = Object.entries(etfResult.data.etf_data).map(([symbol, data]) => ({
+      // Process ETF data - handle both array and object formats
+      if (etfResult.status === 'success' && etfResult.data) {
+        let etfData = etfResult.data.etf_data;
+
+        // Handle nested structure from Agent 1 refresh
+        if (!etfData && etfResult.data.data?.etf_data) {
+          etfData = etfResult.data.data.etf_data;
+        }
+
+        if (etfData) {
+          let processedData = [];
+
+          // Handle array format (new database structure)
+          if (Array.isArray(etfData)) {
+            processedData = etfData.map((data) => ({
+              symbol: data.display_symbol || data.symbol,
+              name: etfConfig[data.display_symbol || data.symbol]?.name || data.etf_name || data.name || data.symbol,
+              category: etfConfig[data.display_symbol || data.symbol]?.category || 'ETF',
+              price: data.price || 0,
+              previousClose: data.previous_close || 0,
+              change: data.change_value || 0,
+              changePercent: data.change_percent || 0,
+              volume: data.volume || 0,
+              marketCap: data.market_cap || 0,
+              dayHigh: data.day_high || 0,
+              dayLow: data.day_low || 0,
+              yearHigh: data.year_high || 0,
+              yearLow: data.year_low || 0,
+              peRatio: data.pe_ratio || null,
+              dividendYield: data.dividend_yield || null,
+              timestamp: data.data_timestamp || data.updated_at || new Date().toISOString()
+            }));
+          }
+          // Handle object format (old Agent 1 structure)
+          else if (typeof etfData === 'object') {
+            processedData = Object.entries(etfData).map(([symbol, data]) => ({
+              symbol,
+              name: etfConfig[symbol]?.name || data.name || symbol,
+              category: etfConfig[symbol]?.category || 'ETF',
+              price: data.market_data?.price || data.price || 0,
+              previousClose: data.market_data?.previous_close || data.previous_close || 0,
+              change: data.market_data?.change || data.change_value || 0,
+              changePercent: data.market_data?.change_percent || data.change_percent || 0,
+              volume: data.additional_info?.volume || data.volume || 0,
+              marketCap: data.additional_info?.market_cap || data.market_cap || 0,
+              dayHigh: data.additional_info?.day_high || data.day_high || 0,
+              dayLow: data.additional_info?.day_low || data.day_low || 0,
+              yearHigh: data.additional_info?.year_high || data.year_high || 0,
+              yearLow: data.additional_info?.year_low || data.year_low || 0,
+              peRatio: data.additional_info?.pe_ratio || data.pe_ratio || null,
+              dividendYield: data.additional_info?.dividend_yield || data.dividend_yield || null,
+              timestamp: data.market_data?.timestamp || data.data_timestamp || new Date().toISOString()
+            }));
+          }
+
+          console.log(`Processed ${processedData.length} ETFs:`, processedData.map(etf => etf.symbol));
+          setMarketData(processedData);
+        } else {
+          console.warn('No ETF data found in response');
+        }
+      }
+
+      // Process market context
+      if (overviewResult.status === 'success' && overviewResult.data) {
+        setMarketContext(overviewResult.data);
+        console.log('Market context updated with VIX:', overviewResult.data.volatility?.vix);
+      } else {
+        console.warn('No market overview data found');
+      }
+
+      setLastRefresh(new Date());
+      console.log('Market data fetch completed successfully');
+    } catch (err) {
+      console.error(`Error fetching market data (attempt ${retryCount + 1}):`, err);
+
+      // Retry logic for network errors
+      if (retryCount < maxRetries && (
+        err.name === 'TypeError' ||
+        err.message.includes('Failed to fetch') ||
+        err.message.includes('timeout') ||
+        err.message.includes('AbortError')
+      )) {
+        console.log(`Retrying in 2 seconds... (${retryCount + 1}/${maxRetries})`);
+        setTimeout(() => {
+          fetchMarketData(refresh, retryCount + 1);
+        }, 2000);
+        return;
+      }
+
+      // Provide more specific error messages
+      let errorMessage = 'Failed to fetch market data';
+      if (err.name === 'TypeError' && err.message.includes('Failed to fetch')) {
+        errorMessage = 'Network error: Unable to connect to the server. Please check your internet connection or try again later.';
+      } else if (err.message.includes('CORS')) {
+        errorMessage = 'CORS error: Cross-origin request blocked. Please check server configuration.';
+      } else if (err.message.includes('timeout') || err.name === 'AbortError') {
+        errorMessage = 'Request timeout: Server is taking too long to respond. Please try again.';
+      } else if (err.message.includes('NetworkError')) {
+        errorMessage = 'Network error: Please check your internet connection.';
+      } else {
+        errorMessage = `Error: ${err.message}`;
+      }
+
+      // After all retries failed, offer to use mock data
+      console.log('All API attempts failed, offering mock data fallback...');
+      setError(`${errorMessage} - Using demo data instead.`);
+      setMarketData(getMockData());
+      setIsUsingMockData(true);
+      setLastRefresh(new Date());
+      setLoading(false);
+    }
+  };
+
+  const refreshData = async () => {
+    try {
+      setLoading(true);
+      setError(null);
+
+      // Trigger Agent 1 execution via refresh endpoint
+      const refreshResponse = await fetch(
+        `${getApiUrl()}/dashboard/refresh`,
+        {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+        }
+      );
+
+      if (!refreshResponse.ok) {
+        throw new Error(`Agent 1 refresh failed: ${refreshResponse.status}`);
+      }
+
+      const refreshResult = await refreshResponse.json();
+      console.log('Agent 1 refresh response:', refreshResult.status);
+
+      if (refreshResult.status !== 'success') {
+        throw new Error(refreshResult.message || 'Agent 1 refresh failed');
+      }
+
+      // The refresh endpoint already returns the updated data, so let's use it
+      if (refreshResult.data?.data?.etf_data) {
+        console.log('Using fresh data from refresh response');
+
+        // Process the fresh ETF data from the refresh response - handle object format from Agent 1
+        const processedData = Object.entries(refreshResult.data.data.etf_data).map(([symbol, data]) => ({
           symbol,
           name: etfConfig[symbol]?.name || data.name || symbol,
           category: etfConfig[symbol]?.category || 'ETF',
@@ -69,51 +347,30 @@ const Market = () => {
           dividendYield: data.additional_info?.dividend_yield || null,
           timestamp: data.market_data?.timestamp || new Date().toISOString()
         }));
+
         setMarketData(processedData);
-      }
+        console.log(`Refresh: Processed ${processedData.length} ETFs from Agent 1`);
 
-      // Process market context
-      if (overviewResult.status === 'success' && overviewResult.data) {
-        setMarketContext(overviewResult.data);
-      }
-
-      setLastRefresh(new Date());
-    } catch (err) {
-      console.error('Error fetching market data:', err);
-      setError(err.message);
-    } finally {
-      setLoading(false);
-    }
-  };
-
-  const refreshData = async () => {
-    try {
-      setLoading(true);
-      setError(null);
-
-      // Trigger Agent 1 execution via refresh endpoint
-      const refreshResponse = await fetch(
-        `${API_BASE_URL}/api/v1/dashboard/refresh`,
-        {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-          },
+        // Also fetch market overview to update context
+        try {
+          const overviewResponse = await fetch(`${getApiUrl()}/dashboard/market-overview?refresh=false`);
+          if (overviewResponse.ok) {
+            const overviewResult = await overviewResponse.json();
+            if (overviewResult.status === 'success' && overviewResult.data) {
+              setMarketContext(overviewResult.data);
+            }
+          }
+        } catch (overviewError) {
+          console.warn('Failed to update market context after refresh:', overviewError);
         }
-      );
 
-      if (!refreshResponse.ok) {
-        throw new Error(`Agent 1 refresh failed: ${refreshResponse.status}`);
+        setLastRefresh(new Date());
+        setLoading(false);
+      } else {
+        // Fallback: fetch from database if refresh doesn't return data
+        console.log('Refresh response missing data, fetching from database');
+        await fetchMarketData(false);
       }
-
-      const refreshResult = await refreshResponse.json();
-
-      if (refreshResult.status !== 'success') {
-        throw new Error(refreshResult.message || 'Agent 1 refresh failed');
-      }
-
-      // Now fetch the updated data from database
-      await fetchMarketData(false);
 
     } catch (err) {
       console.error('Error running Agent 1:', err);
@@ -184,7 +441,11 @@ const Market = () => {
         <div>
           <h2 className="text-3xl font-bold text-gray-800">Market Overview</h2>
           <p className="text-sm text-gray-600 mt-1">
-            Real-time data from Agent 1 (Data Agent) • Click "Run Agent 1" to fetch fresh data
+            {isUsingMockData ? (
+              <span className="text-orange-600 font-medium">⚠️ Using demo data (API connection failed)</span>
+            ) : (
+              "Real-time data from Agent 1 (Data Agent) • Click \"Run Agent 1\" to fetch fresh data"
+            )}
             {lastRefresh && (
               <span className="ml-2">
                 • Last updated: {lastRefresh.toLocaleTimeString()}
@@ -193,6 +454,34 @@ const Market = () => {
           </p>
         </div>
         <div className="flex space-x-2">
+          <button
+            onClick={async () => {
+              try {
+                setError(null);
+                const data = await debugAPI();
+                console.log('Debug test successful:', data);
+                alert('API test successful! Check console for details.');
+              } catch (error) {
+                console.error('Debug test failed:', error);
+                alert(`API test failed: ${error.message}`);
+              }
+            }}
+            disabled={loading}
+            className="bg-yellow-600 hover:bg-yellow-700 disabled:bg-yellow-400 text-white px-3 py-2 rounded-lg transition-colors text-sm"
+          >
+            Debug API
+          </button>
+          <button
+            onClick={() => {
+              setIsUsingMockData(false);
+              setError(null);
+              fetchMarketData(false);
+            }}
+            disabled={loading}
+            className="bg-green-600 hover:bg-green-700 disabled:bg-green-400 text-white px-3 py-2 rounded-lg transition-colors text-sm"
+          >
+            {isUsingMockData ? 'Retry API' : 'Reload Data'}
+          </button>
           <button
             onClick={refreshData}
             disabled={loading}
@@ -340,15 +629,31 @@ const Market = () => {
         ))}
       </div>
 
-      {marketData.length === 0 && !loading && (
+      {marketData.length === 0 && !loading && !isUsingMockData && (
         <div className="text-center py-12">
           <p className="text-gray-500 text-lg">No market data available</p>
-          <button
-            onClick={refreshData}
-            className="mt-4 bg-indigo-600 hover:bg-indigo-700 text-white px-6 py-2 rounded-lg transition-colors"
-          >
-            Fetch Data
-          </button>
+          <div className="mt-4 space-x-2">
+            <button
+              onClick={() => {
+                setError(null);
+                fetchMarketData(false);
+              }}
+              className="bg-indigo-600 hover:bg-indigo-700 text-white px-6 py-2 rounded-lg transition-colors"
+            >
+              Try Again
+            </button>
+            <button
+              onClick={() => {
+                setMarketData(getMockData());
+                setIsUsingMockData(true);
+                setLastRefresh(new Date());
+                setError('Using demo data for preview');
+              }}
+              className="bg-gray-600 hover:bg-gray-700 text-white px-6 py-2 rounded-lg transition-colors"
+            >
+              Use Demo Data
+            </button>
+          </div>
         </div>
       )}
 

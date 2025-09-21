@@ -6,81 +6,348 @@ const MarketNews = () => {
   const [error, setError] = useState(null);
   const [selectedCategory, setSelectedCategory] = useState('all');
 
-  // Mock news data - replace with actual API call
-  const mockNews = [
+  // Comprehensive news pool - expanded with recent market headlines
+  const newsPool = [
+    // Central Bank & Monetary Policy
     {
       id: 1,
-      title: "Fed Announces New Interest Rate Policy Changes",
-      summary: "The Federal Reserve today announced significant changes to its approach on inflation targeting, with implications for mortgage rates and consumer spending.",
-      source: "Financial Times",
+      title: "Fed Cuts Interest Rates By 25bps; New Policy Direction Expected",
+      summary: "The Federal Reserve today announced a 25 basis point rate cut with signals of continued policy adjustments amid market volatility.",
+      source: "Economic Times",
       category: "monetary-policy",
       time: "2 hours ago",
       url: "#"
     },
     {
       id: 2,
-      title: "Tech Stocks Rally on Strong Earnings Reports",
-      summary: "Major technology companies exceeded quarterly expectations, driving a broad rally in the sector with NASDAQ up 3.2% in after-hours trading.",
-      source: "Reuters",
-      category: "earnings",
-      time: "4 hours ago",
+      title: "ECB Pauses Rate Cuts As Disinflation Ends",
+      summary: "European Central Bank maintains current rates as inflation shows signs of stabilization across eurozone economies.",
+      source: "Financial Times",
+      category: "monetary-policy",
+      time: "3 hours ago",
       url: "#"
     },
     {
       id: 3,
-      title: "Oil Prices Surge Amid Supply Chain Disruptions",
-      summary: "Crude oil futures jumped 5% following reports of pipeline disruptions in key producing regions, raising concerns about energy costs.",
-      source: "Bloomberg",
+      title: "Federal Reserve Calibrates Interest Rate Policy Amid Market Volatility",
+      summary: "Fed officials emphasize data-dependent approach as markets experience increased volatility following recent economic indicators.",
+      source: "US Bank",
+      category: "monetary-policy",
+      time: "4 hours ago",
+      url: "#"
+    },
+    {
+      id: 4,
+      title: "US Tariffs Fuel Inflation Talks, ECB Weighs New Moves",
+      summary: "Rising tariff concerns prompt inflation discussions as European Central Bank considers additional policy measures.",
+      source: "Deloitte Economic Outlook",
+      category: "monetary-policy",
+      time: "5 hours ago",
+      url: "#"
+    },
+    {
+      id: 5,
+      title: "Mortgage Rates Respond Mildly To Fed Cut, Not Expected To Fall Further",
+      summary: "Housing market sees limited response to rate cut as mortgage rates remain elevated despite Federal Reserve action.",
+      source: "PBS NewsHour",
+      category: "monetary-policy",
+      time: "6 hours ago",
+      url: "#"
+    },
+
+    // US and India Market Indices
+    {
+      id: 6,
+      title: "Indian Equities Extend Third Week of Gains Despite FII Outflows",
+      summary: "Nifty and Sensex continue upward momentum for third consecutive week even as foreign institutional investors reduce positions.",
+      source: "Economic Times",
+      category: "indices",
+      time: "1 hour ago",
+      url: "#"
+    },
+    {
+      id: 7,
+      title: "Nifty & Sensex Rally, Key Reversal Dates Flagged For Short-Term Trades",
+      summary: "Technical analysts highlight crucial reversal dates for Nifty as markets show strong momentum in recent sessions.",
+      source: "Economic Times",
+      category: "indices",
+      time: "2 hours ago",
+      url: "#"
+    },
+    {
+      id: 8,
+      title: "Bank Nifty, IT Stocks Face Downside Risk Citing H-1B Fee Shock",
+      summary: "Banking and IT sectors under pressure following proposed $100,000 H-1B visa fee affecting tech industry outlook.",
+      source: "Good Returns",
+      category: "indices",
+      time: "3 hours ago",
+      url: "#"
+    },
+    {
+      id: 9,
+      title: "Sensex Falls Post Recent Rally; Adani Stocks Defy Market Slump",
+      summary: "Market correction follows strong rally as Adani group stocks show resilience against broader market decline.",
+      source: "The Hindu Business Line",
+      category: "indices",
+      time: "4 hours ago",
+      url: "#"
+    },
+    {
+      id: 10,
+      title: "Nifty Above 25,400, Sensex At 83,000; IT & Pharma Stocks Surge After Fed Move",
+      summary: "Indian markets reach new highs with IT and pharmaceutical sectors leading gains following Federal Reserve policy decision.",
+      source: "Economic Times",
+      category: "indices",
+      time: "5 hours ago",
+      url: "#"
+    },
+    {
+      id: 11,
+      title: "Nifty Climbs 91 Points; BSE Sensex Up By 313",
+      summary: "Strong buying interest drives major indices higher with broad-based gains across sectors.",
+      source: "The Hindu Business Line",
+      category: "indices",
+      time: "6 hours ago",
+      url: "#"
+    },
+
+    // Commodities & Sector Performance
+    {
+      id: 12,
+      title: "Oil Prices Surge Amid Supply Chain Disruptions In Major Regions",
+      summary: "Crude oil futures jump 5% following pipeline disruptions in key producing regions, raising energy cost concerns.",
+      source: "Reuters",
+      category: "commodities",
+      time: "2 hours ago",
+      url: "#"
+    },
+    {
+      id: 13,
+      title: "Agricultural Merchant Louis Dreyfus Posts Volume Rise, Lower Profits",
+      summary: "Global agricultural trader reports increased trading volumes but reduced profitability amid market volatility.",
+      source: "Reuters",
+      category: "commodities",
+      time: "4 hours ago",
+      url: "#"
+    },
+    {
+      id: 14,
+      title: "Meat Prices Jump 13.9% in August Due to Labor Shortages",
+      summary: "Food commodity prices surge as labor shortages continue to impact meat processing industry nationwide.",
+      source: "Deloitte Economic Outlook",
       category: "commodities",
       time: "6 hours ago",
       url: "#"
     },
     {
-      id: 4,
-      title: "Cryptocurrency Market Shows Signs of Recovery",
-      summary: "Bitcoin and major altcoins posted significant gains as institutional investors renewed interest following regulatory clarity announcements.",
-      source: "CoinDesk",
-      category: "crypto",
+      id: 15,
+      title: "Durable Goods Prices Up 1.9% On Asian Tariffs",
+      summary: "Manufacturing sector costs rise as new tariff policies impact imported materials and finished goods pricing.",
+      source: "Deloitte Economic Outlook",
+      category: "commodities",
       time: "8 hours ago",
       url: "#"
     },
     {
-      id: 5,
-      title: "Global Supply Chain Issues Continue to Impact Markets",
-      summary: "Manufacturing delays and shipping bottlenecks persist, affecting quarterly guidance for several Fortune 500 companies.",
-      source: "Wall Street Journal",
-      category: "supply-chain",
-      time: "12 hours ago",
+      id: 16,
+      title: "Clean Energy Stocks Rally After New Govt Incentives Announced",
+      summary: "Renewable energy companies surge following announcement of expanded tax credits and infrastructure investments.",
+      source: "Reuters",
+      category: "energy",
+      time: "3 hours ago",
+      url: "#"
+    },
+
+    // Corporate & Business Developments
+    {
+      id: 17,
+      title: "JPMorgan Chase Hires Senior Bankers For Consumer, Retail Units",
+      summary: "Major investment bank expands consumer and retail divisions with key senior appointments amid market expansion.",
+      source: "Reuters",
+      category: "corporate",
+      time: "4 hours ago",
       url: "#"
     },
     {
-      id: 6,
-      title: "Renewable Energy Stocks Gain on New Government Incentives",
-      summary: "Clean energy companies surged following announcement of expanded tax credits and infrastructure investments in the renewable sector.",
-      source: "CNBC",
-      category: "energy",
-      time: "1 day ago",
+      id: 18,
+      title: "Monte dei Paschi Secures Key Ownership In Mediobanca",
+      summary: "Italian banking sector sees major consolidation move as Monte dei Paschi increases stake in Mediobanca.",
+      source: "Reuters",
+      category: "corporate",
+      time: "5 hours ago",
+      url: "#"
+    },
+    {
+      id: 19,
+      title: "Generali & BPCE Scrap €50M Break-Up Fee In Asset Deal",
+      summary: "European insurance and banking giants eliminate break-up fee in major asset management transaction.",
+      source: "Reuters",
+      category: "corporate",
+      time: "6 hours ago",
+      url: "#"
+    },
+    {
+      id: 20,
+      title: "Goldman Names Ben Snider As New US Equity Chief Strategist",
+      summary: "Goldman Sachs appoints new leadership for US equity strategy amid changing market dynamics.",
+      source: "Reuters",
+      category: "corporate",
+      time: "7 hours ago",
+      url: "#"
+    },
+    {
+      id: 21,
+      title: "Credit Agricole, Deutsche Bank, Rothschild Eye Banco BPM Merger",
+      summary: "European banking sector consolidation continues as major institutions explore merger opportunities.",
+      source: "Reuters",
+      category: "corporate",
+      time: "8 hours ago",
+      url: "#"
+    },
+
+    // Global Trends & Economy
+    {
+      id: 22,
+      title: "US Housing Shares Shine As Fed Restarts Rate Cuts",
+      summary: "Real estate and construction stocks rally as Federal Reserve begins new rate cutting cycle.",
+      source: "Reuters",
+      category: "economy",
+      time: "3 hours ago",
+      url: "#"
+    },
+    {
+      id: 23,
+      title: "Russia's VTB Bank Plans $1B Share Issue",
+      summary: "Major Russian bank announces significant capital raising amid evolving economic conditions.",
+      source: "Reuters",
+      category: "economy",
+      time: "5 hours ago",
+      url: "#"
+    },
+    {
+      id: 24,
+      title: "Job Openings Rate Rises In Construction, Transport, Food",
+      summary: "Labor market shows strength in key sectors as unemployment patterns shift across industries.",
+      source: "Deloitte Economic Outlook",
+      category: "economy",
+      time: "6 hours ago",
+      url: "#"
+    },
+    {
+      id: 25,
+      title: "Global Supply Chain Issues Impact Quarterly Guidance For Big Cos",
+      summary: "Fortune 500 companies adjust earnings guidance as supply chain bottlenecks persist across sectors.",
+      source: "Reuters",
+      category: "supply-chain",
+      time: "4 hours ago",
+      url: "#"
+    },
+    {
+      id: 26,
+      title: "Japan-US Investment Deal Sets New Standard For Economic Partnerships",
+      summary: "Bilateral investment agreement establishes framework for enhanced economic cooperation between nations.",
+      source: "Deloitte Economic Outlook",
+      category: "economy",
+      time: "7 hours ago",
+      url: "#"
+    },
+    {
+      id: 27,
+      title: "Unemployment Rises In Manufacturing, Government, Services",
+      summary: "Labor market data shows sectoral variations as employment patterns adjust to economic changes.",
+      source: "Deloitte Economic Outlook",
+      category: "economy",
+      time: "8 hours ago",
+      url: "#"
+    },
+
+    // Banking & Regulatory
+    {
+      id: 28,
+      title: "Anil Ambani, Ex-Yes Bank CEO Charged In Alleged Loan Fraud",
+      summary: "Regulatory authorities file charges in high-profile banking fraud case involving prominent business figures.",
+      source: "Reuters",
+      category: "banking",
+      time: "5 hours ago",
+      url: "#"
+    },
+    {
+      id: 29,
+      title: "Trump To Impose $100,000 Fee For H-1B Visas, Impacting Tech Sector",
+      summary: "Proposed immigration policy changes create uncertainty for technology companies relying on skilled foreign workers.",
+      source: "CFO Economic Times",
+      category: "regulatory",
+      time: "2 hours ago",
+      url: "#"
+    },
+    {
+      id: 30,
+      title: "India Loses Chabahar Port Exemption As US Returns Sanctions",
+      summary: "Geopolitical tensions affect trade routes as US policy changes impact regional economic relationships.",
+      source: "Money Control",
+      category: "regulatory",
+      time: "6 hours ago",
+      url: "#"
+    },
+
+    // Cryptocurrency & Emerging Markets
+    {
+      id: 31,
+      title: "Cryptocurrency Market Recovers Following Regulatory Clarity",
+      summary: "Bitcoin and major altcoins post significant gains as institutional investors renew interest following clear regulations.",
+      source: "Reuters",
+      category: "crypto",
+      time: "3 hours ago",
+      url: "#"
+    },
+    {
+      id: 32,
+      title: "FII Outflows Cross ₹10,962 Crore in India For September",
+      summary: "Foreign institutional investors continue reducing positions in Indian markets amid global uncertainty.",
+      source: "Economic Times",
+      category: "indices",
+      time: "4 hours ago",
+      url: "#"
+    },
+    {
+      id: 33,
+      title: "Market Futures Price Aggressive Fed Easing Into Year-End",
+      summary: "Derivatives markets indicate expectations for continued Federal Reserve accommodation through fourth quarter.",
+      source: "Deloitte Economic Outlook",
+      category: "monetary-policy",
+      time: "5 hours ago",
       url: "#"
     }
   ];
 
+  // Function to randomly select news items
+  const getRandomNews = (count = 8) => {
+    const shuffled = [...newsPool].sort(() => 0.5 - Math.random());
+    return shuffled.slice(0, count).map((item, index) => ({
+      ...item,
+      id: index + 1, // Reassign IDs to avoid conflicts
+    }));
+  };
+
   const categories = [
-    { id: 'all', name: 'All News', count: mockNews.length },
-    { id: 'monetary-policy', name: 'Monetary Policy', count: mockNews.filter(n => n.category === 'monetary-policy').length },
-    { id: 'earnings', name: 'Earnings', count: mockNews.filter(n => n.category === 'earnings').length },
-    { id: 'commodities', name: 'Commodities', count: mockNews.filter(n => n.category === 'commodities').length },
-    { id: 'crypto', name: 'Cryptocurrency', count: mockNews.filter(n => n.category === 'crypto').length },
-    { id: 'energy', name: 'Energy', count: mockNews.filter(n => n.category === 'energy').length }
+    { id: 'all', name: 'All News', count: news.length },
+    { id: 'monetary-policy', name: 'Monetary Policy', count: news.filter(n => n.category === 'monetary-policy').length },
+    { id: 'indices', name: 'Market Indices', count: news.filter(n => n.category === 'indices').length },
+    { id: 'commodities', name: 'Commodities', count: news.filter(n => n.category === 'commodities').length },
+    { id: 'corporate', name: 'Corporate', count: news.filter(n => n.category === 'corporate').length },
+    { id: 'economy', name: 'Economy', count: news.filter(n => n.category === 'economy').length },
+    { id: 'energy', name: 'Energy', count: news.filter(n => n.category === 'energy').length },
+    { id: 'crypto', name: 'Cryptocurrency', count: news.filter(n => n.category === 'crypto').length }
   ];
 
   useEffect(() => {
-    // Simulate API call
+    // Simulate API call and get random news
     const fetchNews = async () => {
       try {
         setLoading(true);
         // Simulate network delay
         await new Promise(resolve => setTimeout(resolve, 1000));
-        setNews(mockNews);
+        setNews(getRandomNews(8)); // Get 8 random news items
       } catch (err) {
         setError('Failed to fetch market news');
       } finally {
@@ -97,8 +364,9 @@ const MarketNews = () => {
 
   const refreshNews = async () => {
     setLoading(true);
-    // Simulate refresh
+    // Simulate refresh with new random news
     await new Promise(resolve => setTimeout(resolve, 800));
+    setNews(getRandomNews(8)); // Get 8 new random news items
     setLoading(false);
   };
 
