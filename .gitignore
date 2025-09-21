@@ -22,3 +22,11 @@ CHATCONTEXT.MD
 *.njsproj
 *.sln
 *.sw?
+
+# Claude Code settings
+.claude/
+
+
+.env
+.env.local
+.env.*.local

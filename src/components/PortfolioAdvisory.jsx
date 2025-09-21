@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { useCrewAI } from '../hooks/useAgents';
+import FeatureGate from './FeatureGate';
 
 const PortfolioAdvisory = () => {
   const [portfolioData, setPortfolioData] = useState({
@@ -95,6 +96,8 @@ const PortfolioAdvisory = () => {
     );
   };
 
+  const userId = localStorage.getItem('userId');
+
   return (
     <div className="p-6">
       <div className="max-w-4xl mx-auto">
@@ -103,91 +106,97 @@ const PortfolioAdvisory = () => {
           <p className="text-[#9BA4B5]">Get personalized portfolio recommendations based on your financial goals and risk profile</p>
         </div>
 
-        <form onSubmit={handleSubmit} className="space-y-6 mb-8">
-          <div className="bg-[#0A0F1C] rounded-lg p-6">
-            <label className="block text-sm font-medium text-[#F3ECDC] mb-2">
-              Financial Goal
-            </label>
-            <textarea
-              value={portfolioData.goal}
-              onChange={(e) => handleInputChange('goal', e.target.value)}
-              className="w-full p-3 bg-[#111726] border border-[#C87933]/30 rounded-lg text-[#F3ECDC] focus:outline-none focus:ring-2 focus:ring-[#C87933] focus:border-transparent"
-              placeholder="Describe your financial goals (e.g., retirement in 20 years, buying a house in 5 years, growing wealth)"
-              rows={3}
-              required
-            />
-          </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <FeatureGate
+          featureName="portfolio_optimization"
+          userId={userId}
+          showUpgradePrompt={true}
+        >
+          <form onSubmit={handleSubmit} className="space-y-6 mb-8">
             <div className="bg-[#0A0F1C] rounded-lg p-6">
               <label className="block text-sm font-medium text-[#F3ECDC] mb-2">
-                Risk Tolerance (1-5)
+                Financial Goal
               </label>
-              <select
-                value={portfolioData.riskTolerance}
-                onChange={(e) => handleInputChange('riskTolerance', e.target.value)}
+              <textarea
+                value={portfolioData.goal}
+                onChange={(e) => handleInputChange('goal', e.target.value)}
                 className="w-full p-3 bg-[#111726] border border-[#C87933]/30 rounded-lg text-[#F3ECDC] focus:outline-none focus:ring-2 focus:ring-[#C87933] focus:border-transparent"
-              >
-                <option value="1">1 - Very Conservative</option>
-                <option value="2">2 - Conservative</option>
-                <option value="3">3 - Moderate</option>
-                <option value="4">4 - Aggressive</option>
-                <option value="5">5 - Very Aggressive</option>
-              </select>
-            </div>
-
-            <div className="bg-[#0A0F1C] rounded-lg p-6">
-              <label className="block text-sm font-medium text-[#F3ECDC] mb-2">
-                Investment Time Horizon
-              </label>
-              <select
-                value={portfolioData.timeHorizon}
-                onChange={(e) => handleInputChange('timeHorizon', e.target.value)}
-                className="w-full p-3 bg-[#111726] border border-[#C87933]/30 rounded-lg text-[#F3ECDC] focus:outline-none focus:ring-2 focus:ring-[#C87933] focus:border-transparent"
+                placeholder="Describe your financial goals (e.g., retirement in 20 years, buying a house in 5 years, growing wealth)"
+                rows={3}
                 required
-              >
-                <option value="">Select time horizon</option>
-                <option value="1-3 years">1-3 years</option>
-                <option value="3-5 years">3-5 years</option>
-                <option value="5-10 years">5-10 years</option>
-                <option value="10+ years">10+ years</option>
-              </select>
+              />
             </div>
-          </div>
 
-          <div className="bg-[#0A0F1C] rounded-lg p-6">
-            <label className="block text-sm font-medium text-[#F3ECDC] mb-2">
-              Current Portfolio (Optional)
-            </label>
-            <textarea
-              value={portfolioData.currentPortfolio}
-              onChange={(e) => handleInputChange('currentPortfolio', e.target.value)}
-              className="w-full p-3 bg-[#111726] border border-[#C87933]/30 rounded-lg text-[#F3ECDC] focus:outline-none focus:ring-2 focus:ring-[#C87933] focus:border-transparent"
-              placeholder="Describe your current holdings (e.g., 60% stocks, 30% bonds, 10% cash, specific ETFs/stocks you own)"
-              rows={3}
-            />
-          </div>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+              <div className="bg-[#0A0F1C] rounded-lg p-6">
+                <label className="block text-sm font-medium text-[#F3ECDC] mb-2">
+                  Risk Tolerance (1-5)
+                </label>
+                <select
+                  value={portfolioData.riskTolerance}
+                  onChange={(e) => handleInputChange('riskTolerance', e.target.value)}
+                  className="w-full p-3 bg-[#111726] border border-[#C87933]/30 rounded-lg text-[#F3ECDC] focus:outline-none focus:ring-2 focus:ring-[#C87933] focus:border-transparent"
+                >
+                  <option value="1">1 - Very Conservative</option>
+                  <option value="2">2 - Conservative</option>
+                  <option value="3">3 - Moderate</option>
+                  <option value="4">4 - Aggressive</option>
+                  <option value="5">5 - Very Aggressive</option>
+                </select>
+              </div>
 
-          <button
-            type="submit"
-            disabled={crewAI.loading}
-            className={`w-full py-3 px-6 rounded-lg font-medium transition-colors ${
-              crewAI.loading
-                ? 'bg-gray-600 text-gray-300 cursor-not-allowed'
-                : 'bg-[#C87933] hover:bg-[#C87933]/80 text-[#F3ECDC]'
-            }`}
-          >
-            {crewAI.loading ? (
-              <span className="flex items-center justify-center">
-                <svg className="animate-spin -ml-1 mr-3 h-5 w-5" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
-                  <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
-                  <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
-                </svg>
-                Analyzing Portfolio...
-              </span>
-            ) : 'Get Portfolio Advisory'}
-          </button>
-        </form>
+              <div className="bg-[#0A0F1C] rounded-lg p-6">
+                <label className="block text-sm font-medium text-[#F3ECDC] mb-2">
+                  Investment Time Horizon
+                </label>
+                <select
+                  value={portfolioData.timeHorizon}
+                  onChange={(e) => handleInputChange('timeHorizon', e.target.value)}
+                  className="w-full p-3 bg-[#111726] border border-[#C87933]/30 rounded-lg text-[#F3ECDC] focus:outline-none focus:ring-2 focus:ring-[#C87933] focus:border-transparent"
+                  required
+                >
+                  <option value="">Select time horizon</option>
+                  <option value="1-3 years">1-3 years</option>
+                  <option value="3-5 years">3-5 years</option>
+                  <option value="5-10 years">5-10 years</option>
+                  <option value="10+ years">10+ years</option>
+                </select>
+              </div>
+            </div>
+
+            <div className="bg-[#0A0F1C] rounded-lg p-6">
+              <label className="block text-sm font-medium text-[#F3ECDC] mb-2">
+                Current Portfolio (Optional)
+              </label>
+              <textarea
+                value={portfolioData.currentPortfolio}
+                onChange={(e) => handleInputChange('currentPortfolio', e.target.value)}
+                className="w-full p-3 bg-[#111726] border border-[#C87933]/30 rounded-lg text-[#F3ECDC] focus:outline-none focus:ring-2 focus:ring-[#C87933] focus:border-transparent"
+                placeholder="Describe your current holdings (e.g., 60% stocks, 30% bonds, 10% cash, specific ETFs/stocks you own)"
+                rows={3}
+              />
+            </div>
+
+            <button
+              type="submit"
+              disabled={crewAI.loading}
+              className={`w-full py-3 px-6 rounded-lg font-medium transition-colors ${
+                crewAI.loading
+                  ? 'bg-gray-600 text-gray-300 cursor-not-allowed'
+                  : 'bg-[#C87933] hover:bg-[#C87933]/80 text-[#F3ECDC]'
+              }`}
+            >
+              {crewAI.loading ? (
+                <span className="flex items-center justify-center">
+                  <svg className="animate-spin -ml-1 mr-3 h-5 w-5" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                    <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+                    <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                  </svg>
+                  Analyzing Portfolio...
+                </span>
+              ) : 'Get Portfolio Advisory'}
+            </button>
+          </form>
+        </FeatureGate>
 
         {error && (
           <div className="mb-6 p-4 bg-red-900/30 border border-red-500 rounded-lg text-red-200">

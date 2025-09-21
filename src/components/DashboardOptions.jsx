@@ -16,7 +16,7 @@ const DashboardOptions = ({ memberShipData }) => {
             description: 'Get instant insights and recommendations for your investments',
             icon: '📊',
             component: <QuickAdvice />,
-            tier: 'basic'
+            tier: 'free'
         },
         {
             id: 'plan-creator',
@@ -24,7 +24,7 @@ const DashboardOptions = ({ memberShipData }) => {
             description: 'Create comprehensive investment plans tailored to your goals',
             icon: '📋',
             component: <PlanCreator />,
-            tier: 'basic'
+            tier: 'free'
         },
         {
             id: 'ai-investment-advisor',
@@ -32,15 +32,16 @@ const DashboardOptions = ({ memberShipData }) => {
             description: 'Get personalized investment advice powered by advanced AI',
             icon: '🤖',
             component: <AIInvestmentAdvisor />,
-            tier: 'premium'
+            tier: 'free'
         },
         {
             id: 'portfolio-advisor',
             title: 'Portfolio Advisor',
-            description: 'Get expert portfolio optimization and asset allocation recommendations',
+            description: 'Get expert portfolio optimization and asset allocation recommendations (Coming Soon)',
             icon: '💼',
             component: <PortfolioAdvisory />,
-            tier: 'premium'
+            tier: 'premium',
+            comingSoon: true
         },
         {
             id: 'market-news',
@@ -48,21 +49,22 @@ const DashboardOptions = ({ memberShipData }) => {
             description: 'Stay updated with latest financial news and market developments',
             icon: '📰',
             component: <MarketNews />,
-            tier: 'basic'
+            tier: 'free'
         },
         {
             id: 'complete-ai-analysis',
             title: 'Complete AI Analysis',
-            description: 'Comprehensive AI-driven analysis combining all data sources',
+            description: 'Comprehensive AI-driven analysis combining all data sources (Coming Soon)',
             icon: '🔬',
             component: <CompleteAIAnalysis />,
-            tier: 'enterprise'
+            tier: 'premium',
+            comingSoon: true
         }
     ];
 
     const handleOptionClick = (optionId) => {
         const option = dashboardOptions.find(opt => opt.id === optionId);
-        if (!canAccessFeature(option.tier, memberShipData?.tier)) {
+        if (!canAccessFeature(option.tier, memberShipData?.tier) || option.comingSoon) {
             return;
         }
         if (activeOption === optionId) {
@@ -73,7 +75,7 @@ const DashboardOptions = ({ memberShipData }) => {
     };
 
     const canAccessFeature = (requiredTier, userTier) => {
-        const tierHierarchy = ['basic', 'premium', 'enterprise'];
+        const tierHierarchy = ['free', 'basic', 'premium', 'enterprise'];
         const requiredIndex = tierHierarchy.indexOf(requiredTier);
         const userIndex = tierHierarchy.indexOf(userTier);
         return userIndex >= requiredIndex;
@@ -81,6 +83,7 @@ const DashboardOptions = ({ memberShipData }) => {
 
     const getTierBadgeColor = (tier) => {
         switch (tier) {
+            case 'free': return 'bg-green-500';
             case 'basic': return 'bg-blue-500';
             case 'premium': return 'bg-purple-500';
             case 'enterprise': return 'bg-yellow-500';
@@ -99,24 +102,19 @@ const DashboardOptions = ({ memberShipData }) => {
                 </p>
             </div>
 
-            {memberShipData && memberShipData.tier === 'basic' && (
-                <div className="bg-yellow-100 border-l-4 border-yellow-500 text-yellow-700 p-4 mb-6 rounded-r-lg" role="alert">
-                    <p>⚠️ Your current plan is <strong>{memberShipData.tier}</strong>. To access the chat and analysis features, please upgrade your plan.</p>
-                    <div className="mt-2">
-                        <span className="text-sm">Credits remaining: {memberShipData.credits_remaining}</span>
-                    </div>
-                </div>
-            )}
+            {/* Remove the basic tier warning since all features are now available in basic */}
 
             {activeOption === null ? (
                 <div className="grid grid-cols-3 grid-rows-2 gap-6 max-w-7xl mx-auto">
                     {dashboardOptions.map((option) => {
                         const hasAccess = canAccessFeature(option.tier, memberShipData?.tier);
+                        const isComingSoon = option.comingSoon;
+                        const isAccessible = hasAccess && !isComingSoon;
                         return (
                             <div
                                 key={option.id}
                                 className={`bg-[#111726] rounded-xl border border-[#C87933]/30 p-6 cursor-pointer transition-all duration-300 hover:shadow-lg hover:shadow-[#C87933]/20 h-64 flex flex-col justify-between ${
-                                    hasAccess ? 'hover:border-[#C87933]/60 hover:scale-105' : 'opacity-60 cursor-not-allowed'
+                                    isAccessible ? 'hover:border-[#C87933]/60 hover:scale-105' : 'opacity-60 cursor-not-allowed'
                                 }`}
                                 onClick={() => handleOptionClick(option.id)}
                             >
@@ -130,7 +128,14 @@ const DashboardOptions = ({ memberShipData }) => {
                                     <h3 className="text-xl font-bold text-[#F3ECDC] mb-3">{option.title}</h3>
                                     <p className="text-[#9BA4B5] text-sm leading-relaxed">{option.description}</p>
                                 </div>
-                                {hasAccess ? (
+                                {isComingSoon ? (
+                                    <div className="flex items-center justify-between mt-4">
+                                        <span className="text-yellow-400 text-sm font-medium">Coming Soon</span>
+                                        <svg className="w-5 h-5 text-yellow-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+                                        </svg>
+                                    </div>
+                                ) : hasAccess ? (
                                     <div className="flex items-center justify-between mt-4">
                                         <span className="text-[#C87933] text-sm font-medium">Click to open</span>
                                         <svg className="w-5 h-5 text-[#C87933]" fill="none" stroke="currentColor" viewBox="0 0 24 24">

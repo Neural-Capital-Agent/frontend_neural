@@ -16,10 +16,14 @@ class ApiService {
     };
 
     try {
+      console.log(`Making API request to: ${url}`, options.body ? JSON.parse(options.body) : 'No body');
+      
       const response = await fetch(url, { ...defaultOptions, ...options });
 
       if (!response.ok) {
-        throw new Error(`HTTP error! status: ${response.status}`);
+        const errorText = await response.text();
+        console.error(`API Error ${response.status}:`, errorText);
+        throw new Error(`HTTP error! status: ${response.status} - ${errorText}`);
       }
 
       return await response.json();
@@ -129,11 +133,16 @@ class ApiService {
       }),
 
     // Quick advice workflow
-    quickAdvice: (query) =>
-      this.makeRequest('/crew/quick-advice', {
+    quickAdvice: (query) => {
+      if (!query || typeof query !== 'string' || !query.trim()) {
+        throw new Error('Question is required and must be a non-empty string');
+      }
+      
+      return this.makeRequest('/crew/quick-advice', {
         method: 'POST',
-        body: JSON.stringify({ query }),
-      }),
+        body: JSON.stringify({ question: query.trim() }),
+      });
+    },
 
     // Get workflow status
     getStatus: () =>

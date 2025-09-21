@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useCrewAI, useDataAgent, usePortfolioAgent, useExplainerAgent } from '../hooks/useAgents';
+import FeatureGate from './FeatureGate';
 
 const CompleteAIAnalysis = () => {
   const [analysisQuery, setAnalysisQuery] = useState('');
@@ -277,6 +278,8 @@ const CompleteAIAnalysis = () => {
     );
   };
 
+  const userId = localStorage.getItem('userId');
+
   return (
     <div className="p-6">
       <div className="max-w-6xl mx-auto">
@@ -285,51 +288,57 @@ const CompleteAIAnalysis = () => {
           <p className="text-[#9BA4B5]">Comprehensive analysis combining all AI agents, market data, and advanced algorithms</p>
         </div>
 
-        <form onSubmit={handleSubmit} className="space-y-6 mb-8">
-          <div className="bg-[#0A0F1C] rounded-lg p-6">
-            <label className="block text-sm font-medium text-[#F3ECDC] mb-2">
-              Analysis Query
-            </label>
-            <textarea
-              value={analysisQuery}
-              onChange={(e) => setAnalysisQuery(e.target.value)}
-              className="w-full p-4 bg-[#111726] border border-[#C87933]/30 rounded-lg text-[#F3ECDC] focus:outline-none focus:ring-2 focus:ring-[#C87933] focus:border-transparent"
-              placeholder="Describe what you want to analyze (e.g., 'Analyze my tech portfolio for the next 6 months', 'Complete market analysis for renewable energy sector')"
-              rows={4}
-              required
-            />
-          </div>
+        <FeatureGate
+          featureName="ai_analysis"
+          userId={userId}
+          showUpgradePrompt={true}
+        >
+          <form onSubmit={handleSubmit} className="space-y-6 mb-8">
+            <div className="bg-[#0A0F1C] rounded-lg p-6">
+              <label className="block text-sm font-medium text-[#F3ECDC] mb-2">
+                Analysis Query
+              </label>
+              <textarea
+                value={analysisQuery}
+                onChange={(e) => setAnalysisQuery(e.target.value)}
+                className="w-full p-4 bg-[#111726] border border-[#C87933]/30 rounded-lg text-[#F3ECDC] focus:outline-none focus:ring-2 focus:ring-[#C87933] focus:border-transparent"
+                placeholder="Describe what you want to analyze (e.g., 'Analyze my tech portfolio for the next 6 months', 'Complete market analysis for renewable energy sector')"
+                rows={4}
+                required
+              />
+            </div>
 
-          <div className="bg-[#0A0F1C] rounded-lg p-6">
-            <label className="block text-sm font-medium text-[#F3ECDC] mb-2">
-              Analysis Scope
-            </label>
-            <select
-              value={analysisScope}
-              onChange={(e) => setAnalysisScope(e.target.value)}
-              className="w-full p-3 bg-[#111726] border border-[#C87933]/30 rounded-lg text-[#F3ECDC] focus:outline-none focus:ring-2 focus:ring-[#C87933] focus:border-transparent"
+            <div className="bg-[#0A0F1C] rounded-lg p-6">
+              <label className="block text-sm font-medium text-[#F3ECDC] mb-2">
+                Analysis Scope
+              </label>
+              <select
+                value={analysisScope}
+                onChange={(e) => setAnalysisScope(e.target.value)}
+                className="w-full p-3 bg-[#111726] border border-[#C87933]/30 rounded-lg text-[#F3ECDC] focus:outline-none focus:ring-2 focus:ring-[#C87933] focus:border-transparent"
+              >
+                <option value="full">Full Analysis (All factors)</option>
+                <option value="market">Market-Focused Analysis</option>
+                <option value="portfolio">Portfolio-Focused Analysis</option>
+                <option value="risk">Risk-Focused Analysis</option>
+                <option value="technical">Technical Analysis Focus</option>
+                <option value="fundamental">Fundamental Analysis Focus</option>
+              </select>
+            </div>
+
+            <button
+              type="submit"
+              disabled={isAnalyzing}
+              className={`w-full py-4 px-6 rounded-lg font-bold text-lg transition-colors ${
+                isAnalyzing
+                  ? 'bg-gray-600 text-gray-300 cursor-not-allowed'
+                  : 'bg-gradient-to-r from-[#C87933] to-[#D4941F] hover:from-[#C87933]/90 hover:to-[#D4941F]/90 text-[#F3ECDC]'
+              }`}
             >
-              <option value="full">Full Analysis (All factors)</option>
-              <option value="market">Market-Focused Analysis</option>
-              <option value="portfolio">Portfolio-Focused Analysis</option>
-              <option value="risk">Risk-Focused Analysis</option>
-              <option value="technical">Technical Analysis Focus</option>
-              <option value="fundamental">Fundamental Analysis Focus</option>
-            </select>
-          </div>
-
-          <button
-            type="submit"
-            disabled={isAnalyzing}
-            className={`w-full py-4 px-6 rounded-lg font-bold text-lg transition-colors ${
-              isAnalyzing
-                ? 'bg-gray-600 text-gray-300 cursor-not-allowed'
-                : 'bg-gradient-to-r from-[#C87933] to-[#D4941F] hover:from-[#C87933]/90 hover:to-[#D4941F]/90 text-[#F3ECDC]'
-            }`}
-          >
-            {isAnalyzing ? 'Performing Complete Analysis...' : 'Start Complete AI Analysis'}
-          </button>
-        </form>
+              {isAnalyzing ? 'Performing Complete Analysis...' : 'Start Complete AI Analysis'}
+            </button>
+          </form>
+        </FeatureGate>
 
         {isAnalyzing && renderAnalysisProgress()}
 
